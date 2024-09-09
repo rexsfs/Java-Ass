@@ -14,6 +14,7 @@ public class Order {
     private Integer qty;
     private String orderDate;
     private static Float totalAmount = 0.0f;
+    private Payment payment;
 
     public Order(String orderID, Float amount, Integer qty, String orderDate) {
         this.orderID = orderID;
@@ -38,8 +39,20 @@ public class Order {
         this.orderDate = dateForm.format(orderDate);
     }
 
-    public static void calculateTotalAmount(Order orders) {
-        totalAmount += orders.getAmount();
+    public static Float calculateTotalAmount(List<Order> orders) {
+        Float totalAmount = 0.0f;
+        for (Order order : orders) {
+            totalAmount += order.getAmount();
+        }
+        return totalAmount;
+    }
+
+    public void addOrder() {
+
+    }
+
+    public void changeQty() {
+
     }
 
     public String getOrderID() {
@@ -91,7 +104,6 @@ public class Order {
                     String itemName = itemDetails.replaceAll("\\d", "").trim();  
                     int qty = Integer.parseInt(itemDetails.replaceAll("\\D", "").trim());  
 
-                    // Create new Order
                     Order order = new Order("", null, qty, null);
                     order.calculateAmount(price);
                     order.randomOrderID();
@@ -106,7 +118,7 @@ public class Order {
                 System.out.println("----------------------------------------------------------");
                 System.out.println("Order ID: " + orders.get(0).getOrderID());
                 System.out.printf("Total Amount: RM%.2f\n", calculateTotalAmount(orders));
-                System.out.println("Order Date: " + orders.get(0).getOrderDate() + "\n");
+                System.out.println("Order Date: " + orders.get(0).getOrderDate());
                 showMenu(orders);
             }
 
@@ -116,13 +128,6 @@ public class Order {
         }
     }
 
-    public static Float calculateTotalAmount(List<Order> orders) {
-        Float totalAmount = 0.0f;
-        for (Order order : orders) {
-            totalAmount += order.getAmount();
-        }
-        return totalAmount;
-    }
 
     public static void showMenu(List<Order> orders) {
         final String ANSI_RESET = "\u001B[0m";
@@ -144,9 +149,10 @@ public class Order {
 
         switch (choice) {
             case 1:
-                    clearScreen();
-                    Payment payment = new Payment();
-                    payment.processPayment(orders);
+                System.out.println("\n");
+                clearScreen();
+                Payment payment = new Payment();
+                payment.processPayment(orders);
                 break;
             case 2:
                
@@ -162,6 +168,7 @@ public class Order {
                 showMenu(orders);
                 break;
         }
+        choices.close();
     }
 
     public static void clearScreen() {
