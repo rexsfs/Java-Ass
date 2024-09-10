@@ -1,50 +1,17 @@
-accs-0001, iPhone 14 Pro Case, 19.99, 50
-accs-0002, iPhone 14 Pro Max Screen Protector, 9.99, 40
-accs-0003, iPhone 14 Charger Cable, 14.99, 30
-accs-0004, iPhone 14 Wireless Charger, 29.99, 25
-accs-0005, iPhone 14 Pro Max Leather Case, 39.99, 20
-accs-0006, iPhone 13 Mini Silicone Case, 24.99, 45
-accs-0007, iPhone 13 Pro Camera Lens Protector, 12.99, 35
-accs-0008, iPhone 12 Pro Max Battery Pack, 49.99, 15
-accs-0009, iPhone 12 Car Mount, 17.99, 30
-accs-0010, iPhone 12 Pro Max Charging Dock, 27.99, 28
-accs-0011, iPhone 11 Pro Max Leather Wallet Case, 34.99, 22
-accs-0012, iPhone 11 Screen Protector (3 Pack), 8.99, 50
-accs-0013, iPhone XS Max Wireless Charging Pad, 19.99, 27
-accs-0014, iPhone XR Rugged Case, 21.99, 32
-accs-0015, iPhone X Slim Fit Case, 15.99, 40
-accs-0016, iPhone 8 Plus Docking Station, 29.99, 18
-accs-0017, iPhone 8 Leather Flip Case, 22.99, 26
-accs-0018, iPhone 7 Plus Privacy Screen Protector, 10.99, 35
-accs-0019, iPhone 7 Battery Case, 44.99, 20
-accs-0020, iPhone 6s Charging Cable (2 Pack), 12.99, 50
-accs-0021, iPhone 6s Plus Clip-On Lens, 18.99, 30
-accs-0022, iPhone 5s Case with Kickstand, 16.99, 25
-accs-0023, iPhone 5c Silicone Case, 20.99, 33
-accs-0024, iPhone SE 2nd Gen Tempered Glass Protector, 11.99, 28
-accs-0025, iPhone SE 2nd Gen Leather Case, 27.99, 15
-accs-0026, iPhone 14 Pro Max MagSafe Charger, 34.99, 22
-accs-0027, iPhone 13 Pro Max PopSocket Grip, 14.99, 40
-accs-0028, iPhone 12 Pro Max Folio Case, 31.99, 17
-accs-0029, iPhone 11 Pro Max Tempered Glass Protector, 13.99, 30
-accs-0030, iPhone XS Wireless Charging Stand, 25.99, 24
-accs-0031, iPhone XR Slim Wallet Case, 23.99, 35
-accs-0032, iPhone X Screen Cleaner Kit, 7.99, 50
-accs-0033, iPhone 8 Plus Wireless Charging Pad, 19.99, 21
-accs-0034, iPhone 7 Plus Clear Case, 15.99, 30
-accs-0035, iPhone 6 Plus Battery Pack, 39.99, 18
-accs-0036, iPhone 6s Plus Wallet Case, 29.99, 20
-accs-0037, iPhone 5s Leather Sleeve, 22.99, 25
-accs-0038, iPhone 5c Screen Protector (2 Pack), 9.99, 33
-accs-0039, iPhone SE 1st Gen Charging Cable (3 Pack), 14.99, 28
-accs-0040, iPhone 14 Pro Max Camera Lens Cover, 8.99, 45
-accs-0041, iPhone 13 Pro Max Charging Case, 49.99, 20
-accs-0042, iPhone 12 MagSafe Wallet, 34.99, 18
-accs-0043, iPhone 11 Pro Max PopSocket, 12.99, 35
-accs-0044, iPhone XS Max Wallet Case, 26.99, 25
-accs-0045, iPhone XR Battery Case, 44.99, 22
-accs-0046, iPhone X Screen Protector (2 Pack), 11.99, 30
-accs-0047, iPhone 8 Slim Case, 17.99, 28
-accs-0048, iPhone 7 Rugged Case, 23.99, 27
-accs-0049, iPhone 6 Plus Leather Folio, 28.99, 25
-accs-0050, iPhone 6s Screen Protector (3 Pack), 10.99, 40
+accs-0004,iPhone 14 Pro Max Leather Case,45.0,30
+accs-0005,iPhone 13 Pro Max Silicone Case,35.0,25
+accs-0006,iPhone 12 Pro Max Tempered Glass Protector,15.0,20
+accs-0007,iPhone 11 Pro Max Wireless Charger,50.0,18
+accs-0008,iPhone 10 Charging Dock,25.0,40
+accs-0009,iPhone 9 Battery Pack,60.0,22
+accs-0010,iPhone 8 Plus Rugged Case,40.0,35
+accs-0011,iPhone 7 Plus Privacy Screen Protector,12.0,50
+accs-0012,iPhone 6s Plus Magnetic Mount,20.0,30
+accs-0013,iPhone 6 Clear Case with Kickstand,18.0,28
+accs-0014,iPhone SE 2nd Gen Wireless Charger,30.0,15
+accs-0015,iPhone XR PopSocket Grip,14.0,45
+accs-0016,iPhone XS Max Leather Wallet Case,37.0,25
+accs-0017,iPhone 14 Pro MagSafe Charger,55.0,20
+accs-0018,iPhone 13 Mini Tempered Glass Protector,16.0,40
+accs-0019,iPhone 12 Car Mount,22.0,35
+accs-0020,iPhone 11 Pro Max Charging Case,65.0,30
