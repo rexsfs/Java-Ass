@@ -1,3 +1,0 @@
-case110 RM100.0
-case vivo10 RM100.0
-case2 1 RM100.0

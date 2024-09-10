@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.nio.file.Files;
 
 public class Order {
     private String orderID;
@@ -14,7 +16,6 @@ public class Order {
     private Integer qty;
     private String orderDate;
     private static Float totalAmount = 0.0f;
-    private Payment payment;
 
     public Order(String orderID, Float amount, Integer qty, String orderDate) {
         this.orderID = orderID;
@@ -40,7 +41,6 @@ public class Order {
     }
 
     public static Float calculateTotalAmount(List<Order> orders) {
-        Float totalAmount = 0.0f;
         for (Order order : orders) {
             totalAmount += order.getAmount();
         }
@@ -48,12 +48,45 @@ public class Order {
     }
 
     public void addOrder() {
-
+        // Add order logic
     }
 
     public void changeQty() {
-
+        // Change quantity logic
     }
+
+    public static void cancelOrder(List<Order> orders) {
+        System.out.println("Are you sure you want to cancel your order?");
+        System.out.println("1. Yes");
+        System.out.println("2. No");
+        System.out.printf("Enter Your Choice: ");
+    
+        Scanner choi = new Scanner(System.in);
+        int choic = choi.nextInt();
+        choi.close();  
+    
+        if (choic == 1) {
+            File cancel = new File("item.txt");
+    
+            if (!cancel.exists()) {
+                System.out.println("The file does not exist.");
+            } else if (!cancel.canWrite()) {
+                System.out.println("Permission denied: Cannot delete the file.");
+            } else {
+                // Make sure the file is not in use
+                if (cancel.delete()) {
+                    System.out.println("Order canceled and file deleted: " + cancel.getName());
+                } else {
+                    System.out.println("Failed to delete the file. It may be in use or locked.");
+                }
+            }
+        } else if (choic == 2) {
+            showMenu(orders);
+        } else {
+            System.out.println("Invalid choice. Please try again.");
+            showMenu(orders);
+        }
+    }     
 
     public String getOrderID() {
         return orderID;
@@ -72,7 +105,7 @@ public class Order {
     }
 
     public void setOrderID(String orderID) {
-        this.orderID= orderID;
+        this.orderID = orderID;
     }
 
     public void setQty(Integer qty) {
@@ -88,7 +121,7 @@ public class Order {
     }
 
     public static void readOrdersFromFile(String filename) {
-        List<Order> orders = new ArrayList<>(); 
+        List<Order> orders = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
@@ -101,14 +134,14 @@ public class Order {
                     String itemDetails = parts[0];
                     float price = Float.parseFloat(parts[1].trim());
 
-                    String itemName = itemDetails.replaceAll("\\d", "").trim();  
-                    int qty = Integer.parseInt(itemDetails.replaceAll("\\D", "").trim());  
+                    String itemName = itemDetails.replaceAll("\\d", "").trim();
+                    int qty = Integer.parseInt(itemDetails.replaceAll("\\D", "").trim());
 
                     Order order = new Order("", null, qty, null);
                     order.calculateAmount(price);
                     order.randomOrderID();
                     order.dateOrder();
-                    orders.add(order);  
+                    orders.add(order);
 
                     System.out.printf("%-20s %-5d RM%-13.2f RM%-8.2f%n", itemName, qty, price, order.getAmount());
                 }
@@ -127,7 +160,6 @@ public class Order {
             e.printStackTrace();
         }
     }
-
 
     public static void showMenu(List<Order> orders) {
         final String ANSI_RESET = "\u001B[0m";
@@ -155,20 +187,19 @@ public class Order {
                 payment.processPayment(orders);
                 break;
             case 2:
-               
+                
                 break;
             case 3:
-
+                
                 break;
             case 4:
-                
+                cancelOrder(orders);
                 break;
             default:
                 System.out.println("Invalid choice. Please try again.");
                 showMenu(orders);
                 break;
         }
-        choices.close();
     }
 
     public static void clearScreen() {
