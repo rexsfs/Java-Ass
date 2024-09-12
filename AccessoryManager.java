@@ -325,14 +325,23 @@ public class AccessoryManager {
 
     private void saveAccessories() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt"))) {
-            for (Accessory accessory : accessories.values()) {
-                bw.write(accessory.getAccessoryId() + "," + accessory.getName() + "," + accessory.getPrice() + "," + accessory.getQuantity());
-                bw.newLine();
-            }
+            accessories.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey()) // Sort by accessory ID in ascending order
+                .forEach(entry -> {
+                    Accessory accessory = entry.getValue();
+                    try {
+                        bw.write(accessory.getAccessoryId() + "," + accessory.getName() + "," + accessory.getPrice() + "," + accessory.getQuantity());
+                        bw.newLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
 
     public static void main(String[] args) {
         AccessoryManager manager = new AccessoryManager();
