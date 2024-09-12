@@ -25,7 +25,6 @@ public class Order {
                     String id = parts[0];  
                     String name = parts[1];
                     
-                    // Adjust if price and quantity were reversed in the file
                     double price = Double.parseDouble(parts[2]);
                     int quantity = Integer.parseInt(parts[3]);
 
@@ -73,12 +72,6 @@ public class Order {
                     if (orderQuantity <= availableQuantity) {
                         System.out.println("You ordered " + name + " successfully.");
                         writer.write(accessoryId + "," + name + "," + orderQuantity + "," + price + "\n");
-
-                        // Reduce stock after ordering
-                        int newQuantity = availableQuantity - orderQuantity;
-                        accessoryDetails[3] = String.valueOf(newQuantity); // Update stock
-                        accessoriesMap.put(accessoryId, accessoryDetails); // Update map
-
                     } else {
                         System.out.println("Insufficient stock for " + name + ". Only " + availableQuantity + " available.");
                     }
