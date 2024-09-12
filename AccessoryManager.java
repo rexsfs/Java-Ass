@@ -57,7 +57,6 @@ public class AccessoryManager {
                     Order orderMenu = new Order();  
                     orderMenu.OrderAccessories();  
                     OrderReceipt.main(null);
-                    OrderFunc.showMenu(null);
                     break;
                 default:
                     System.out.println("Invalid choice! Please try again.");

@@ -40,10 +40,10 @@ public class OrderFunc extends OrderBase {
             orders.clear();
             System.out.println("All orders have been canceled.");
         } else if (choice == 2) {
-            showMenu(orders);
+            checkOut(orders);
         } else {
             System.out.println("Invalid choice. Please try again.");
-            showMenu(orders);
+            checkOut(orders);
         }
         scanner.close();
     }
@@ -53,7 +53,7 @@ public class OrderFunc extends OrderBase {
         System.out.flush();
     }
 
-    public static void showMenu(List<OrderFunc> orders) {
+    public static void checkOut(List<OrderFunc> orders) {
         String ANSI_RESET = "\u001B[0m";
         String ANSI_YELLOW = "\u001B[33m";
 
@@ -84,7 +84,7 @@ public class OrderFunc extends OrderBase {
                 break;
             default:
                 System.out.println("Invalid choice. Please try again.");
-                showMenu(orders);
+                checkOut(orders);
                 break;
         }
         scanner.close();
