@@ -1,213 +1,97 @@
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.nio.file.Files;
 
 public class Order {
-    private String orderID;
-    private Float amount;
-    private Integer qty;
-    private String orderDate;
-    private static Float totalAmount = 0.0f;
 
-    public Order(String orderID, Float amount, Integer qty, String orderDate) {
-        this.orderID = orderID;
-        this.qty = qty;
-        this.amount = amount;
-        this.orderDate = orderDate;
-    }
+    private Map<String, String[]> accessoriesMap = new HashMap<>();
 
-    public void randomOrderID() {
-        Random random = new Random();
-        int number = 1000000 + random.nextInt(9000000);
-        this.orderID = "ORD" + number;
-    }
+    public void OrderAccessories() {
+        System.out.println("\nAll Accessories Details:");
 
-    public void calculateAmount(Float price) {
-        amount = price * qty;
-    }
+        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
+        System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Name", "Stock", "Price (RM)");
+        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
 
-    public void dateOrder() {
-        Date orderDate = new Date();
-        SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
-        this.orderDate = dateForm.format(orderDate);
-    }
-
-    public static Float calculateTotalAmount(List<Order> orders) {
-        for (Order order : orders) {
-            totalAmount += order.getAmount();
-        }
-        return totalAmount;
-    }
-
-    public void addOrder() {
-        // Add order logic
-    }
-
-    public void changeQty() {
-        // Change quantity logic
-    }
-
-    public static void cancelOrder(List<Order> orders) {
-        System.out.println("Are you sure you want to cancel your order?");
-        System.out.println("1. Yes");
-        System.out.println("2. No");
-        System.out.printf("Enter Your Choice: ");
-    
-        Scanner choi = new Scanner(System.in);
-        int choic = choi.nextInt();
-        choi.close();  
-    
-        if (choic == 1) {
-            File cancel = new File("item.txt");
-    
-            if (!cancel.exists()) {
-                System.out.println("The file does not exist.");
-            } else if (!cancel.canWrite()) {
-                System.out.println("Permission denied: Cannot delete the file.");
-            } else {
-                // Make sure the file is not in use
-                if (cancel.delete()) {
-                    System.out.println("Order canceled and file deleted: " + cancel.getName());
-                } else {
-                    System.out.println("Failed to delete the file. It may be in use or locked.");
-                }
-            }
-        } else if (choic == 2) {
-            showMenu(orders);
-        } else {
-            System.out.println("Invalid choice. Please try again.");
-            showMenu(orders);
-        }
-    }     
-
-    public String getOrderID() {
-        return orderID;
-    }
-
-    public Integer getQty() {
-        return qty;
-    }
-
-    public Float getAmount() {
-        return amount;
-    }
-
-    public String getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderID(String orderID) {
-        this.orderID = orderID;
-    }
-
-    public void setQty(Integer qty) {
-        this.qty = qty;
-    }
-
-    public void setAmount(Float amount) {
-        this.amount = amount;
-    }
-
-    public void setOrderDate(String orderDate) {
-        this.orderDate = orderDate;
-    }
-
-    public static void readOrdersFromFile(String filename) {
-        List<Order> orders = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
-            System.out.printf("%-20s %-5s %-15s %-15s%n", "Product", "Qty", "Price", "Amount");
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 4) {
+                    String id = parts[0];  
+                    String name = parts[1];
+                    
+                    // Adjust if price and quantity were reversed in the file
+                    double price = Double.parseDouble(parts[2]);
+                    int quantity = Integer.parseInt(parts[3]);
 
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split("RM");
+                    accessoriesMap.put(id, parts);
 
-                if (parts.length == 2) {
-                    String itemDetails = parts[0];
-                    float price = Float.parseFloat(parts[1].trim());
-
-                    String itemName = itemDetails.replaceAll("\\d", "").trim();
-                    int qty = Integer.parseInt(itemDetails.replaceAll("\\D", "").trim());
-
-                    Order order = new Order("", null, qty, null);
-                    order.calculateAmount(price);
-                    order.randomOrderID();
-                    order.dateOrder();
-                    orders.add(order);
-
-                    System.out.printf("%-20s %-5d RM%-13.2f RM%-8.2f%n", itemName, qty, price, order.getAmount());
+                    System.out.printf("| %-13s | %-48s | %-12d | RM%-11.2f |%n", id, name, quantity, price);
+                    System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
+                } else {
+                    System.out.println("Invalid data format. Skipping line.");
                 }
             }
-
-            if (!orders.isEmpty()) {
-                System.out.println("----------------------------------------------------------");
-                System.out.println("Order ID: " + orders.get(0).getOrderID());
-                System.out.printf("Total Amount: RM%.2f\n", calculateTotalAmount(orders));
-                System.out.println("Order Date: " + orders.get(0).getOrderDate());
-                showMenu(orders);
-            }
-
+            StartOrder();
+            
         } catch (IOException e) {
-            System.out.println("Error reading the file.");
+            System.out.println("Error loading accessories.");
             e.printStackTrace();
         }
     }
 
-    public static void showMenu(List<Order> orders) {
-        final String ANSI_RESET = "\u001B[0m";
-        final String ANSI_YELLOW = "\u001B[33m";
+    private void StartOrder() {
+        Scanner scanner = new Scanner(System.in);
+        String accessoryId;
+        int orderQuantity;
 
-        Scanner choices = new Scanner(System.in);
-        System.out.println(ANSI_YELLOW + "\n----------------------------------------------------------");
-        System.out.println("Choose Your Option");
-        System.out.println("----------------------------------------------------------");
+        try (FileWriter writer = new FileWriter("order.txt", true)) {
+            System.out.println("Start placing your order (type 'stop' to finish):");
 
-        System.out.println("1. Proceed to Payment");
-        System.out.println("2. Change Qty");
-        System.out.println("3. Remove Order");
-        System.out.println("4. Cancel Order");
+            while (true) {
+                System.out.print("Enter Accessory ID: ");
+                accessoryId = scanner.next();
 
-        System.out.println(ANSI_YELLOW + "----------------------------------------------------------");
-        System.out.print("Enter Your option: " + ANSI_RESET);
-        int choice = choices.nextInt();
+                if (accessoryId.equalsIgnoreCase("stop")) {
+                    break;
+                }
 
-        switch (choice) {
-            case 1:
-                System.out.println("\n");
-                clearScreen();
-                Payment payment = new Payment();
-                payment.processPayment(orders);
-                break;
-            case 2:
-                
-                break;
-            case 3:
-                
-                break;
-            case 4:
-                cancelOrder(orders);
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                showMenu(orders);
-                break;
+                if (accessoriesMap.containsKey(accessoryId)) {
+                    System.out.print("Enter Quantity: ");
+                    orderQuantity = scanner.nextInt();
+
+                    String[] accessoryDetails = accessoriesMap.get(accessoryId);
+                    String name = accessoryDetails[1];
+                    double price = Double.parseDouble(accessoryDetails[2]);
+                    int availableQuantity = Integer.parseInt(accessoryDetails[3]);
+
+                    if (orderQuantity <= availableQuantity) {
+                        System.out.println("You ordered " + name + " successfully.");
+                        writer.write(accessoryId + "," + name + "," + orderQuantity + "," + price + "\n");
+
+                        // Reduce stock after ordering
+                        int newQuantity = availableQuantity - orderQuantity;
+                        accessoryDetails[3] = String.valueOf(newQuantity); // Update stock
+                        accessoriesMap.put(accessoryId, accessoryDetails); // Update map
+
+                    } else {
+                        System.out.println("Insufficient stock for " + name + ". Only " + availableQuantity + " available.");
+                    }
+                } else {
+                    System.out.println("Cannot find accessory ID: " + accessoryId);
+                }
+            }
+
+            System.out.println("Order completed. Thank you!");
+
+        } catch (IOException e) {
+            System.out.println("Error saving order.");
+            e.printStackTrace();
         }
-    }
-
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    public static void main(String[] args) {
-        readOrdersFromFile("item.txt");
     }
 }
