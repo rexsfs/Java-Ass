@@ -13,7 +13,7 @@ public class OrderFile {
             String line;
 
             clearScreen();
-            System.out.println("\n\n\nYour Order: ");
+            System.out.println("Your Order: ");
             System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+");
             System.out.printf("| %-13s | %-48s | %-12s | %-13s | %-13s |%n", "ID", "Product", "Qty", "Price (RM)", "Amount (RM)");
             System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+");

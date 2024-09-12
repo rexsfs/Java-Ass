@@ -54,8 +54,8 @@ public class OrderFunc extends OrderBase {
     }
 
     public static void showMenu(List<OrderFunc> orders) {
-        final String ANSI_RESET = "\u001B[0m";
-        final String ANSI_YELLOW = "\u001B[33m";
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_YELLOW = "\u001B[33m";
 
         Scanner scanner = new Scanner(System.in);
         System.out.println(ANSI_YELLOW + "\n----------------------------------------------------------");
