@@ -26,6 +26,7 @@ public class AccessoryManager {
             System.out.println("5. Stock In Accessory");
             System.out.println("6. Stock Out Accessory");
             System.out.println("7. Display All Accessories");
+            System.out.println("8. Start Order");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -51,6 +52,11 @@ public class AccessoryManager {
                     break;
                 case 7:
                     displayAllAccessories();
+                    break;
+                case 8:
+                    Order orderMenu = new Order();  
+                    orderMenu.OrderAccessories();  
+                    OrderReceipt.main(null);
                     break;
                 default:
                     System.out.println("Invalid choice! Please try again.");
