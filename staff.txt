@@ -1,0 +1,2 @@
+1001|Lee Siu Yee|012-3456789|123,Taman ABC|Lee@gmail.com|intern|1000.0|admin|siuyee|shaoyu
+1002|Lee|012-9396522|569, Taman BC|lee@gmail.com|Intern|10000.0|staff|weihao|rebert
