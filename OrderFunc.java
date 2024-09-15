@@ -38,50 +38,6 @@ public class OrderFunc extends Order {
         return totalAmount;
     }
     
-
-    public static void changeQuantity() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Change Quantity");
-        System.out.println("Enter Accessory ID: ");
-        String accessoryId = scanner.next();
-
-        OrderFunc selectedOrder = null;
-
-        for (OrderFunc order : orders) {
-            if (order.getAccessoryId().equals(accessoryId)) {
-                selectedOrder = order;
-                break;
-            }
-        }
-
-        if (selectedOrder != null) {
-            System.out.println("Current quantity for " + selectedOrder.getName() + ": " + selectedOrder.getQty());
-            System.out.print("Enter new quantity: ");
-
-            if (scanner.hasNextInt()) {
-                int newQty = scanner.nextInt();
-                String[] accessoryDetails = accessoriesMap.get(accessoryId);
-                int availableQty = Integer.parseInt(accessoryDetails[3]);
-
-                if (newQty > 0 && newQty <= availableQty) {
-                    selectedOrder.setQty(newQty);
-                    double price = Double.parseDouble(accessoryDetails[2]);
-                    selectedOrder.calculateAmount(price);  
-                    
-                    updateOrderFile();  
-                    System.out.println("Quantity updated successfully for " + selectedOrder.getName() + ".");
-                } else {
-                    System.out.println("Invalid quantity. Ensure it's greater than zero and does not exceed available stock.");
-                }
-            } else {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.next(); 
-            }
-        } else {
-            System.out.println("Accessory ID not found in the current order.");
-        }
-    }
-
     public static void updateOrderFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("order.txt"))) {
             for (OrderFunc order : orders) {
@@ -218,10 +174,8 @@ public class OrderFunc extends Order {
         System.out.println("Choose Your Option");
         System.out.println("----------------------------------------------------------");
         System.out.println("1. Proceed to Payment");
-        System.out.println("2. Change Qty");
-        System.out.println("3. Add More Order");
-        System.out.println("4. Remove Order");
-        System.out.println("5. Cancel Order");
+        System.out.println("2. Add More Order");
+        System.out.println("3. Cancel Order");
         System.out.println("----------------------------------------------------------");
         System.out.print("Enter Your option: " + ANSI_RESET);
         int choice = scanner.nextInt();
@@ -232,18 +186,10 @@ public class OrderFunc extends Order {
                 Payment.processPayment(); 
                 break;
             case 2:
-                changeQuantity();  
-                checkOut(orders);
-                break;
-            case 3:
                 addMoreOrders(accessoriesMap); 
                 OrderFile.YourOrder("order.txt"); 
-                OrderFunc.checkOut(null);
                 break;
-            case 4:
-                
-                break;
-            case 5:
+            case 3:
                 cancelOrder();
                 System.out.println("Your order has been canceled.");
                 break;

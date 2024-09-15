@@ -1,5 +1,3 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,8 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Payment {
-    public static void processPayment() {
-        List<OrderFunc> orders = new ArrayList<>();
+    public static void processPayment(List<OrderFunc> orders) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Please Select Your Payment Method: ");
@@ -33,42 +30,32 @@ public class Payment {
             default:
                 System.out.println("Invalid Option. Please Try Again.");
                 scanner.close();
-                return;  
+                return;
         }
-        
-        scanner.close();
-        writeReceipt(paymentMethod);
-    }
 
-    private static void writeReceipt(String paymentMethod) {
-        try (FileWriter receiptWriter = new FileWriter("receipt.txt", true)) {
-            receiptWriter.write("Receipt Details:\n");
-            receiptWriter.write("-----------------\n");
+        double totalAmount = OrderFunc.calculateTotalAmount(orders);
+        String orderID = orders.get(0).getOrderID(); // Assuming all orders share the same orderID
+        String orderDate = orders.get(0).getOrderDate(); // Assuming all orders share the same orderDate
 
-            receiptWriter.write("Order Details:\n");
-            appendFileContent("order.txt", receiptWriter);
+        // Save the receipt details to a file
+        try (FileWriter writer = new FileWriter("receipt.txt", true)) {
+            writer.write("Order ID: " + orderID + "\n");
+            writer.write("Order Date: " + orderDate + "\n");
+            writer.write("Payment Method: " + paymentMethod + "\n");
+            writer.write("Items:\n");
 
-            receiptWriter.write("\nOrder Summary:\n");
-            appendFileContent("orderSum.txt", receiptWriter);
-
-            receiptWriter.write("Payment Method: " + paymentMethod + "\n");
-            System.out.println("");
-
-        } catch (IOException e) {
-            System.out.println("Error writing to receipt.txt.");
-            e.printStackTrace();
-        }
-    }
-
-    private static void appendFileContent(String fileName, FileWriter writer) throws IOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                writer.write(line + "\n");
+            for (OrderFunc order : orders) {
+                writer.write(order.toString() + "\n");
             }
+
+            writer.write("Total Amount: RM" + String.format("%.2f", totalAmount) + "\n");
+            writer.write("---------------------------------\n");
+            System.out.println("Payment processed successfully. Receipt saved.");
         } catch (IOException e) {
-            System.out.println("Error reading from " + fileName);
+            System.out.println("Error writing receipt.");
             e.printStackTrace();
         }
+
+        scanner.close();
     }
 }
