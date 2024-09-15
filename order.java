@@ -1,90 +1,65 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 public class Order {
+    private String orderID;
+    private Double amount;
+    private Integer qty;
+    private String orderDate;
 
-    private Map<String, String[]> accessoriesMap = new HashMap<>();
-
-    public void OrderAccessories() {
-        System.out.println("\nAll Accessories Details:");
-
-        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
-        System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Name", "Stock", "Price (RM)");
-        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
-
-        try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 4) {
-                    String id = parts[0];  
-                    String name = parts[1];
-                    
-                    double price = Double.parseDouble(parts[2]);
-                    int quantity = Integer.parseInt(parts[3]);
-
-                    accessoriesMap.put(id, parts);
-
-                    System.out.printf("| %-13s | %-48s | %-12d | RM%-11.2f |%n", id, name, quantity, price);
-                    System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
-                } else {
-                    System.out.println("Invalid data format. Skipping line.");
-                }
-            }
-            StartOrder();
-            
-        } catch (IOException e) {
-            System.out.println("Error loading accessories.");
-            e.printStackTrace();
-        }
+    public Order(String orderID, Double amount, Integer qty, String orderDate) {
+        this.orderID = orderID;
+        this.amount = amount;
+        this.qty = qty;
+        this.orderDate = orderDate;
     }
 
-    private void StartOrder() {
-        Scanner scanner = new Scanner(System.in);
-        String accessoryId;
-        int orderQuantity;
+    public void randomOrderID() {
+        Random random = new Random();
+        int number = 1000000 + random.nextInt(9000000);
+        this.orderID = "ORD" + number;
+    }
 
-        try (FileWriter writer = new FileWriter("order.txt", true)) {
-            System.out.println("Start placing your order (type 'stop' to finish):");
+    public void calculateAmount(double price) {
+        amount = price * qty;
+    }
 
-            while (true) {
-                System.out.print("Enter Accessory ID: ");
-                accessoryId = scanner.next();
+    public void dateOrder() {
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm a");
+        this.orderDate = dateFormat.format(date);
+    }
 
-                if (accessoryId.equalsIgnoreCase("stop")) {
-                    break;
-                }
+    public String getOrderID() {
+        return orderID;
+    }
 
-                if (accessoriesMap.containsKey(accessoryId)) {
-                    System.out.print("Enter Quantity: ");
-                    orderQuantity = scanner.nextInt();
+    public Integer getQty() {
+        return qty;
+    }
 
-                    String[] accessoryDetails = accessoriesMap.get(accessoryId);
-                    String name = accessoryDetails[1];
-                    double price = Double.parseDouble(accessoryDetails[2]);
-                    int availableQuantity = Integer.parseInt(accessoryDetails[3]);
+    public double getAmount() {
+        return amount;
+    }
 
-                    if (orderQuantity <= availableQuantity) {
-                        System.out.println("You ordered " + name + " successfully.");
-                        writer.write(accessoryId + "," + name + "," + orderQuantity + "," + price + "\n");
-                    } else {
-                        System.out.println("Insufficient stock for " + name + ". Only " + availableQuantity + " available.");
-                    }
-                } else {
-                    System.out.println("Cannot find accessory ID: " + accessoryId);
-                }
-            }
+    public String getOrderDate() {
+        return orderDate;
+    }
 
-            System.out.println("Order completed. Thank you!");
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
+    }
 
-        } catch (IOException e) {
-            System.out.println("Error saving order.");
-            e.printStackTrace();
-        }
+    public void setQty(Integer qty) {
+        this.qty = qty;
+    }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
     }
 }

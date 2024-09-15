@@ -54,10 +54,8 @@ public class AccessoryManager {
                     displayAllAccessories();
                     break;
                 case 8:
-                    Order orderMenu = new Order();  
-                    orderMenu.OrderAccessories();  
-                    OrderReceipt.main(null);
-                    break;
+                    startOrder();
+                    break;  
                 default:
                     System.out.println("Invalid choice! Please try again.");
             }
@@ -88,6 +86,18 @@ public class AccessoryManager {
             System.out.println("No accessories found.");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public void startOrder() {
+        OrderMenu orderMenu = new OrderMenu();  
+        boolean orderPlaced = orderMenu.OrderAccessories(); 
+    
+        if (orderPlaced) {
+            urOder.main(null);
+            OrderFunc.checkOut(null);  
+        } else {
+            System.out.println("No order was placed. Returning to the main menu.");
         }
     }
     

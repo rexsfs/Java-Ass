@@ -1,14 +1,25 @@
-import java.util.List;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
-public class OrderFunc extends OrderBase {
+public class OrderFunc extends Order {
     private String name;
+    private String accessoryId; 
     private static Double totalAmount = 0.0; 
-    private Payment payment;
+    private static Map<String, String[]> accessoriesMap = new HashMap<>();
+    private static List<OrderFunc> orders = new ArrayList<>();  
 
-    public OrderFunc(String orderID, String name, Integer qty) {
-        super(orderID, totalAmount, qty, name);
+    public OrderFunc(String orderId, String accessoryId, String name, Integer qty) {
+        super(orderId, totalAmount, qty, name); 
         this.name = name;
+        this.accessoryId = accessoryId; 
+    }
+
+    public String getAccessoryId() {
+        return accessoryId;
+    }
+
+    public void setAccessoryId(String accessoryId) {
+        this.accessoryId = accessoryId;
     }
 
     public String getName() {
@@ -26,8 +37,145 @@ public class OrderFunc extends OrderBase {
         }
         return totalAmount;
     }
+    
 
-    private static void cancelOrder(List<OrderFunc> orders) {
+    public static void changeQuantity() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Change Quantity");
+        System.out.println("Enter Accessory ID: ");
+        String accessoryId = scanner.next();
+
+        OrderFunc selectedOrder = null;
+
+        for (OrderFunc order : orders) {
+            if (order.getAccessoryId().equals(accessoryId)) {
+                selectedOrder = order;
+                break;
+            }
+        }
+
+        if (selectedOrder != null) {
+            System.out.println("Current quantity for " + selectedOrder.getName() + ": " + selectedOrder.getQty());
+            System.out.print("Enter new quantity: ");
+
+            if (scanner.hasNextInt()) {
+                int newQty = scanner.nextInt();
+                String[] accessoryDetails = accessoriesMap.get(accessoryId);
+                int availableQty = Integer.parseInt(accessoryDetails[3]);
+
+                if (newQty > 0 && newQty <= availableQty) {
+                    selectedOrder.setQty(newQty);
+                    double price = Double.parseDouble(accessoryDetails[2]);
+                    selectedOrder.calculateAmount(price);  
+                    
+                    updateOrderFile();  
+                    System.out.println("Quantity updated successfully for " + selectedOrder.getName() + ".");
+                } else {
+                    System.out.println("Invalid quantity. Ensure it's greater than zero and does not exceed available stock.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next(); 
+            }
+        } else {
+            System.out.println("Accessory ID not found in the current order.");
+        }
+    }
+
+    public static void updateOrderFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("order.txt"))) {
+            for (OrderFunc order : orders) {
+                writer.write(order.getAccessoryId() + "," + order.getName() + "," + order.getQty() + "," + (order.getAmount() / order.getQty()) + "," + order.getAmount());
+                writer.newLine();
+            }
+            System.out.println("Order file updated.");
+        } catch (IOException e) {
+            System.out.println("Error updating order file: " + e.getMessage());
+        }
+    }
+
+    public static void addMoreOrders(Map<String, String[]> accessoriesMap) {
+        Scanner scanner = new Scanner(System.in);
+        String accessoryId;
+        int orderQty;
+
+        System.out.println("\nAll Accessories Details:");
+        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
+        System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Name", "Stock", "Price (RM)");
+        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
+
+        try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 4) {
+                    String id = parts[0];  
+                    String name = parts[1];
+                    double price = Double.parseDouble(parts[2]);
+                    int qty = Integer.parseInt(parts[3]);
+
+                    accessoriesMap.put(id, parts);
+
+                    System.out.printf("| %-13s | %-48s | %-12d | RM%-11.2f |%n", id, name, qty, price);            
+                    System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
+
+                } 
+            }
+
+            try (FileWriter writer = new FileWriter("order.txt", true)) {
+                System.out.println("What You Want To Add On, Please Enter Accessory ID");
+
+                while (true) {
+                    System.out.printf("Enter Accessory ID (or 'stop' to finish): ");
+                    accessoryId = scanner.next();
+
+                    if (accessoryId.equalsIgnoreCase("stop")) {
+                        break;
+                    }
+
+                    if (accessoriesMap.containsKey(accessoryId)) {
+                        System.out.print("Enter Quantity: ");
+                        if (scanner.hasNextInt()) {
+                            orderQty = scanner.nextInt();
+
+                            String[] accessoryDetails = accessoriesMap.get(accessoryId);
+                            String name = accessoryDetails[1];
+                            double price = Double.parseDouble(accessoryDetails[2]);
+                            int availableQuantity = Integer.parseInt(accessoryDetails[3]);
+
+                            if (orderQty <= availableQuantity) {
+                                System.out.println("You ordered " + name + " successfully.");
+
+                                OrderFunc order = new OrderFunc(null, accessoryId, name, orderQty);
+                                order.calculateAmount(price);
+                                orders.add(order);  
+
+                                writer.write(accessoryId + "," + name + "," + orderQty + "," + price + "\n");
+                            } else {
+                                System.out.println("Insufficient stock for " + name + ". Only " + availableQuantity + " available.");
+                            }
+                        } else {
+                            System.out.println("Invalid quantity. Please enter a number.");
+                            scanner.next(); 
+                        }
+                    } else {
+                        System.out.println("Cannot find accessory ID: " + accessoryId);
+                    }
+                }
+
+                System.out.println("Your Order Add On.\n");
+            } catch (IOException e) {
+                System.out.println("Error saving order.");
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading accessories.");
+            e.printStackTrace();
+        }
+        scanner.close();
+    }
+
+    public static void cancelOrder() {
         System.out.println("Are you sure you want to cancel your order?");
         System.out.println("1. Yes");
         System.out.println("2. No");
@@ -35,15 +183,23 @@ public class OrderFunc extends OrderBase {
 
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
-
         if (choice == 1) {
-            orders.clear();
-            System.out.println("All orders have been canceled.");
+            try {
+                FileWriter orderWriter = new FileWriter("order.txt", false);
+                orderWriter.write("");
+                orderWriter.close();
+                FileWriter summaryWriter = new FileWriter("orderSum.txt", false);
+                summaryWriter.write("");
+                summaryWriter.close();
+                orders.clear();  
+            } catch (IOException e) {
+                System.out.println("An error occurred while clearing the order file.");
+                e.printStackTrace();
+            }
         } else if (choice == 2) {
-            checkOut(orders);
+            checkOut(orders);  
         } else {
-            System.out.println("Invalid choice. Please try again.");
-            checkOut(orders);
+            System.out.println("Invalid option. Please try again.");
         }
         scanner.close();
     }
@@ -63,30 +219,45 @@ public class OrderFunc extends OrderBase {
         System.out.println("----------------------------------------------------------");
         System.out.println("1. Proceed to Payment");
         System.out.println("2. Change Qty");
-        System.out.println("3. Remove Order");
-        System.out.println("4. Cancel Order");
+        System.out.println("3. Add More Order");
+        System.out.println("4. Remove Order");
+        System.out.println("5. Cancel Order");
         System.out.println("----------------------------------------------------------");
         System.out.print("Enter Your option: " + ANSI_RESET);
         int choice = scanner.nextInt();
+        System.out.println("\n");
 
         switch (choice) {
-            case 1:
-                clearScreen();
+            case 1: 
+                Payment.processPayment(); 
                 break;
             case 2:
-
+                changeQuantity();  
+                checkOut(orders);
                 break;
             case 3:
-
+                addMoreOrders(accessoriesMap); 
+                OrderFile.YourOrder("order.txt"); 
+                OrderFunc.checkOut(null);
                 break;
             case 4:
-                cancelOrder(orders);
+                
+                break;
+            case 5:
+                cancelOrder();
+                System.out.println("Your order has been canceled.");
                 break;
             default:
                 System.out.println("Invalid choice. Please try again.");
-                checkOut(orders);
+                checkOut(orders);  
                 break;
         }
         scanner.close();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("| %-13s | %-48s | %-12d | RM%-11.2f | RM%-11.2f |",
+                accessoryId, name, getQty(), (getAmount() / getQty()), getAmount());
     }
 }

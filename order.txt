@@ -1,2 +1,6 @@
 accs-0020,iPhone 11 Pro Max Charging Case,10,65.0
-accs-0021,mag safe,10,150.0
+accs-0015,iPhone XR PopSocket Grip,3,14.0
+accs-0013,iPhone 6 Clear Case with Kickstand,10,18.0
+accs-0017,iPhone 14 Pro MagSafe Charger,1,55.0
+accs-0012,iPhone 6s Plus Magnetic Mount,10,20.0
+accs-0018,iPhone 13 Mini Tempered Glass Protector,9,16.0
