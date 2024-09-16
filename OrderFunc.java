@@ -49,77 +49,77 @@ public class OrderFunc extends Order {
             System.out.println("Error updating order file: " + e.getMessage());
         }
     }
-
+    
     public static void addMoreOrders(Map<String, String[]> accessoriesMap) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);  
         String accessoryId;
         int orderQty;
-
+    
         System.out.println("\nAll Accessories Details:");
         System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
         System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Name", "Stock", "Price (RM)");
         System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
-
+    
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 4) {
-                    String id = parts[0];  
+                    String id = parts[0];
                     String name = parts[1];
                     double price = Double.parseDouble(parts[2]);
                     int qty = Integer.parseInt(parts[3]);
-
+    
                     accessoriesMap.put(id, parts);
-
+    
                     System.out.printf("| %-13s | %-48s | %-12d | RM%-11.2f |%n", id, name, qty, price);            
                     System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
-
-                } 
+                }
             }
-
+    
             try (FileWriter writer = new FileWriter("order.txt", true)) {
                 System.out.println("What You Want To Add On, Please Enter Accessory ID");
-
+    
                 while (true) {
-                    System.out.printf("Enter Accessory ID (or 'stop' to finish): ");
-                    accessoryId = scanner.next();
-
-                    if (accessoryId.equalsIgnoreCase("stop")) {
+                    System.out.printf("Enter Accessory ID (format: accs-): accs-");
+                    accessoryId = "accs-" + scanner.next();
+    
+                    if (accessoryId.equalsIgnoreCase("accs-stop")) {
                         break;
                     }
-
+    
                     if (accessoriesMap.containsKey(accessoryId)) {
                         System.out.print("Enter Quantity: ");
                         if (scanner.hasNextInt()) {
                             orderQty = scanner.nextInt();
-
+    
                             String[] accessoryDetails = accessoriesMap.get(accessoryId);
                             String name = accessoryDetails[1];
                             double price = Double.parseDouble(accessoryDetails[2]);
                             int availableQuantity = Integer.parseInt(accessoryDetails[3]);
-
+    
                             if (orderQty <= availableQuantity) {
                                 System.out.println("You ordered " + name + " successfully.");
-
+    
                                 OrderFunc order = new OrderFunc(null, accessoryId, name, orderQty);
                                 order.calculateAmount(price);
-                                orders.add(order);  
-
+                                orders.add(order);
+    
                                 writer.write(accessoryId + "," + name + "," + orderQty + "," + price + "\n");
                             } else {
                                 System.out.println("Insufficient stock for " + name + ". Only " + availableQuantity + " available.");
                             }
                         } else {
                             System.out.println("Invalid quantity. Please enter a number.");
-                            scanner.next(); 
+                            scanner.next();  
                         }
                     } else {
                         System.out.println("Cannot find accessory ID: " + accessoryId);
                     }
                 }
-
+    
                 System.out.println("Your Order Add On.\n");
+                return;
             } catch (IOException e) {
                 System.out.println("Error saving order.");
                 e.printStackTrace();
@@ -128,8 +128,7 @@ public class OrderFunc extends Order {
             System.out.println("Error loading accessories.");
             e.printStackTrace();
         }
-        scanner.close();
-    }
+    }    
 
     public static void cancelOrder() {
         System.out.println("Are you sure you want to cancel your order?");
@@ -144,7 +143,7 @@ public class OrderFunc extends Order {
                 FileWriter orderWriter = new FileWriter("order.txt", false);
                 orderWriter.write("");
                 orderWriter.close();
-                FileWriter summaryWriter = new FileWriter("orderSum.txt", false);
+                FileWriter summaryWriter = new FileWriter("receipt.txt", false);
                 summaryWriter.write("");
                 summaryWriter.close();
                 orders.clear();  
@@ -170,35 +169,46 @@ public class OrderFunc extends Order {
         String ANSI_YELLOW = "\u001B[33m";
 
         Scanner scanner = new Scanner(System.in);
-        System.out.println(ANSI_YELLOW + "\n----------------------------------------------------------");
-        System.out.println("Choose Your Option");
-        System.out.println("----------------------------------------------------------");
-        System.out.println("1. Proceed to Payment");
-        System.out.println("2. Add More Order");
-        System.out.println("3. Cancel Order");
-        System.out.println("----------------------------------------------------------");
-        System.out.print("Enter Your option: " + ANSI_RESET);
-        int choice = scanner.nextInt();
-        System.out.println("\n");
+        boolean validChoice = false;
 
-        switch (choice) {
-            case 1: 
-                Payment.processPayment(); 
-                break;
-            case 2:
-                addMoreOrders(accessoriesMap); 
-                OrderFile.YourOrder("order.txt"); 
-                break;
-            case 3:
-                cancelOrder();
-                System.out.println("Your order has been canceled.");
-                break;
-            default:
-                System.out.println("Invalid choice. Please try again.");
-                checkOut(orders);  
-                break;
+        while (!validChoice) {
+            System.out.println(ANSI_YELLOW + "\n----------------------------------------------------------");
+            System.out.println("Choose Your Option");
+            System.out.println("----------------------------------------------------------");
+            System.out.println("1. Proceed to Payment");
+            System.err.println("2. Add More Order");
+            System.out.println("3. Cancel Order");
+            System.out.println("----------------------------------------------------------");
+            System.out.print("Enter Your option: " + ANSI_RESET);
+
+            if (scanner.hasNextInt()) {
+                int choice = scanner.nextInt();
+
+
+                switch (choice) {
+                    case 1:
+                        Payment.processPayment(orders, choice);
+                        validChoice = true;  
+                        break;
+                    case 2:
+                        addMoreOrders(accessoriesMap);
+                        OrderFile.YourOrder("order.txt");
+                        validChoice = true; 
+                        break;
+                    case 3:
+                        cancelOrder();
+                        System.out.println("Your order has been canceled.");
+                        validChoice = true;  
+                        break;
+                    default:
+                        System.out.println("Invalid choice. Please try again.");
+                        break;
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next(); 
+            }
         }
-        scanner.close();
     }
 
     @Override

@@ -1,61 +1,71 @@
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Payment {
-    public static void processPayment(List<OrderFunc> orders) {
-        Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Please Select Your Payment Method: ");
-        System.out.println("1. Credit Card");
-        System.out.println("2. Debit Card");
-        System.out.println("3. Touch'N Go");
-        System.out.printf("Enter Your Option: ");
-        int option = scanner.nextInt();
+    private static String paymentMethod;  
 
-        String paymentMethod;
+    public Payment(String paymentMethod) {
+        Payment.paymentMethod = paymentMethod;
+    }
 
-        switch (option) {
-            case 1:
-                paymentMethod = "Credit Card";
-                break;
-            case 2:
-                paymentMethod = "Debit Card";
-                break;
-            case 3:
-                paymentMethod = "Touch'N Go";
-                break;
-            default:
-                System.out.println("Invalid Option. Please Try Again.");
-                scanner.close();
-                return;
-        }
+    public static String getPaymentMethod() {
+        return paymentMethod;  
+    }
 
-        double totalAmount = OrderFunc.calculateTotalAmount(orders);
-        String orderID = orders.get(0).getOrderID(); // Assuming all orders share the same orderID
-        String orderDate = orders.get(0).getOrderDate(); // Assuming all orders share the same orderDate
+    public static void processPayment(List<OrderFunc> orders, double totalAmount) {
+    Scanner scanner = new Scanner(System.in);
 
-        // Save the receipt details to a file
-        try (FileWriter writer = new FileWriter("receipt.txt", true)) {
-            writer.write("Order ID: " + orderID + "\n");
-            writer.write("Order Date: " + orderDate + "\n");
-            writer.write("Payment Method: " + paymentMethod + "\n");
-            writer.write("Items:\n");
+    System.out.println("\nPlease Select Your Payment Method: ");
+    System.out.println("1. Credit Card");
+    System.out.println("2. Debit Card");
+    System.out.println("3. Touch'N Go");
+    System.out.print("Enter Your Option: ");
+    int option = scanner.nextInt();
+    System.out.println("");
 
-            for (OrderFunc order : orders) {
-                writer.write(order.toString() + "\n");
-            }
+    switch (option) {
+        case 1:
+            paymentMethod = "Credit Card";
+            break;
+        case 2:
+            paymentMethod = "Debit Card";
+            break;
+        case 3:
+            paymentMethod = "Touch'N Go";
+            break;
+        default:
+            System.out.println("Invalid Option. Please Try Again.");
+            return;
+    }
 
-            writer.write("Total Amount: RM" + String.format("%.2f", totalAmount) + "\n");
-            writer.write("---------------------------------\n");
-            System.out.println("Payment processed successfully. Receipt saved.");
+    OrderFile.YourReceipt("order.txt");
+
+    System.out.printf("\nAre You Want To Quit(y/n): ");
+    String yn = scanner.next();
+    switch (yn.toLowerCase()) {
+        case "y":
+            clearOrderFile("order.txt");
+            break;
+        case "n":
+            return;
+        default:
+            System.out.println("Invalid Option. Please Try Again.");
+            return;
+    }
+}
+
+    public static void clearOrderFile(String filename) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
+            writer.write("");
         } catch (IOException e) {
-            System.out.println("Error writing receipt.");
+            System.out.println("Error clearing the order file.");
             e.printStackTrace();
         }
-
-        scanner.close();
     }
+   
 }

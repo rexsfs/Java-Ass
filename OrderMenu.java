@@ -37,6 +37,7 @@ public class OrderMenu {
             }
             
             Ordering = StartOrder(); 
+            urOrder.main(null);
     
         } catch (IOException e) {
             System.out.println("Error loading accessories.");
@@ -46,34 +47,35 @@ public class OrderMenu {
         return Ordering; 
     }
     
-      private boolean StartOrder() {
+    private boolean StartOrder() {
         Scanner scanner = new Scanner(System.in);
         String accessoryId;
         int orderQty;
         boolean orderPlaced = false;
-
+    
         List<OrderFunc> orders = new ArrayList<>();
-
+    
         try (FileWriter writer = new FileWriter("order.txt", true)) {
             System.out.println("Start placing your order (type 'stop' to finish):");
-
+    
             while (true) {
-                System.out.printf("Enter Accessory ID: ");
-                accessoryId = scanner.next();
-
-                if (accessoryId.equalsIgnoreCase("stop")) {
+                // Prefill the accessory ID with "accs-"
+                System.out.printf("Enter Accessory ID (format: accs-): accs-");
+                accessoryId = "accs-" + scanner.next();
+    
+                if (accessoryId.equalsIgnoreCase("accs-stop")) {
                     break;
                 }
-
+    
                 if (accessoriesMap.containsKey(accessoryId)) {
                     System.out.print("Enter Quantity: ");
                     orderQty = scanner.nextInt();
-
+    
                     String[] accessoryDetails = accessoriesMap.get(accessoryId);
                     String name = accessoryDetails[1];
                     double price = Double.parseDouble(accessoryDetails[2]);
                     int availableQuantity = Integer.parseInt(accessoryDetails[3]);
-
+    
                     if (orderQty <= availableQuantity) {
                         System.out.println("You ordered " + name + " successfully.");
                         OrderFunc order = new OrderFunc(null, accessoryId, name, orderQty);
@@ -88,19 +90,20 @@ public class OrderMenu {
                     System.out.println("Cannot find accessory ID: " + accessoryId);
                 }
             }
-
+    
             if (orders.isEmpty()) {
                 System.out.println("No items were ordered.");
             } else {
                 System.out.println("Order completed. Thank you!\n");
             }
-
+    
         } catch (IOException e) {
             System.out.println("Error saving order.");
             e.printStackTrace();
         }
-
+        scanner.close();
         return orderPlaced;
     }
+    
 
 }
