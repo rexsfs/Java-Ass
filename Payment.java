@@ -18,50 +18,64 @@ public class Payment {
     }
 
     public static void processPayment(List<OrderFunc> orders, double totalAmount) {
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_RED = "\u001B[31m";
+        String ANSI_BOLD_YELLOW = "\u001B[1;33m";
         Scanner scanner = new Scanner(System.in);
+        boolean isValid = false;
 
-        System.out.println("\nPlease Select Your Payment Method: ");
-        System.out.println("1. Credit Card");
-        System.out.println("2. Debit Card");
-        System.out.println("3. Touch'N Go");
-        System.out.print("Enter Your Option: ");
-        int option = scanner.nextInt();
-        System.out.println("");
+        while (!isValid) { 
+            System.out.println("\n----------------------------------------");
+            System.out.println("|   Please Select Your Payment Method  |");
+            System.out.println("----------------------------------------");
+            System.out.println("|            1. Credit Card            |");
+            System.out.println("|            2. Debit Card             |");
+            System.out.println("|            3. Touch'N Go             |");
+            System.out.println("----------------------------------------");
+            System.out.print(ANSI_BOLD_YELLOW + "Enter Your Option: " + ANSI_RESET);
+            int option = scanner.nextInt();
+            System.out.println();
 
-        switch (option) {
-            case 1:
-                paymentMethod = "Credit Card";
-                break;
-            case 2:
-                paymentMethod = "Debit Card";
-                break;
-            case 3:
-                paymentMethod = "Touch'N Go";
-                break;
-            default:
-                System.out.println("Invalid Option. Please Try Again.");
-                return;
+            switch (option) {
+                case 1:
+                    paymentMethod = "Credit Card";
+                    isValid = true;
+                    break;
+                case 2:
+                    paymentMethod = "Debit Card";
+                    isValid = true;
+                    break;
+                case 3:
+                    paymentMethod = "Touch'N Go";
+                    isValid = true;
+                    break;
+                default:
+                    System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Option. Please Try Again.");
+                    break;
+            }
         }
 
         OrderFile.YourReceipt("order.txt");
         updateAccessoryQuantities("order.txt", "accessories.txt");
         quit();
+        scanner.close();
     }
 
     public static void quit() {
-        Scanner scanner =  new Scanner(System.in);
-
-        System.out.printf("\nAre You Want To Quit(y/n): ");
-        String yn = scanner.next();
-        switch (yn.toLowerCase()) {
-            case "y":
+        String ANSI_RESET = "\u001B[0m";
+        String ANSI_RED = "\u001B[31m";
+        Scanner scanner = new Scanner(System.in);
+        String yn = "";
+        
+        while (!yn.equalsIgnoreCase("y")) {
+            System.out.printf("\nPlease Press y To Quit: ");
+            yn = scanner.next();
+            
+            if (yn.equalsIgnoreCase("y")) {
                 clearOrderFile("order.txt");
-                break;
-            case "n":
-                return;
-            default:
-                System.out.println("Invalid Option. Please Try Again.");
-                return;
+            } else {
+                System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Option. Please Try Again.");
+            }
         }
         scanner.close();
     }

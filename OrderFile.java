@@ -9,6 +9,8 @@ import java.util.List;
 public class OrderFile {
 
     public static void YourOrder(String filename) {
+        String ANSI_RESET = "\u001B[0m"; 
+        String ANSI_BOLD_YELLOW = "\u001B[1;33m";
         List<OrderFunc> orders = new ArrayList<>();
         double totalAmount = 0.0;
 
@@ -16,9 +18,9 @@ public class OrderFile {
             String line;
 
             System.out.println("Your Order: ");
-            System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+");
+            System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+---------------+");
             System.out.printf("| %-13s | %-48s | %-13s | %-12s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
-            System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+");
+            System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+" + ANSI_RESET);
 
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -33,8 +35,8 @@ public class OrderFile {
                     order.calculateAmount(price);
                     orders.add(order);
             
-                    System.out.println(order.toString());
-                    System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+");
+                    System.out.println(ANSI_BOLD_YELLOW + order.toString());
+                    System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+" + ANSI_RESET);
                 }
             }
             
@@ -50,11 +52,13 @@ public class OrderFile {
     }
     
     public static void YourReceipt(String filename) {
+        String ANSI_RESET = "\u001B[0m"; 
+        String ANSI_BOLD_YELLOW = "\u001B[1;33m";
         List<OrderFunc> orders = new ArrayList<>();
         double totalAmount = 0.0;
     
         try (BufferedReader reader = new BufferedReader(new FileReader(filename));
-             BufferedWriter writer = new BufferedWriter(new FileWriter("receipt.txt", true))) { // 'true' enables appending to the file
+             BufferedWriter writer = new BufferedWriter(new FileWriter("receipt.txt", true))) { 
     
             String line;
     
@@ -67,9 +71,9 @@ public class OrderFile {
             writer.write(header);
     
             System.out.println("Your Receipt: ");
-            System.out.print(header);
+            System.out.print(ANSI_BOLD_YELLOW + header);
             System.out.printf(point);
-            System.out.print(header);
+            System.out.print(header + ANSI_RESET);
     
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -92,8 +96,8 @@ public class OrderFile {
                     writer.write(point1);
                     writer.write(header);
     
-                    System.out.print(point1);
-                    System.out.print(header);
+                    System.out.print(ANSI_BOLD_YELLOW + point1);
+                    System.out.print(header + ANSI_RESET);
                 }
             }
     
