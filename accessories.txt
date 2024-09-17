@@ -1,0 +1,19 @@
+accs-0004,iPhone 14 Pro Max Leather Case,45.0,30
+accs-0005,iPhone 13 Pro Max Silicone Case,35.0,25
+accs-0006,iPhone 12 Pro Max Tempered Glass Protector,15.0,20
+accs-0007,iPhone 11 Pro Max Wireless Charger,50.0,18
+accs-0008,iPhone 10 Charging Dock,25.0,40
+accs-0009,iPhone 9 Battery Pack,60.0,22
+accs-0010,iPhone 8 Plus Rugged Case,40.0,35
+accs-0011,iPhone 7 Plus Privacy Screen Protector,12.0,50
+accs-0012,iPhone 6s Plus Magnetic Mount,20.0,30
+accs-0013,iPhone 6 Clear Case with Kickstand,18.0,28
+accs-0014,iPhone SE 2nd Gen Wireless Charger,30.0,15
+accs-0015,iPhone XR PopSocket Grip,14.0,45
+accs-0016,iPhone XS Max Leather Wallet Case,37.0,25
+accs-0017,iPhone 14 Pro MagSafe Charger,55.0,20
+accs-0018,iPhone 13 Mini Tempered Glass Protector,16.0,40
+accs-0019,iPhone 12 Car Mount,22.0,35
+accs-0020,iPhone 11 Pro Max Charging Case,65.0,30
+accs-0021,bd4r,10.0,10
+
