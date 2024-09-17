@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Shipment {
+public class Shipment { 
     private String shipmentId;
     private String destination;
     private ArrayList<Item> items;
