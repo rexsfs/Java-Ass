@@ -109,7 +109,7 @@ public class OrderFile {
                 String paymentMethod = Payment.getPaymentMethod();
                 String paymentStr = "Payment Method: " + paymentMethod + "\n";
     
-                writer.write("\n" + totalStr);
+                writer.write(totalStr);
                 writer.write(orderIdStr);
                 writer.write(orderDateStr);
                 writer.write(paymentStr);
@@ -117,7 +117,7 @@ public class OrderFile {
                 System.out.print(totalStr);
                 System.out.print(orderIdStr);
                 System.out.print(orderDateStr);
-                System.out.print(paymentStr);
+                System.out.print(paymentStr + "\n");
             }
     
         } catch (IOException e) {

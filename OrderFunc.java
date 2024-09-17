@@ -156,7 +156,6 @@ public class OrderFunc extends Order {
         Map<String, String[]> accessoriesMap = new HashMap<>(); 
         Scanner scanner = new Scanner(System.in);
     
-        // Read accessories.txt to populate accessoriesMap
         try (BufferedReader accessoriesReader = new BufferedReader(new FileReader("accessories.txt"))) {
             String accessoryLine;
             while ((accessoryLine = accessoriesReader.readLine()) != null) {
@@ -173,7 +172,6 @@ public class OrderFunc extends Order {
         System.out.printf("| %-13s | %-48s | %-13s | %-12s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
         System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+" + ANSI_RESET);
     
-        // Read order.txt
         try (BufferedReader reader = new BufferedReader(new FileReader("order.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -185,7 +183,7 @@ public class OrderFunc extends Order {
                     int qty = Integer.parseInt(parts[3].trim());
     
                     OrderFunc order = new OrderFunc(null, accessoryId, item, qty);
-                    order.calculateAmount(price);
+                    order.calculateAmount(price);  
                     orders.add(order);
     
                     System.out.println(ANSI_BOLD_YELLOW + order.toString());
@@ -222,6 +220,8 @@ public class OrderFunc extends Order {
                             if (newQty <= availableStock) {
                                 if (newQty > 0) {
                                     order.setQty(newQty);
+                                    double price = Double.parseDouble(accessoryDetails[2]);
+                                    order.calculateAmount(price);  
     
                                     System.out.println("Quantity updated successfully for " + DEEP_GREEN + order.getName() + ANSI_RESET + "\n");
                                 } else {
@@ -245,6 +245,7 @@ public class OrderFunc extends Order {
             }
         }
     
+        // Write updated orders to file
         try (FileWriter writer = new FileWriter("order.txt", false)) {
             for (OrderFunc order : orders) {
                 writer.write(order.getAccessoryId() + "," + order.getName() + "," + (order.getAmount() / order.getQty()) + "," + order.getQty() + "\n");
@@ -254,7 +255,7 @@ public class OrderFunc extends Order {
             e.printStackTrace();
         }
     }
-
+    
     public static void removeOrder() {
         String ANSI_RESET = "\u001B[0m"; 
         String DEEP_GREEN = "\u001B[38;5;28m";

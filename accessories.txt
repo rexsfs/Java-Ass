@@ -14,6 +14,6 @@ accs-0014,iPhone SE 2nd Gen Wireless Charger,30.00,15
 accs-0015,iPhone XR PopSocket Grip,14.00,45
 accs-0016,iPhone XS Max Leather Wallet Case,37.00,25
 accs-0017,iPhone 14 Pro MagSafe Charger,55.00,20
-accs-0018,iPhone 13 Mini Tempered Glass Protector,16.00,40
-accs-0019,iPhone 12 Car Mount,22.00,34
+accs-0018,iPhone 13 Mini Tempered Glass Protector,16.00,34
+accs-0019,iPhone 12 Car Mount,22.00,32
 accs-0020,iPhone 11 Pro Max Charging Case,65.00,10
