@@ -1,16 +1,23 @@
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class OrderFunc extends Order {
-    private String name;
+    private String item;
     private String accessoryId; 
     private static Double totalAmount = 0.0; 
     private static Map<String, String[]> accessoriesMap = new HashMap<>();
     private static List<OrderFunc> orders = new ArrayList<>();  
 
-    public OrderFunc(String orderId, String accessoryId, String name, Integer qty) {
-        super(orderId, totalAmount, qty, name); 
-        this.name = name;
+    public OrderFunc(String orderId, String accessoryId, String item, Integer qty) {
+        super(orderId, totalAmount, qty, item); 
+        this.item = item;
         this.accessoryId = accessoryId; 
     }
 
@@ -23,11 +30,11 @@ public class OrderFunc extends Order {
     }
 
     public String getName() {
-        return name;
+        return item;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String item) {
+        this.item = item;
     }
 
     public static Double calculateTotalAmount(List<OrderFunc> orders) {
@@ -38,18 +45,6 @@ public class OrderFunc extends Order {
         return totalAmount;
     }
     
-    public static void updateOrderFile() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("order.txt"))) {
-            for (OrderFunc order : orders) {
-                writer.write(order.getAccessoryId() + "," + order.getName() + "," + order.getQty() + "," + (order.getAmount() / order.getQty()) + "," + order.getAmount());
-                writer.newLine();
-            }
-            System.out.println("Order file updated.");
-        } catch (IOException e) {
-            System.out.println("Error updating order file: " + e.getMessage());
-        }
-    }
-    
     public static void addMoreOrders(Map<String, String[]> accessoriesMap) {
         Scanner scanner = new Scanner(System.in);  
         String accessoryId;
@@ -57,7 +52,7 @@ public class OrderFunc extends Order {
     
         System.out.println("\nAll Accessories Details:");
         System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
-        System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Name", "Stock", "Price (RM)");
+        System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Item", "Price (RM)", "Stock");
         System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
     
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
@@ -66,13 +61,13 @@ public class OrderFunc extends Order {
                 String[] parts = line.split(",");
                 if (parts.length == 4) {
                     String id = parts[0];
-                    String name = parts[1];
+                    String item = parts[1];
                     double price = Double.parseDouble(parts[2]);
                     int qty = Integer.parseInt(parts[3]);
     
                     accessoriesMap.put(id, parts);
     
-                    System.out.printf("| %-13s | %-48s | %-12d | RM%-11.2f |%n", id, name, qty, price);            
+                    System.out.printf("| %-13s | %-48s | RM%-11.2f | %-12d |%n", id, item, price, qty);            
                     System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
                 }
             }
@@ -94,20 +89,20 @@ public class OrderFunc extends Order {
                             orderQty = scanner.nextInt();
     
                             String[] accessoryDetails = accessoriesMap.get(accessoryId);
-                            String name = accessoryDetails[1];
+                            String item = accessoryDetails[1];
                             double price = Double.parseDouble(accessoryDetails[2]);
                             int availableQuantity = Integer.parseInt(accessoryDetails[3]);
     
                             if (orderQty <= availableQuantity) {
-                                System.out.println("You ordered " + name + " successfully.");
+                                System.out.println("You ordered " + item + " successfully.");
     
-                                OrderFunc order = new OrderFunc(null, accessoryId, name, orderQty);
+                                OrderFunc order = new OrderFunc(null, accessoryId, item, orderQty);
                                 order.calculateAmount(price);
                                 orders.add(order);
     
-                                writer.write(accessoryId + "," + name + "," + orderQty + "," + price + "\n");
+                                writer.write(accessoryId + "," + item + "," + price + "," + orderQty + "\n");
                             } else {
-                                System.out.println("Insufficient stock for " + name + ". Only " + availableQuantity + " available.");
+                                System.out.println("Insufficient stock for " + item + ". Only " + availableQuantity + " available.");
                             }
                         } else {
                             System.out.println("Invalid quantity. Please enter a number.");
@@ -129,6 +124,82 @@ public class OrderFunc extends Order {
             e.printStackTrace();
         }
     }    
+
+    public static void changeQty() {
+        List<OrderFunc> orders = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("Your Current Orders: ");
+        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+");
+        System.out.printf("| %-13s | %-48s | %-13s | %-12s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
+        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+");
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader("order.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 4) {
+                    String accessoryId = parts[0];
+                    String item = parts[1];
+                    double price = Double.parseDouble(parts[2].trim());
+                    int qty = Integer.parseInt(parts[3].trim());
+        
+                    OrderFunc order = new OrderFunc(null, accessoryId, item, qty);
+                    order.calculateAmount(price);
+                    orders.add(order);
+        
+                    System.out.println(order.toString());
+                    System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+");
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading the file.");
+            e.printStackTrace();
+        }
+        
+        System.out.print("Enter the Accessory ID you want to change the quantity for (format: accs-): accs-");
+        String accessoryIdToUpdate = "accs-" + scanner.next();
+        
+        boolean found = false;
+        
+        for (OrderFunc order : orders) {
+            if (order.getAccessoryId().equalsIgnoreCase(accessoryIdToUpdate)) {
+                found = true;
+                System.out.print("Enter the new quantity: ");
+                if (scanner.hasNextInt()) {
+                    int newQty = scanner.nextInt();
+        
+                    if (newQty > 0) {
+                        order.setQty(newQty);
+                        String[] accessoryDetails = accessoriesMap.get(order.getAccessoryId());
+                        double price = Double.parseDouble(accessoryDetails[2]);
+                        order.calculateAmount(price);
+        
+                        System.out.println("Quantity updated successfully for " + order.getName());
+                    } else {
+                        System.out.println("Invalid quantity. Quantity cannot be 0.");
+                    }
+                } else {
+                    System.out.println("Invalid input. Please enter a valid number.");
+                    scanner.next(); 
+                }
+                break;
+            }
+        }
+        
+        if (!found) {
+            System.out.println("Accessory ID not found.");
+        }
+        
+        try (FileWriter writer = new FileWriter("order.txt", false)) {
+            for (OrderFunc order : orders) {
+                writer.write(order.getAccessoryId() + "," + order.getName() + "," + (order.getAmount() / order.getQty()) + "," + order.getQty() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Error updating the file.");
+            e.printStackTrace();
+        }
+    }
 
     public static void cancelOrder() {
         System.out.println("Are you sure you want to cancel your order?");
@@ -177,7 +248,8 @@ public class OrderFunc extends Order {
             System.out.println("----------------------------------------------------------");
             System.out.println("1. Proceed to Payment");
             System.err.println("2. Add More Order");
-            System.out.println("3. Cancel Order");
+            System.out.println("3. Change Quantity");
+            System.out.println("4. Cancel Order");
             System.out.println("----------------------------------------------------------");
             System.out.print("Enter Your option: " + ANSI_RESET);
 
@@ -192,10 +264,15 @@ public class OrderFunc extends Order {
                         break;
                     case 2:
                         addMoreOrders(accessoriesMap);
-                        OrderFile.YourOrder("order.txt");
+                        urOrder.main(null);
                         validChoice = true; 
                         break;
                     case 3:
+                        changeQty();
+                        urOrder.main(null);
+                        validChoice = true; 
+                        break;
+                    case 4:
                         cancelOrder();
                         System.out.println("Your order has been canceled.");
                         validChoice = true;  
@@ -213,7 +290,7 @@ public class OrderFunc extends Order {
 
     @Override
     public String toString() {
-        return String.format("| %-13s | %-48s | %-12d | RM%-11.2f | RM%-11.2f |",
-                accessoryId, name, getQty(), (getAmount() / getQty()), getAmount());
+        return String.format("| %-13s | %-48s | RM%-11.2f | %-12d | RM%-11.2f |",
+                accessoryId, item, (getAmount() / getQty()), getQty(), getAmount());
     }
 }

@@ -26,7 +26,6 @@ public class AccessoryManager {
             System.out.println("5. Stock In Accessory");
             System.out.println("6. Stock Out Accessory");
             System.out.println("7. Display All Accessories");
-            System.out.println("8. Start Order");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
@@ -52,10 +51,7 @@ public class AccessoryManager {
                     break;
                 case 7:
                     displayAllAccessories();
-                    break;
-                case 8:
-                    startOrder();
-                    break;  
+                    break; 
                 default:
                     System.out.println("Invalid choice! Please try again.");
             }
@@ -87,11 +83,6 @@ public class AccessoryManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    
-    public void startOrder() {
-        OrderMenu orderMenu = new OrderMenu();  
-        orderMenu.OrderAccessories(); 
     }
 
     private void addAccessory() {

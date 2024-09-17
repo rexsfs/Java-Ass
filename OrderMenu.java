@@ -16,9 +16,9 @@ public class OrderMenu {
         boolean Ordering = false; 
     
         System.out.println("\nAll Accessories Details:");
-        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
-        System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Name", "Stock", "Price (RM)");
-        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
+        System.out.println("+---------------+--------------------------------------------------+---------------+--------------+");
+        System.out.printf("| %-13s | %-48s | %-13s | %-12s |%n", "ID", "Item", "Price (RM)", "Stock");
+        System.out.println("+---------------+--------------------------------------------------+---------------+--------------+");
     
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
@@ -26,13 +26,13 @@ public class OrderMenu {
                 String[] parts = line.split(",");
                 if (parts.length == 4) {
                     String id = parts[0];
-                    String name = parts[1];
-                    double price = Double.parseDouble(parts[2]);
-                    int qty = Integer.parseInt(parts[3]);
+                    String item = parts[1];
+                    double price = Double.parseDouble(parts[2]);  
+                    int qty = Integer.parseInt(parts[3]);     
     
                     accessoriesMap.put(id, parts);
-                    System.out.printf("| %-13s | %-48s | %-12d | RM%-11.2f |%n", id, name, qty, price);
-                    System.out.println("+---------------+--------------------------------------------------+--------------+---------------+");
+                    System.out.printf("| %-13s | %-48s | RM%-11.2f | %-12d |%n", id, item, price, qty);
+                    System.out.println("+---------------+--------------------------------------------------+---------------+--------------+");
                 } 
             }
             
@@ -59,7 +59,6 @@ public class OrderMenu {
             System.out.println("Start placing your order (type 'stop' to finish):");
     
             while (true) {
-                // Prefill the accessory ID with "accs-"
                 System.out.printf("Enter Accessory ID (format: accs-): accs-");
                 accessoryId = "accs-" + scanner.next();
     
@@ -72,19 +71,19 @@ public class OrderMenu {
                     orderQty = scanner.nextInt();
     
                     String[] accessoryDetails = accessoriesMap.get(accessoryId);
-                    String name = accessoryDetails[1];
-                    double price = Double.parseDouble(accessoryDetails[2]);
-                    int availableQuantity = Integer.parseInt(accessoryDetails[3]);
+                    String item = accessoryDetails[1];
+                    double price = Double.parseDouble(accessoryDetails[2]);  
+                    int availableQuantity = Integer.parseInt(accessoryDetails[3]); 
     
                     if (orderQty <= availableQuantity) {
-                        System.out.println("You ordered " + name + " successfully.");
-                        OrderFunc order = new OrderFunc(null, accessoryId, name, orderQty);
+                        System.out.println("You ordered " + item + " successfully.");
+                        OrderFunc order = new OrderFunc(null, accessoryId, item, orderQty);
                         order.calculateAmount(price);
                         orders.add(order);
-                        writer.write(accessoryId + "," + name + "," + orderQty + "," + price + "\n");
+                        writer.write(accessoryId + "," + item + "," + price + "," + orderQty + "\n");
                         orderPlaced = true;
                     } else {
-                        System.out.println("Insufficient stock for " + name + ". Only " + availableQuantity + " available.");
+                        System.out.println("Insufficient stock for " + item + ". Only " + availableQuantity + " available.");
                     }
                 } else {
                     System.out.println("Cannot find accessory ID: " + accessoryId);
@@ -104,6 +103,4 @@ public class OrderMenu {
         scanner.close();
         return orderPlaced;
     }
-    
-
 }
