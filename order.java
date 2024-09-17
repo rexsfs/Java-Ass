@@ -21,7 +21,7 @@ public class Order {
         this.amount = amount;
         this.orderDate = orderDate;
     }
-//ensure that order id is unique, create duplicate func 
+
     public void randomOrderID() {
         Random random = new Random();
         int number = 1000000 + random.nextInt(9000000);
