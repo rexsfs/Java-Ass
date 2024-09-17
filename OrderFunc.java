@@ -153,13 +153,27 @@ public class OrderFunc extends Order {
         String ANSI_BOLD_YELLOW = "\u001B[1;33m";
     
         List<OrderFunc> orders = new ArrayList<>();
+        Map<String, String[]> accessoriesMap = new HashMap<>(); 
         Scanner scanner = new Scanner(System.in);
-        
+    
+        // Read accessories.txt to populate accessoriesMap
+        try (BufferedReader accessoriesReader = new BufferedReader(new FileReader("accessories.txt"))) {
+            String accessoryLine;
+            while ((accessoryLine = accessoriesReader.readLine()) != null) {
+                String[] accessoryDetails = accessoryLine.split(",");
+                accessoriesMap.put(accessoryDetails[0], accessoryDetails);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading accessories file.");
+            e.printStackTrace();
+        }
+    
         System.out.println("\nYour Current Orders: ");
         System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+---------------+");
         System.out.printf("| %-13s | %-48s | %-13s | %-12s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
         System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+" + ANSI_RESET);
-        
+    
+        // Read order.txt
         try (BufferedReader reader = new BufferedReader(new FileReader("order.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -179,18 +193,17 @@ public class OrderFunc extends Order {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error Reading The File.");
+            System.out.println("Error reading the file.");
             e.printStackTrace();
         }
     
-        String accessoryIdToUpdate = "";
-        System.out.println("Change Quantity(Type '0' To Finish):");
+        System.out.println("Change Quantity (Type '0' To Finish):");
         while (true) {
             System.out.print("Enter Accessory ID: accs-");
-            accessoryIdToUpdate = "accs-" + scanner.next();
+            String accessoryIdToUpdate = "accs-" + scanner.next();
     
             if (accessoryIdToUpdate.equalsIgnoreCase("accs-0")) {
-                break; 
+                break;
             }
     
             boolean found = false;
@@ -202,38 +215,45 @@ public class OrderFunc extends Order {
                     if (scanner.hasNextInt()) {
                         int newQty = scanner.nextInt();
     
-                        if (newQty > 0) {
-                            order.setQty(newQty);
-                            String[] accessoryDetails = accessoriesMap.get(order.getAccessoryId());
-                            double price = Double.parseDouble(accessoryDetails[2]);
-                            order.calculateAmount(price);
+                        String[] accessoryDetails = accessoriesMap.get(order.getAccessoryId());
+                        if (accessoryDetails != null) {
+                            int availableStock = Integer.parseInt(accessoryDetails[3]);
     
-                            System.out.println("Quantity Updated Successfully For " + DEEP_GREEN + order.getName() + ANSI_RESET + "\n");
+                            if (newQty <= availableStock) {
+                                if (newQty > 0) {
+                                    order.setQty(newQty);
+    
+                                    System.out.println("Quantity updated successfully for " + DEEP_GREEN + order.getName() + ANSI_RESET + "\n");
+                                } else {
+                                    System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " quantity. Quantity cannot be 0.\n");
+                                }
+                            } else {
+                                System.out.println("Insufficient stock for " + accessoryDetails[1] + ". Only " + DEEP_GREEN + availableStock + ANSI_RESET + " available.\n");
+                            }
                         } else {
-                            System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Quantity. Quantity Cannot Be 0.");
+                            System.out.println("Accessory details not found.");
                         }
                     } else {
-                        System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Input. Please Enter A Valid Number.");
-                        scanner.next(); 
+                        System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " input. Please enter a valid number.");
+                        scanner.next();  
                     }
                 }
             }
     
             if (!found) {
-                System.out.println("Accessory ID " + ANSI_RED + "Not Found.\n" + ANSI_RESET);
+                System.out.println("Accessory ID " + ANSI_RED + "not found.\n" + ANSI_RESET);
             }
         }
-
+    
         try (FileWriter writer = new FileWriter("order.txt", false)) {
             for (OrderFunc order : orders) {
                 writer.write(order.getAccessoryId() + "," + order.getName() + "," + (order.getAmount() / order.getQty()) + "," + order.getQty() + "\n");
             }
         } catch (IOException e) {
-            System.out.println("Error Updating The File.");
+            System.out.println("Error updating the file.");
             e.printStackTrace();
         }
-     
-    }    
+    }
 
     public static void removeOrder() {
         String ANSI_RESET = "\u001B[0m"; 
