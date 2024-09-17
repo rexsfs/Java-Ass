@@ -47,105 +47,104 @@ public class OrderFunc extends Order {
         return totalAmount;
     }
     
- public static void addMoreOrders(Map<String, String[]> accessoriesMap) {
-    String ANSI_RESET = "\u001B[0m"; 
-    String DEEP_GREEN = "\u001B[38;5;28m";
-    String ANSI_RED = "\u001B[31m";
-    String ANSI_BOLD_YELLOW = "\u001B[1;33m";
-    Scanner scanner = new Scanner(System.in);  
-    String accessoryId;
-    int orderQty;
+    public static void addMoreOrders(Map<String, String[]> accessoriesMap) {
+        String ANSI_RESET = "\u001B[0m"; 
+        String DEEP_GREEN = "\u001B[38;5;28m";
+        String ANSI_RED = "\u001B[31m";
+        String ANSI_BOLD_YELLOW = "\u001B[1;33m";
+        Scanner scanner = new Scanner(System.in);  
+        String accessoryId;
+        int orderQty;
 
-    System.out.println("\nAll Accessories Details:");
-    System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+");
-    System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Item", "Price (RM)", "Stock");
-    System.out.println("+---------------+--------------------------------------------------+--------------+---------------+" + ANSI_RESET);
+        System.out.println("\nAll Accessories Details:");
+        System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+");
+        System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Item", "Price (RM)", "Stock");
+        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+" + ANSI_RESET);
 
-    try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
-        String line;
-        while ((line = br.readLine()) != null) {
-            String[] parts = line.split(",");
-            if (parts.length == 4) {
-                String id = parts[0];
-                String item = parts[1];
-                double price = Double.parseDouble(parts[2]);
-                int qty = Integer.parseInt(parts[3]);
+        try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 4) {
+                    String id = parts[0];
+                    String item = parts[1];
+                    double price = Double.parseDouble(parts[2]);
+                    int qty = Integer.parseInt(parts[3]);
 
-                accessoriesMap.put(id, parts);
+                    accessoriesMap.put(id, parts);
 
-                System.out.printf(ANSI_BOLD_YELLOW + "| %-13s | %-48s | RM%-11.2f | %-12d |%n", id, item, price, qty);            
-                System.out.println("+---------------+--------------------------------------------------+--------------+---------------+" + ANSI_RESET);
-            }
-        }
-
-        Set<String> exist = new HashSet<>();
-        try (BufferedReader orderReader = new BufferedReader(new FileReader("order.txt"))) {
-            while ((line = orderReader.readLine()) != null) {
-                String[] orderParts = line.split(",");
-                if (orderParts.length > 0) {
-                    exist.add(orderParts[0]); 
+                    System.out.printf(ANSI_BOLD_YELLOW + "| %-13s | %-48s | RM%-11.2f | %-12d |%n", id, item, price, qty);            
+                    System.out.println("+---------------+--------------------------------------------------+--------------+---------------+" + ANSI_RESET);
                 }
             }
-        }
 
-        try (FileWriter writer = new FileWriter("order.txt", true)) {
-            System.out.println("What You Want To Add On (Type '0' to Finish):");
-
-            while (true) {
-                System.out.printf("Enter Accessory ID: accs-");
-                accessoryId = "accs-" + scanner.next();
-
-                if (accessoryId.equalsIgnoreCase("accs-0")) {
-                    break;
+            Set<String> exist = new HashSet<>();
+            try (BufferedReader orderReader = new BufferedReader(new FileReader("order.txt"))) {
+                while ((line = orderReader.readLine()) != null) {
+                    String[] orderParts = line.split(",");
+                    if (orderParts.length > 0) {
+                        exist.add(orderParts[0]); 
+                    }
                 }
+            }
 
-                if (exist.contains(accessoryId)) {
-                    System.out.println("This" + ANSI_BOLD_YELLOW + " Accessory" + ANSI_RESET + " Is Already In Your Order.\n");
-                    continue; 
-                }
+            try (FileWriter writer = new FileWriter("order.txt", true)) {
+                System.out.println("What You Want To Add On (Type '0' to Finish):");
 
-                if (accessoriesMap.containsKey(accessoryId)) {
-                    System.out.print("Enter Quantity: ");
-                    if (scanner.hasNextInt()) {
-                        orderQty = scanner.nextInt();
+                while (true) {
+                    System.out.printf("Enter Accessory ID: accs-");
+                    accessoryId = "accs-" + scanner.next();
 
-                        String[] accessoryDetails = accessoriesMap.get(accessoryId);
-                        String item = accessoryDetails[1];
-                        double price = Double.parseDouble(accessoryDetails[2]);
-                        int availableQuantity = Integer.parseInt(accessoryDetails[3]);
+                    if (accessoryId.equalsIgnoreCase("accs-0")) {
+                        break;
+                    }
 
-                        if (orderQty <= availableQuantity) {
-                            System.out.println("You Ordered " + item + DEEP_GREEN + " Successfully" + ANSI_RESET + ".\n");
+                    if (exist.contains(accessoryId)) {
+                        System.out.println("This" + ANSI_BOLD_YELLOW + " Accessory" + ANSI_RESET + " Is Already In Your Order.\n");
+                        continue; 
+                    }
 
-                            OrderFunc order = new OrderFunc(null, accessoryId, item, orderQty);
-                            order.calculateAmount(price);
-                            orders.add(order);
+                    if (accessoriesMap.containsKey(accessoryId)) {
+                        System.out.print("Enter Quantity: ");
+                        if (scanner.hasNextInt()) {
+                            orderQty = scanner.nextInt();
 
-                            writer.write(accessoryId + "," + item + "," + price + "," + orderQty + "\n");
+                            String[] accessoryDetails = accessoriesMap.get(accessoryId);
+                            String item = accessoryDetails[1];
+                            double price = Double.parseDouble(accessoryDetails[2]);
+                            int availableQuantity = Integer.parseInt(accessoryDetails[3]);
+
+                            if (orderQty <= availableQuantity) {
+                                System.out.println("You Ordered " + item + DEEP_GREEN + " Successfully" + ANSI_RESET + ".\n");
+
+                                OrderFunc order = new OrderFunc(null, accessoryId, item, orderQty);
+                                order.calculateAmount(price);
+                                orders.add(order);
+
+                                writer.write(accessoryId + "," + item + "," + price + "," + orderQty + "\n");
+                            } else {
+                                System.out.println("Insufficient Stock For " + item + ". Only " + DEEP_GREEN + availableQuantity + ANSI_RESET + " Available.\n");
+                            }
                         } else {
-                            System.out.println("Insufficient Stock For " + item + ". Only " + DEEP_GREEN + availableQuantity + ANSI_RESET + " Available.\n");
+                            System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Quantity. Please Enter A Number.");
+                            scanner.next();  
                         }
                     } else {
-                        System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Quantity. Please Enter A Number.");
-                        scanner.next();  
+                        System.out.println("Cannot Find Accessory ID: " + ANSI_RED + accessoryId + ANSI_RESET + "\n");
                     }
-                } else {
-                    System.out.println("Cannot Find Accessory ID: " + ANSI_RED + accessoryId + ANSI_RESET + "\n");
                 }
-            }
 
-            System.out.println("Your Order Add On " + DEEP_GREEN + "Successfully" + ANSI_RESET + ".\n");
-            return;
+                System.out.println("Your Order Add On " + DEEP_GREEN + "Successfully" + ANSI_RESET + ".\n");
+                return;
+            } catch (IOException e) {
+                System.out.println("Error Saving Order.");
+                e.printStackTrace();
+            }
         } catch (IOException e) {
-            System.out.println("Error Saving Order.");
+            System.out.println("Error Loading Accessories.");
             e.printStackTrace();
         }
-    } catch (IOException e) {
-        System.out.println("Error Loading Accessories.");
-        e.printStackTrace();
     }
-}
-
 
     public static void changeQty() {
         String ANSI_RESET = "\u001B[0m"; 

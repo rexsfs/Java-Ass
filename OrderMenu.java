@@ -88,9 +88,9 @@ public class OrderMenu {
                     String[] accessoryDetails = accessoriesMap.get(accessoryId);
                     String item = accessoryDetails[1];
                     double price = Double.parseDouble(accessoryDetails[2]);  
-                    int availableQuantity = Integer.parseInt(accessoryDetails[3]); 
+                    int availableStock = Integer.parseInt(accessoryDetails[3]); 
     
-                    if (orderQty <= availableQuantity) {
+                    if (orderQty <= availableStock) {
                         System.out.println("You Ordered " + item + DEEP_GREEN + " Successfully" + ANSI_RESET + ".\n");
                         OrderFunc order = new OrderFunc(null, accessoryId, item, orderQty);
                         order.calculateAmount(price);
@@ -98,7 +98,7 @@ public class OrderMenu {
                         writer.write(accessoryId + "," + item + "," + price + "," + orderQty + "\n");
                         writer.flush();  
                     } else {
-                        System.out.println("Insufficient Stock For " + item + ". Only " + DEEP_GREEN + availableQuantity + ANSI_RESET + " Available.\n");
+                        System.out.println("Insufficient Stock For " + item + ". Only " + DEEP_GREEN + availableStock + ANSI_RESET + " Available.\n");
                     }
                 } else {
                     System.out.println("Cannot Find accessory ID: " + ANSI_RED + accessoryId + ANSI_RESET);
