@@ -14,15 +14,6 @@ public class Accessory implements Serializable {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.supplierId = supplierId;
-    }
-
-    public String getSupplierId() {
-        return supplierId;
-    }
-
-    public void setSupplierId(String supplierId) {
-        this.supplierId = supplierId;
     }
 
     // No-argument constructor
@@ -32,6 +23,12 @@ public class Accessory implements Serializable {
         this.price = 0.0;
         this.quantity = 0;
     }
+
+    public String getSupplierId(){
+        return supplierId;
+    }
+
+    
 
     // Method to add stock
     public void stockIn(int amount) {

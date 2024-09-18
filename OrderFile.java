@@ -66,9 +66,9 @@ public class OrderFile {
             String point = String.format("| %-13s | %-48s | %-12s | %-13s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
     
             writer.write("Your Receipt: \n");
-            writer.write(header);
+            writer.write(ANSI_BOLD_YELLOW + header);
             writer.write(point);
-            writer.write(header);
+            writer.write(header + ANSI_RESET);
     
             System.out.println("Your Receipt: ");
             System.out.print(ANSI_BOLD_YELLOW + header);
@@ -93,8 +93,8 @@ public class OrderFile {
                     String point1 = String.format("| %-13s | %-48s | RM%-11.2f | %-12d | RM%-11.2f |%n", 
                                                  accessoryId, item, price, qty, qty * price);
     
-                    writer.write(point1);
-                    writer.write(header);
+                    writer.write(ANSI_BOLD_YELLOW + point1);
+                    writer.write(header + ANSI_RESET);
     
                     System.out.print(ANSI_BOLD_YELLOW + point1);
                     System.out.print(header + ANSI_RESET);
@@ -112,7 +112,9 @@ public class OrderFile {
                 writer.write(totalStr);
                 writer.write(orderIdStr);
                 writer.write(orderDateStr);
-                writer.write(paymentStr);
+                writer.write(paymentStr + "\n");
+                writer.write(ANSI_BOLD_YELLOW + "-------------------------------------------------------------------------------------------------------------------" + ANSI_RESET);
+                writer.write("\n");
     
                 System.out.print(totalStr);
                 System.out.print(orderIdStr);
