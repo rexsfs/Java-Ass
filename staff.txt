@@ -1,2 +1,4 @@
 1001|Lee Siu Yee|012-3456789|123,Taman ABC|Lee@gmail.com|intern|1000.0|admin|siuyee|shaoyu
-1002|Lee|012-9396522|569, Taman BC|lee@gmail.com|Intern|10000.0|staff|weihao|rebert
+1002|Lee|012-9396522|569, Taman BC|lee@gmail.com|Intern|10000.0|staff|weihao|robert
+1003|Jee Yang|012-8173742|wirhuvrwuuwrrvr|jeeyang@gmail.com|manager|3000.0|staff|abc|abc
+1004|thtdfdrtf|012-1332332|hiigwruig|qdhbnh@gvhcje|intern|1100.0|staff|123|123
