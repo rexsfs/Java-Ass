@@ -244,8 +244,7 @@ public class OrderFunc extends Order {
                 System.out.println("Accessory ID " + ANSI_RED + "not found.\n" + ANSI_RESET);
             }
         }
-    
-        // Write updated orders to file
+
         try (FileWriter writer = new FileWriter("order.txt", false)) {
             for (OrderFunc order : orders) {
                 writer.write(order.getAccessoryId() + "," + order.getName() + "," + (order.getAmount() / order.getQty()) + "," + order.getQty() + "\n");
@@ -346,9 +345,6 @@ public class OrderFunc extends Order {
                 FileWriter orderWriter = new FileWriter("order.txt", false);
                 orderWriter.write("");
                 orderWriter.close();
-                FileWriter summaryWriter = new FileWriter("receipt.txt", false);
-                summaryWriter.write("");
-                summaryWriter.close();
                 orders.clear();  
             } catch (IOException e) {
                 System.out.println("An" + ANSI_RED + " Error" + ANSI_RESET + " Occurred While Clearing The Order File.");

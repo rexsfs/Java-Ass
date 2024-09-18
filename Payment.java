@@ -68,7 +68,7 @@ public class Payment {
         String yn = "";
         
         while (!yn.equalsIgnoreCase("y")) {
-            System.out.printf("\nPlease Press y To Quit: ");
+            System.out.printf("Please Press y To Quit: ");
             yn = scanner.next();
             
             if (yn.equalsIgnoreCase("y")) {
