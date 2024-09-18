@@ -89,7 +89,12 @@ public class OrderMenu {
                     String item = accessoryDetails[1];
                     double price = Double.parseDouble(accessoryDetails[2]);  
                     int availableStock = Integer.parseInt(accessoryDetails[3]); 
-    
+                     
+                    if(orderQty < 1) {
+                        System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Quantity. Quantity Cannot Be 0.\n");
+                        continue;
+                    }
+
                     if (orderQty <= availableStock) {
                         System.out.println("You Ordered " + item + DEEP_GREEN + " Successfully" + ANSI_RESET + ".\n");
                         OrderFunc order = new OrderFunc(null, accessoryId, item, orderQty);
@@ -97,7 +102,7 @@ public class OrderMenu {
                         orders.add(order);
                         writer.write(accessoryId + "," + item + "," + price + "," + orderQty + "\n");
                         writer.flush();  
-                    } else {
+                    }else {
                         System.out.println("Insufficient Stock For " + item + ". Only " + DEEP_GREEN + availableStock + ANSI_RESET + " Available.\n");
                     }
                 } else {

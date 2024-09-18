@@ -74,7 +74,7 @@ public class Payment {
             if (yn.equalsIgnoreCase("y")) {
                 clearOrderFile("order.txt");
             } else {
-                System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Option. Please Try Again.");
+                System.out.println(ANSI_RED + "\nInvalid" + ANSI_RESET + " Option. Please Try Again.");
             }
         }
         scanner.close();

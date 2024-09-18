@@ -225,7 +225,7 @@ public class OrderFunc extends Order {
     
                                     System.out.println("Quantity updated successfully for " + DEEP_GREEN + order.getName() + ANSI_RESET + "\n");
                                 } else {
-                                    System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " quantity. Quantity cannot be 0.\n");
+                                    System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Quantity. Quantity Cannot Be 0.\n");
                                 }
                             } else {
                                 System.out.println("Insufficient stock for " + accessoryDetails[1] + ". Only " + DEEP_GREEN + availableStock + ANSI_RESET + " available.\n");
@@ -234,7 +234,7 @@ public class OrderFunc extends Order {
                             System.out.println("Accessory details not found.");
                         }
                     } else {
-                        System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " input. Please enter a valid number.");
+                        System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Input. Please Enter A Valid Number.");
                         scanner.next();  
                     }
                 }
