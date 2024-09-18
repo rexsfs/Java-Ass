@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class AccessoryManager {
 
@@ -28,8 +29,8 @@ public class AccessoryManager {
             System.out.println("7. Display All Accessories");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
-    
+            scanner.nextLine(); // Consume newline
+
             switch (choice) {
                 case 1:
                     addAccessory();
@@ -51,13 +52,12 @@ public class AccessoryManager {
                     break;
                 case 7:
                     displayAllAccessories();
-                    break; 
+                    break;
                 default:
                     System.out.println("Invalid choice! Please try again.");
             }
         }
     }
-    
 
     private void displayAllAccessories() {
         System.out.println("\nAll Accessories Details:");
@@ -65,16 +65,18 @@ public class AccessoryManager {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 4) {
+                if (parts.length == 5) {
                     String id = parts[0];
                     String name = parts[1];
                     double price = Double.parseDouble(parts[2]);
                     int quantity = Integer.parseInt(parts[3]);
-                    
+                    String supplierId = parts[4];
+
                     System.out.println("ID: " + id);
                     System.out.println("Name: " + name);
                     System.out.println("Price: RM" + price);
                     System.out.println("Quantity: " + quantity);
+                    System.out.println("Supplier ID: " + supplierId);
                     System.out.println("------------------------");
                 }
             }
@@ -86,6 +88,29 @@ public class AccessoryManager {
     }
 
     private void addAccessory() {
+
+        ArrayList<Supplier> supplierList = SupplierMain.readSupplierToArray();
+
+        System.out.print("Enter supplier ID : ");
+        String supplierId = scanner.nextLine();
+
+        boolean supplierFound = false;
+
+        for (int i = 0; i < supplierList.size(); i++) {
+
+            if (supplierId.equals(supplierList.get(i).getPersonId())) {
+                supplierFound = true;
+            }
+
+        }
+
+        while (!supplierFound) {
+
+            System.out.println("\nInvalid Supplier ID");
+            addAccessory();
+
+        }
+
         System.out.print("Enter Accessory Name: ");
         String name = scanner.nextLine();
         String id = generateId(); // Always generate "accs-xxxx" ID
@@ -97,7 +122,7 @@ public class AccessoryManager {
         while (true) {
             System.out.print("Enter Accessory Quantity: ");
             quantity = scanner.nextInt();
-            scanner.nextLine();  // Consume newline
+            scanner.nextLine(); // Consume newline
             if (quantity >= 0) {
                 break;
             } else {
@@ -105,9 +130,9 @@ public class AccessoryManager {
             }
         }
 
-        Accessory accessory = new Accessory(id, name, price, quantity);
+        Accessory accessory = new Accessory(id, name, price, quantity, supplierId);
         accessories.put(id, accessory);
-        saveAccessories();  // Auto-save
+        saveAccessories(); // Auto-save
         System.out.println("Accessory added with ID: " + id);
     }
 
@@ -131,7 +156,7 @@ public class AccessoryManager {
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
         Accessory accessory = accessories.get(id);
-    
+
         if (accessory != null) {
             // Update name: if user presses enter, keep the current name
             System.out.print("Enter new Name for Accessory (current: " + accessory.getName() + "): ");
@@ -139,7 +164,7 @@ public class AccessoryManager {
             if (name.isEmpty()) {
                 name = accessory.getName(); // Keep the current name if no input is given
             }
-    
+
             // Update price: if user presses enter, keep the current price
             System.out.print("Enter new Price for Accessory (current: RM" + accessory.getPrice() + "): ");
             String priceInput = scanner.nextLine();
@@ -151,7 +176,7 @@ public class AccessoryManager {
                     System.out.println("Invalid price entered, keeping current price.");
                 }
             }
-    
+
             // Update quantity: if user presses enter, keep the current quantity
             System.out.print("Enter new Quantity for Accessory (current: " + accessory.getQuantity() + "): ");
             String quantityInput = scanner.nextLine();
@@ -167,16 +192,15 @@ public class AccessoryManager {
                     System.out.println("Invalid quantity entered, keeping current quantity.");
                 }
             }
-    
+
             // Update the accessory with new or unchanged values
             accessory.updateAccessory(name, price, quantity);
-            saveAccessories();  // Auto-save
+            saveAccessories(); // Auto-save
             System.out.println("Accessory updated.");
         } else {
             System.out.println("Accessory ID not found.");
         }
     }
-    
 
     private void showDetails() {
         System.out.print("Enter Accessory ID: ");
@@ -196,6 +220,7 @@ public class AccessoryManager {
         System.out.println("Name: " + accessory.getName());
         System.out.println("Price: RM" + accessory.getPrice());
         System.out.println("Quantity: " + accessory.getQuantity());
+        System.out.println("Supplier ID: " + accessory.getSupplierId());
     }
 
     private void deleteAccessory() {
@@ -205,7 +230,7 @@ public class AccessoryManager {
 
         if (accessory != null) {
             accessories.remove(id);
-            saveAccessories();  // Auto-save
+            saveAccessories(); // Auto-save
             System.out.println("Accessory with ID " + id + " has been deleted.");
         } else {
             System.out.println("Accessory ID not found.");
@@ -223,7 +248,7 @@ public class AccessoryManager {
             while (true) {
                 System.out.print("Enter amount to stock in: ");
                 amount = scanner.nextInt();
-                scanner.nextLine();  // Consume newline
+                scanner.nextLine(); // Consume newline
                 if (amount >= 0) {
                     break;
                 } else {
@@ -232,7 +257,7 @@ public class AccessoryManager {
             }
 
             accessory.stockIn(amount);
-            saveAccessories();  // Auto-save
+            saveAccessories(); // Auto-save
             System.out.println("Stock updated. Current quantity: " + accessory.getQuantity());
         } else {
             System.out.println("Accessory ID not found.");
@@ -255,7 +280,7 @@ public class AccessoryManager {
             while (true) {
                 System.out.print("Enter amount to stock out: ");
                 amount = scanner.nextInt();
-                scanner.nextLine();  // Consume newline
+                scanner.nextLine(); // Consume newline
                 if (amount >= 0) {
                     break;
                 } else {
@@ -264,7 +289,7 @@ public class AccessoryManager {
             }
 
             if (accessory.stockOut(amount)) {
-                saveAccessories();  // Auto-save
+                saveAccessories(); // Auto-save
                 System.out.println("Stock updated. Current quantity: " + accessory.getQuantity());
             } else {
                 System.out.println("Not enough stock.");
@@ -279,7 +304,7 @@ public class AccessoryManager {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length != 4) {
+                if (parts.length != 5) { // Update the check to 5
                     System.err.println("Skipping malformed line: " + line);
                     continue;
                 }
@@ -288,6 +313,7 @@ public class AccessoryManager {
                 String name = parts[1];
                 double price = 0.0;
                 int quantity = 0;
+                String supplierId = parts[4]; // Read the supplierId from the 5th part
 
                 try {
                     price = Double.parseDouble(parts[2]);
@@ -297,7 +323,8 @@ public class AccessoryManager {
                     continue;
                 }
 
-                Accessory accessory = new Accessory(id, name, price, quantity);
+                // Create the Accessory object with the supplierId
+                Accessory accessory = new Accessory(id, name, price, quantity, supplierId);
                 accessories.put(id, accessory);
 
                 String prefix = "accs-";
@@ -318,22 +345,22 @@ public class AccessoryManager {
     private void saveAccessories() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt"))) {
             accessories.entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByKey()) // Sort by accessory ID in ascending order
-                .forEach(entry -> {
-                    Accessory accessory = entry.getValue();
-                    try {
-                        bw.write(accessory.getAccessoryId() + "," + accessory.getName() + "," + accessory.getPrice() + "," + accessory.getQuantity());
-                        bw.newLine();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
+                    .stream()
+                    .sorted(Map.Entry.comparingByKey()) // Sort by accessory ID in ascending order
+                    .forEach(entry -> {
+                        Accessory accessory = entry.getValue();
+                        try {
+                            bw.write(accessory.getAccessoryId() + "," + accessory.getName() + "," + accessory.getPrice()
+                                    + "," + accessory.getQuantity() + "," + accessory.getSupplierId());
+                            bw.newLine();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
 
     public static void main(String[] args) {
         AccessoryManager manager = new AccessoryManager();

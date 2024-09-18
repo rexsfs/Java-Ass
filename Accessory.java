@@ -6,13 +6,23 @@ public class Accessory implements Serializable {
     private String name;
     private double price;
     private int quantity;
+    private String supplierId;
 
     // Constructor with parameters
-    public Accessory(String accessoryId, String name, double price, int quantity) {
+    public Accessory(String accessoryId, String name, double price, int quantity, String supplierId) {
         this.accessoryId = accessoryId;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.supplierId = supplierId;
+    }
+
+    public String getSupplierId() {
+        return supplierId;
+    }
+
+    public void setSupplierId(String supplierId) {
+        this.supplierId = supplierId;
     }
 
     // No-argument constructor
