@@ -196,6 +196,7 @@ public class AccessoryManager {
         System.out.println("Name: " + accessory.getName());
         System.out.println("Price: RM" + accessory.getPrice());
         System.out.println("Quantity: " + accessory.getQuantity());
+        System.out.println("Supplier Id: " + supplier.)
     }
 
     private void deleteAccessory() {
