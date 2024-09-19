@@ -1,8 +1,8 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class AccessoryManager {
 
@@ -20,13 +20,14 @@ public class AccessoryManager {
     public void displayMenu() {
         while (true) {
             System.out.println("\n+=========================================================================================+");
-            System.out.println("|                            _                                                              |");
-            System.out.println("|                           / \   ___ ___ ___  ___ ___  ___  _ __ _   _                     |");
-            System.out.println("|                          / _ \ / __/ __/ _ \/ __/ __|/ _ \| '__| | | |                    |");
-            System.out.println("|                         / ___ \ (_| (_|  __/\__ \__ \ (_) | |  | |_| |                    |");
-            System.out.println("|                        /_/   \_\___\___\___||___/___/\___/|_|   \__, |                    |");
-            System.out.println("|                                                                  |___/                    |");
-            System.out.println("+===========================================================================================+");
+            System.out.println("|                        _                                                                |");
+            System.out.println("|                       / \\    ___ ___ __   ___ __   ___   _ __ _     _                   |");
+            System.out.println("|                      / _ \\ / __/ __/ _ \\/ __/ __| / _ \\ | '__| |   | |                  |");
+            System.out.println("|                     / ___ \\ (_| (_|  __/\\__ \\__ \\  (_)  |  | | |___| |                  |");
+            System.out.println("|                    /_/   \\_\\ __\\___\\__| \\___\\___/ \\___/ |__|  \\_____ |                  |");
+            System.out.println("|                                                                      |                  |");
+            System.out.println("+=========================================================================================+");
+            
             System.out.println("\nAccessory Management System");
             System.out.println("1. Add New Accessory");
             System.out.println("2. Update Accessory Details");
@@ -80,12 +81,12 @@ public class AccessoryManager {
                     int quantity = Integer.parseInt(parts[3]);
                     String supplierId = parts[4];
                     System.out.println("\n+=========================================================================================+");
-                    System.out.println("|                                ____  _          _                                         |");
-                    System.out.println("|                               |  _ \(_)___ _ __ | | __ _ _   _                            |");
-                    System.out.println("|                               | | | | / __| '_ \| |/ _` | | | |                           |");
-                    System.out.println("|                               | |_| | \__ \ |_) | | (_| | |_| |                           |");
-                    System.out.println("|                               |____/|_|___/ .__/|_|\__,_|\__, |                           |");
-                    System.out.println("|                                           |_|            |___/                            |");
+                    System.out.println("|                                ____  _             _                                      |");
+                    System.out.println("|                               |  _ \\(_)___ _ _ _ | | __ _  _   _                         |");
+                    System.out.println("|                               | | | |  / __| '_ \\| |/ _` || | | |                        |");
+                    System.out.println("|                               | |_| |  \\__\\|_)  | | (_| || |_| |                        |");
+                    System.out.println("|                               |____/|__| ___/.__/ |_|\\__,| \\_, |                        |");
+                    System.out.println("|                                            |_|               |___/                        |");
                     System.out.println("+===========================================================================================+");
                     System.out.println("ID: " + id);
                     System.out.println("Name: " + name);
@@ -106,12 +107,12 @@ public class AccessoryManager {
 
         ArrayList<Supplier> supplierList = SupplierMain.readSupplierToArray();
         System.out.println("\n+=============================================================================+");
-        System.out.println("|                                  _       _     _                              |");
-        System.out.println("|                                 / \   __| | __| |                             |");
-        System.out.println("|                                / _ \ / _` |/ _` |                             |");
-        System.out.println("|                               / ___ \ (_| | (_| |                             |");
-        System.out.println("|                              /_/   \_\__,_|\__,_|                             |");
-        System.out.println("+===============================================================================+");
+        System.out.println("|                                  _       _     _                            |");
+        System.out.println("|                                 / \\   __| | __| |                           |");
+        System.out.println("|                                / _ \\ / _` |/ _` |                           |");
+        System.out.println("|                               / ___ \\ (_| | (_| |                           |");
+        System.out.println("|                              /_/   \\_\\__,_|\\__,_|                           |");
+        System.out.println("+=============================================================================+");
         System.out.print("Enter supplier ID : ");
         String supplierId = scanner.nextLine();
 
@@ -174,13 +175,13 @@ public class AccessoryManager {
 
     private void updateAccessory() {
         System.out.println("\n+===============================================================================+");
-        System.out.println("|                           _   _           _       _                             |");
-        System.out.println("|                          | | | |_ __   __| | __ _| |_ ___                       |");
-        System.out.println("|                          | | | | '_ \ / _` |/ _` | __/ _ \                      |");
-        System.out.println("|                          | |_| | |_) | (_| | (_| | ||  __/                      |");
-        System.out.println("|                           \___/| .__/ \__,_|\__,_|\__\___|                      |");
-        System.out.println("|                                |_|                                              |");
-        System.out.println("+=================================================================================+");
+        System.out.println("|                           _   _           _       _                           |");
+        System.out.println("|                          | | | |_ __   __| | __ _| |_ ___                     |");
+        System.out.println("|                          | | | | '_ \\ / _` |/ _` | __/ _ \\                    |");
+        System.out.println("|                          | |_| | |_)|| (_| | (_| | ||  __/                    |");
+        System.out.println("|                           \\___/| .__/ \\__,_|\\_,__ \\__\\__|                     |");
+        System.out.println("|                                |_|                                            |");
+        System.out.println("+===============================================================================+");
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
         Accessory accessory = accessories.get(id);
@@ -232,12 +233,13 @@ public class AccessoryManager {
 
     private void showDetails() {
         System.out.println("\n+===============================================================================+");
-        System.out.println("|                           ____                      _                           |");
-        System.out.println("|                          / ___|  ___  __ _ _ __ ___| |__                        |");
-        System.out.println("|                          \___ \ / _ \/ _` | '__/ __| '_ \                       |");
-        System.out.println("|                           ___) |  __/ (_| | | | (__| | | |                      |");
-        System.out.println("|                          |____/ \___|\__,_|_|  \___|_| |_|                      |");
+        System.out.println("|                           ____                            _                     |");
+        System.out.println("|                          / ___|   ___   __ _  _ ___   __ | |__                  |");
+        System.out.println("|                          \\__ \\ / _ \\/  _` | | '__|/ __ | '_ \\                |");
+        System.out.println("|                           ___) |  __/ | (_| | | |  | (__ | | | |                |");
+        System.out.println("|                          |____/ \\___|\\__,_| |_|   \\___|_| |_|                |");
         System.out.println("+=================================================================================+");
+        
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
         Accessory accessory = accessories.get(id);
@@ -259,11 +261,11 @@ public class AccessoryManager {
 
     private void deleteAccessory() {
         System.out.println("\n+===============================================================================+");
-        System.out.println("|                           ____       _      _                                   |");
-        System.out.println("|                          |  _ \  ___| | ___| |_ ___                             |");
-        System.out.println("|                          | | | |/ _ \ |/ _ \ __/ _ \                            |");
-        System.out.println("|                          | |_| |  __/ |  __/ ||  __/                            |");
-        System.out.println("|                          |____/ \___|_|\___|\__\___|                            |");
+        System.out.println("|                           ____        _       _                                 |");
+        System.out.println("|                          |  _ \\  ___| | ___ | |_ ___                           |");
+        System.out.println("|                          | | | |/ _ \\ |/ _ \\ __/ _ \\                         |");
+        System.out.println("|                          | |_| |  __/| |  __/| | | __/                          |");
+        System.out.println("|                          |____/ \\___|_|\\___|_| \\___                          |");
         System.out.println("+=================================================================================+");
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
@@ -280,11 +282,11 @@ public class AccessoryManager {
 
     private void stockInAccessory() {
         System.out.println("\n+=========================================================================================+");
-        System.out.println("|                            ____  _             _    ___                                   |");
-        System.out.println("|                           / ___|| |_ ___   ___| | _|_ _|_ __                              |");
-        System.out.println("|                           \___ \| __/ _ \ / __| |/ /| || '_ \                             |");
-        System.out.println("|                            ___) | || (_) | (__|   < | || | | |                            |");
-        System.out.println("|                           |____/ \__\___/ \___|_|\_\___|_| |_|                            |");
+        System.out.println("|                            ____  __               _     ___                               |");
+        System.out.println("|                           / ___||  |_ ___    _ _ | | _ |_ _|_ __                          |");
+        System.out.println("|                           \\__\\|  __/ _ \\ / __|| |/ / | ||  '_ \\                       |");
+        System.out.println("|                            ____)|  || (_) |  (__ |  <   |  | |  | |                       |");
+        System.out.println("|                           |____/\\__\\___/ \\___||_|_\\|___|_|  |_|                       |");
         System.out.println("+===========================================================================================+");
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
@@ -314,11 +316,11 @@ public class AccessoryManager {
 
     private void stockOutAccessory() {
         System.out.println("\n+=========================================================================================+");
-        System.out.println("|                            ____  _             _     ___        _                         |");
-        System.out.println("|                           / ___|| |_ ___   ___| | __/ _ \ _   _| |_                       |");
-        System.out.println("|                           \___ \| __/ _ \ / __| |/ / | | | | | | __|                      |");
-        System.out.println("|                            ___) | || (_) | (__|   <| |_| | |_| | |_                       |");
-        System.out.println("|                           |____/ \__\___/ \___|_|\_\\___/ \__,_|\__|                      |");
+        System.out.println("|                            ____  __               _         ___         _                 |");
+        System.out.println("|                           / ___||  |_ ___   _ _  | |   _   / _ \\__  __| |_               |");
+        System.out.println("|                           \\__\\|  __/ _ \\/ __| | | / /  | | | |  | | |  __|             |");
+        System.out.println("|                            ___) |  || (_) | (__  |   <    | |_| |  |_| |  |_              |");
+        System.out.println("|                           |____/\\__\\___/ \\___||_|\\_\\ \\___/ \\__,_|\\___|            |");
         System.out.println("+===========================================================================================+");
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
