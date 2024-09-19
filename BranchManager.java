@@ -18,6 +18,13 @@ public class BranchManager {
 
     public void displayMenu() {
         while (true) {
+            System.out.println("\n+=========================================================================================+");
+            System.out.println("|                             ____                         _                             |");
+            System.out.println("|                            | __ ) _ __ _   _ _ __  _ __ | | ___ _ __                   |");
+            System.out.println("|                            |  _ \\| '__| | | | '_ \\| '_ \\| |/ _ \\ '__|                  |");
+            System.out.println("|                            | |_) | |  | |_| | | | | | | | |  __/ |                     |");
+            System.out.println("|                            |____/|_|   \\__,_|_| |_|_| |_|_|\\___|_|                     |");
+            System.out.println("+=========================================================================================+");
             System.out.println("\nBranch Management System");
             System.out.println("1. Add New Branch");
             System.out.println("2. Update Branch Details");
