@@ -335,6 +335,7 @@
              System.out.println("|               \\___ \\| __/ _` | |_| |_  | | | |/ _ \\ __/ _` | | / __|                    |");
              System.out.println("|                 ___) | || (_| |  _|  _| | |_| |  __/ || (_| | | \\__ \\                    |");
              System.out.println("|               |____/ \\__\\__,_|_| |_|   |____/ \\___|\\__\\__,_|_|_|___/               |");
+             System.out.println("|                                                                                         |");
              System.out.println("+=========================================================================================+");
              System.out.println("Staff Id: " + staff.getPersonId());
              System.out.println("Staff Name: " + staff.getName());
@@ -372,6 +373,7 @@
          System.out.println("|               \\___ \\| __/ _` | |_| |_  | | | |/ _ \\ __/ _` | | / __|                    |");
          System.out.println("|                ___) | || (_| |  _|  _| | |_| |  __/ || (_| | | \\__ \\                    |");
          System.out.println("|               |____/ \\__\\__,_|_| |_|   |____/ \\___|\\__\\__,_|_|_|___/                    |");
+         System.out.println("|                                                                                         |");
          System.out.println("+=========================================================================================+");
          System.out.println("Staff ID: " + staffList.get(foundIndex).getPersonId());
          System.out.println("Staff Name: " + staffList.get(foundIndex).getName());
@@ -427,6 +429,7 @@
          System.out.println("|                       \\___ \\| __/ _` | |_| |_  | |   | / __| __|                        |");
          System.out.println("|                        ___) | || (_| |  _|  _| | |___| \\__ \\ |_                         |");
          System.out.println("|                       |____/ \\__\\__,_|_| |_|   |_____|_|___/\\__|                        |");
+         System.out.println("|                                                                                         |");
          System.out.println("+==========================================================================================+");
          System.out.println("+------------+----------------------+----------------------+------------------------------------------------+--------------------------------+----------------------+-----------------+-----------------+");
          System.out.printf("| %-10s | %-20s | %-20s | %-45s  | %-30s | %-20s | %-15s | %-15s |%n",
@@ -667,6 +670,7 @@
                  System.out.println("|              | || '_ \\| |_ / _ \\| '__| '_ ` _ \\ / _` | __| |/ _ \\| '_ \\                 |");
                  System.out.println("|              | || | | |  _| (_) | |  | | | | | | (_| | |_| | (_) | | | |                |");
                  System.out.println("|             |___|_| |_|_|  \\___/|_|  |_| |_| |_|\\__,_|\\__|_|\\___/|_| |_|                |");
+                 System.out.println("|                                                                                         |");
                  System.out.println("+=========================================================================================+");
                  System.out.println("Select the information to modify:");
                  System.out.println("1. Name");
@@ -823,6 +827,7 @@
                      System.out.println("|                | || '_ \\| |_ / _ \\| '__| '_ ` _ \\ / _` | __| |/ _ \\| '_ \\               |");
                      System.out.println("|                | || | | |  _| (_) | |  | | | | | | (_| | |_| | (_) | | | |              |");
                      System.out.println("|               |___|_| |_|_|  \\___/|_|  |_| |_| |_|\\__,_|\\__|_|\\___/|_| |_|              |");
+                     System.out.println("|                                                                                         |");
                      System.out.println("+=========================================================================================+");
                      System.out.println("Select the information to modify:");
                      System.out.println("\n1. Name");
@@ -948,7 +953,7 @@
              // Save updated staff list to file
              writeArrayToFile(staffList);
          }
-         
+ 
          System.out.print("\nDo you want to modify more Staff? (y = Yes): ");
          char confirmation = scanner.nextLine().charAt(0);
  
