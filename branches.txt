@@ -1,3 +1,2 @@
 br-0002,penang,01123456789,asdghjkl,20,siu yee
 br-0001,seremban,0123456789,qwertyuiop,4,siu yee
-br-0003,johor,0123456789,qwertyuiop,2,jia xin
