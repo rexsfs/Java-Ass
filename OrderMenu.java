@@ -112,7 +112,7 @@ public class OrderMenu {
     
             if (orders.isEmpty()) {
                 System.out.println("No Items Were Ordered. Returning To The Menu...");
-                OrderAccessories(); 
+                return;
             } else {
                 System.out.println("Order" + DEEP_GREEN + " Completed" + ANSI_RESET + ". Thank You!\n");
             }
