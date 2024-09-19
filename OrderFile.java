@@ -65,11 +65,6 @@ public class OrderFile {
             String header = "+---------------+--------------------------------------------------+--------------+---------------+---------------+\n";
             String point = String.format("| %-13s | %-48s | %-12s | %-13s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
     
-            writer.write("Your Receipt: \n");
-            writer.write(ANSI_BOLD_YELLOW + header);
-            writer.write(point);
-            writer.write(header + ANSI_RESET);
-    
             System.out.println("Your Receipt: ");
             System.out.print(ANSI_BOLD_YELLOW + header);
             System.out.printf(point);
@@ -90,42 +85,44 @@ public class OrderFile {
                     order.dateOrder();
                     orders.add(order);
     
-                    String point1 = String.format("| %-13s | %-48s | RM%-11.2f | %-12d | RM%-11.2f |%n", 
+                    totalAmount = OrderFunc.calculateTotalAmount(orders);
+                    String orderID = order.getOrderID();
+                    String orderDt = order.getOrderDate();
+                    String paymentMtd = Payment.getPaymentMethod();
+    
+                    String write = String.format("%s, %s, %.2f, %d, %.2f, %.2f, %s, %s, %s%n", 
+                                                 accessoryId, item, price, qty, qty * price, totalAmount, orderID, orderDt, paymentMtd);
+                    writer.write(write);
+    
+                    String show = String.format("| %-13s | %-48s | RM%-11.2f | %-12d | RM%-11.2f |%n", 
                                                  accessoryId, item, price, qty, qty * price);
     
-                    writer.write(ANSI_BOLD_YELLOW + point1);
-                    writer.write(header + ANSI_RESET);
-    
-                    System.out.print(ANSI_BOLD_YELLOW + point1);
+                    System.out.print(ANSI_BOLD_YELLOW + show);
                     System.out.print(header + ANSI_RESET);
                 }
             }
     
             if (!orders.isEmpty()) {
                 totalAmount = OrderFunc.calculateTotalAmount(orders);
-                String totalStr = String.format("Total Amount: RM%.2f\n", totalAmount);
-                String orderIdStr = "Order ID: " + orders.get(0).getOrderID() + "\n";
-                String orderDateStr = "Order Date: " + orders.get(0).getOrderDate() + "\n";
-                String paymentMethod = Payment.getPaymentMethod();
-                String paymentStr = "Payment Method: " + paymentMethod + "\n";
+                String orderID = orders.get(0).getOrderID();
+                String orderDt = orders.get(0).getOrderDate();
+                String paymentMtd = Payment.getPaymentMethod();
     
-                writer.write(totalStr);
-                writer.write(orderIdStr);
-                writer.write(orderDateStr);
-                writer.write(paymentStr + "\n");
-                writer.write(ANSI_BOLD_YELLOW + "-------------------------------------------------------------------------------------------------------------------" + ANSI_RESET);
-                writer.write("\n");
+                String total = String.format("Total Amount: RM%.2f\n", totalAmount);
+                String id = "Order ID: " + orderID + "\n";
+                String date = "Order Date: " + orderDt + "\n";
+                String method = "Payment Method: " + paymentMtd + "\n";
     
-                System.out.print(totalStr);
-                System.out.print(orderIdStr);
-                System.out.print(orderDateStr);
-                System.out.print(paymentStr + "\n");
+                System.out.print(total);
+                System.out.print(id);
+                System.out.print(date);
+                System.out.print(method + "\n");
             }
     
         } catch (IOException e) {
             System.out.println("Error reading the file.");
             e.printStackTrace();
         }
-    }
+    }    
     
 }
