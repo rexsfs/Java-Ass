@@ -6,9 +6,10 @@ public class Accessory implements Serializable {
     private String name;
     private double price;
     private int quantity;
+    private String supplierId;
 
     // Constructor with parameters
-    public Accessory(String accessoryId, String name, double price, int quantity) {
+    public Accessory(String accessoryId, String name, double price, int quantity, String supplierId) {
         this.accessoryId = accessoryId;
         this.name = name;
         this.price = price;
@@ -22,6 +23,12 @@ public class Accessory implements Serializable {
         this.price = 0.0;
         this.quantity = 0;
     }
+
+    public String getSupplierId(){
+        return supplierId;
+    }
+
+    
 
     // Method to add stock
     public void stockIn(int amount) {

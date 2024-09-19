@@ -56,7 +56,7 @@ public class Staff extends Person{
     
     @Override
     public String toString(){
-        return super.toString() + "|" + getPosition() + "|" + getSalary() + "|" + getStaffType() + "|" + getPassword() + "\n" ;
+        return super.toString() + "|" + getPosition() + "|" + getSalary() + "|" + getStaffType() + "|" + getPassword() + "|" + getAnswer() + "\n" ;
     }
     
     @Override

@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class BranchManager {
 
     private Map<String, Branch> branches;
-    private Scanner scanner;
+    private final Scanner scanner;
     private Map<String, Integer> idCounters;
 
     public BranchManager() {
@@ -18,6 +18,14 @@ public class BranchManager {
 
     public void displayMenu() {
         while (true) {
+            System.out.println("+=========================================================================+");
+            System.out.println("|                    ____                       _                         |");
+            System.out.println("|                   | __ ) _ __ __ _ _ __   ___| |__                      |");
+            System.out.println("|                   |  _ \\| '__/ _` | '_ \\ / __| '_ \\                     |");
+            System.out.println("|                   | |_) | | | (_| | | | | (__| | | |                    |");
+            System.out.println("|                   |____/|_|  \\__,_|_| |_|\\___|_| |_|                    |");
+            System.out.println("+=========================================================================+");
+
             System.out.println("\nBranch Management System");
             System.out.println("1. Add New Branch");
             System.out.println("2. Update Branch Details");
@@ -26,27 +34,24 @@ public class BranchManager {
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine();  // Consume newline
-
             switch (choice) {
-                case 1:
-                    addBranch();
-                    break;
-                case 2:
-                    updateBranch();
-                    break;
-                case 3:
-                    showDetails();
-                    break;
-                case 4:
-                    deleteBranch();
-                    break;
-                default:
-                    System.out.println("Invalid choice! Please try again.");
+                case 1 -> addBranch();
+                case 2 -> updateBranch();
+                case 3 -> showDetails();
+                case 4 -> deleteBranch();
+                default -> System.out.println("Invalid choice! Please try again.");
             }
         }
     }
 
     private void addBranch() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                        _       _     _ ");
+        System.out.println("                       / \\   __| | __| |");
+        System.out.println("                      / _ \\ / _` |/ _` |");
+        System.out.println("                     / ___ \\ (_| | (_| |");
+        System.out.println("                    /_/   \\_\\__,_|\\__,_|");
+        System.out.println("+=======================================================================================+");
         System.out.print("Enter Branch Name: ");
         String name = scanner.nextLine();
         String id = generateId(name);
@@ -65,9 +70,10 @@ public class BranchManager {
             } else if ((phoneNum.startsWith("01") || phoneNum.startsWith("03")) && phoneNum.length() == 10) {
                 break;  // Valid phone number starting with 01 or 03
             } else {
-                System.out.println("Invalid phone number! Please ensure the phone number follows the format:\n" +
-                                   " - Starts with 011\n" +
-                                   " - Starts with 01 or 03");
+                System.out.println("""
+                                   Invalid phone number! Please ensure the phone number follows the format:
+                                    - Starts with 011
+                                    - Starts with 01 or 03""");
             }
         }
     
@@ -106,6 +112,14 @@ public class BranchManager {
     
 
     private void updateBranch() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     _   _           _       _       ");
+        System.out.println("                    | | | |_ __   __| | __ _| |_ ___ ");
+        System.out.println("                    | | | | '_ \\ / _` |/ _` | __/ _ \\");
+        System.out.println("                    | |_| | |_) | (_| | (_| | ||  __/");
+        System.out.println("                     \\___/| .__/ \\__,_|\\__,_|\\__\\___|");
+        System.out.println("                          |_|                        ");
+        System.out.println("+=======================================================================================+");
         System.out.print("Enter Branch ID: ");
         String id = scanner.nextLine();
         Branch branch = branches.get(id);
@@ -129,9 +143,10 @@ public class BranchManager {
                 } else if ((phoneNum.startsWith("01") || phoneNum.startsWith("03")) && phoneNum.length() == 10) {
                     break;  // Valid phone number starting with 01 or 03
                 } else {
-                    System.out.println("Invalid phone number! Please ensure the phone number follows the format:\n" +
-                                       " - Starts with 011 \n" +
-                                       " - Starts with 01 or 03");
+                    System.out.println("""
+                                       Invalid phone number! Please ensure the phone number follows the format:
+                                        - Starts with 011 
+                                        - Starts with 01 or 03""");
                 }
             }
     
@@ -176,18 +191,32 @@ public class BranchManager {
     
     
     private void showDetails() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____                      _     ");
+        System.out.println("                    / ___|  ___  __ _ _ __ ___| |__  ");
+        System.out.println("                    \\___ \\ / _ \\/ _` | '__/ __| '_ \\ ");
+        System.out.println("                     ___) |  __/ (_| | | | (__| | | |");
+        System.out.println("                    |____/ \\___|\\__,_|_|  \\___|_| |_|");
+        System.out.println("+=======================================================================================+");
         System.out.print("Enter Branch ID: ");
         String id = scanner.nextLine();
         Branch branch = branches.get(id);
-
+    
         if (branch != null) {
-            displayDetails(branch);
+            displayDetails(branch);  // Pass the branch object here
         } else {
             System.out.println("Branch ID not found.");
         }
     }
 
     private void deleteBranch() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____       _      _       ");
+        System.out.println("                    |  _ \\  ___| | ___| |_ ___ ");
+        System.out.println("                    | | | |/ _ \\ |/ _ \\ __/ _ \\");
+        System.out.println("                    | |_| |  __/ |  __/ ||  __/");
+        System.out.println("                    |____/ \\___|_|\\___|\\__\\___|");
+        System.out.println("+=======================================================================================+");
         System.out.print("Enter Branch ID: ");
         String id = scanner.nextLine();
         Branch branch = branches.get(id);
@@ -219,6 +248,14 @@ public class BranchManager {
     }
 
     private void displayDetails(Branch branch) {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____  _           _             ");
+        System.out.println("                    |  _ \\(_)___ _ __ | | __ _ _   _ ");
+        System.out.println("                    | | | | / __| '_ \\| |/ _` | | | |");
+        System.out.println("                    | |_| | \\__ \\ |_) | | (_| | |_| |");
+        System.out.println("                    |____/|_|___/ .__/|_|\\__,_|\\__, |");
+        System.out.println("                                |_|            |___/ ");
+        System.out.println("+=======================================================================================+");
         System.out.println("Branch Details:");
         System.out.println("ID: " + branch.getBranchId());
         System.out.println("Name: " + branch.getName());
@@ -266,7 +303,6 @@ public class BranchManager {
             branches = new HashMap<>();
             idCounters = new HashMap<>();
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -277,7 +313,6 @@ public class BranchManager {
                 bw.newLine();
             }
         } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
