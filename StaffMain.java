@@ -176,24 +176,25 @@ public class StaffMain {
                     "+=========================================================================================+");
 
             System.out.println("\n1. Supplier Function");
-            System.out.println("\n2. Personal information");
-            System.out.println("\n3. Modify Personal Information");
-            System.out.println("\n4. Cancel Account");
-            System.out.println("\n5. Exit");
-            System.out.println(
-                    "--------------------------------------------------------------------------------------------");
+            System.out.println("2. Personal information");
+            System.out.println("3. Modify Personal Information");
+            System.out.println("4. Cancel Account");
+            System.out.println("5. Accessory Management");
+            System.out.println("6. Branch Function");
+            System.out.println("7. Exit");
+            System.out.println("--------------------------------------------------------------------------------------------");
             System.out.print("Select your choice : ");
 
             try {
                 choice = scanner.nextInt();
 
-                if (choice >= 1 && choice <= 5) {
+                if (choice >= 1 && choice <= 7) {
                     break;
                 } else {
-                    System.out.println("Invalid choice. Please enter a number between 1 and 4.");
+                    System.out.println("Invalid choice. Please enter a number between 1 and 7!!!");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter an integer between 1 and 4.");
+                System.out.println("Invalid input. Please enter an integer between 1 and 7!!!");
                 scanner.next();
             }
         }
@@ -212,6 +213,12 @@ public class StaffMain {
                 cancelAccount(foundIndex);
                 break;
             case 5:
+                AccessoryManager.displayMenu(foundIndex);
+                break;
+            case 6:
+                BranchManager.displayMenu(foundIndex); // Pass the foundIndex
+                break;
+            case 7:
                 System.out.print("exit...");
                 break;
         }
@@ -250,7 +257,8 @@ public class StaffMain {
             System.out.println("8. Search Staff");
             System.out.println("9. Display All Staff");
             System.out.println("10. Accessory Management");
-            System.out.println("11. Exit");
+            System.out.println("11. Branch Function");
+            System.out.println("12. Exit");
             System.out.println(
                     "--------------------------------------------------------------------------------------------");
             System.out.print("Select your choice : ");
@@ -258,13 +266,13 @@ public class StaffMain {
             try {
                 choice = scanner.nextInt();
 
-                if (choice >= 1 && choice <= 10) {
+                if (choice >= 1 && choice <= 12) {
                     break;
                 } else {
-                    System.out.println("Invalid choice. Please enter a number between 1 and 10!!!");
+                    System.out.println("Invalid choice. Please enter a number between 1 and 12!!!");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter an integer between 1 and 10!!!");
+                System.out.println("Invalid input. Please enter an integer between 1 and 12!!!");
                 scanner.next();
             }
         }
@@ -301,6 +309,9 @@ public class StaffMain {
                 AccessoryManager.displayMenu(foundIndex);
                 break;
             case 11:
+                BranchManager.displayMenu(foundIndex); // Pass the foundIndex
+                break;
+            case 12:
                 System.out.println("exit...");
                 break;
         }

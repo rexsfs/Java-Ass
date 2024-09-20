@@ -5,21 +5,22 @@ import java.util.Scanner;
 
 public class BranchManager {
 
+
     private static Map<String, Branch> branches;
     private static Scanner scanner;
     private static Map<String, Integer> idCounters;
 
     static {
         branches = new HashMap<>();
-        scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in); 
         idCounters = new HashMap<>();
     }
 
-    public BranchManager() {
+    public BranchManager(){
         loadBranches();
     }
 
-    public static void displayMenu(int staffIndex) {
+    public static void displayMenu(int foundIndex) {
         while (true) {
             System.out.println("+=========================================================================+");
             System.out.println("|                    ____                       _                         |");
@@ -34,36 +35,21 @@ public class BranchManager {
             System.out.println("2. Update Branch Details");
             System.out.println("3. View Branch Details");
             System.out.println("4. Delete Branch");
-            System.out.println("5. Return");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine();  // Consume newline
             switch (choice) {
-                case 1:
-                    addBranch();
-                    break;
-                case 2:
-                    updateBranch();
-                    break;
-                case 3:
-                    showDetails();
-                    break;
-                case 4:
-                    deleteBranch();
-                    break;
-                case 5:
-                    StaffMain.staffTypeRecognize(staffIndex);
-                    break;
-                default:
-                    System.out.println("Invalid choice! Please try again.");
-                    break;
+                case 1 -> addBranch();
+                case 2 -> updateBranch();
+                case 3 -> showDetails();
+                case 4 -> deleteBranch();
+                default -> System.out.println("Invalid choice! Please try again.");
             }
         }
     }
 
     private static void addBranch() {
-        System.out
-                .println("\n+=======================================================================================+");
+        System.out.println("\n+=======================================================================================+");
         System.out.println("                        _       _     _ ");
         System.out.println("                       / \\   __| | __| |");
         System.out.println("                      / _ \\ / _` |/ _` |");
@@ -74,62 +60,63 @@ public class BranchManager {
         String name = scanner.nextLine();
         String id = generateId(name);
         String phoneNum;
-
+    
         // Validate phone number
         while (true) {
             System.out.print("Enter Branch Phone Number: ");
             phoneNum = scanner.nextLine();
-
+            
             // Check phone number validity
             if (phoneNum.length() > 11) {
                 System.out.println("Phone number is too long!");
             } else if (phoneNum.startsWith("011") && phoneNum.length() == 11) {
-                break; // Valid phone number starting with 011
+                break;  // Valid phone number starting with 011
             } else if ((phoneNum.startsWith("01") || phoneNum.startsWith("03")) && phoneNum.length() == 10) {
-                break; // Valid phone number starting with 01 or 03
+                break;  // Valid phone number starting with 01 or 03
             } else {
-                System.out.println("Invalid phone number! Please ensure the phone number follows the format:");
-                System.out.println("- Starts with 011");
-                System.out.println("- Starts with 01 or 03");
+                System.out.println("""
+                                   Invalid phone number! Please ensure the phone number follows the format:
+                                    - Starts with 011
+                                    - Starts with 01 or 03""");
             }
         }
-
+    
         System.out.print("Enter Branch Address: ");
         String address = scanner.nextLine();
         System.out.print("Enter Branch Manager Name: ");
         String managerName = scanner.nextLine();
-
+        
         int employeeCount = -1;
         // Validate employee count
         while (true) {
             System.out.print("Enter Branch Employees Count: ");
             if (scanner.hasNextInt()) {
                 employeeCount = scanner.nextInt();
-                scanner.nextLine(); // Consume newline
-
+                scanner.nextLine();  // Consume newline
+                
                 // Check if employee count is positive and does not exceed 60
                 if (employeeCount > 0 && employeeCount <= 60) {
-                    break; // Valid employee count
+                    break;  // Valid employee count
                 } else {
                     System.out.println("Invalid employee count! Please enter a positive number not exceeding 60.");
                 }
             } else {
                 System.out.println("Invalid input! Please enter a numeric value.");
-                scanner.next(); // Clear invalid input
+                scanner.next();  // Clear invalid input
             }
         }
-
+    
         Branch branch = new Branch(id, name, phoneNum, address, employeeCount, managerName);
         branches.put(id, branch);
         System.out.println("Branch added with ID: " + id);
-
+    
         // Save branches to file
         saveBranches();
     }
+    
 
-    private static void updateBranch() {
-        System.out
-                .println("\n+=======================================================================================+");
+    private  static void updateBranch() {
+        System.out.println("\n+=======================================================================================+");
         System.out.println("                     _   _           _       _       ");
         System.out.println("                    | | | |_ __   __| | __ _| |_ ___ ");
         System.out.println("                    | | | | '_ \\ / _` |/ _` | __/ _ \\");
@@ -140,74 +127,75 @@ public class BranchManager {
         System.out.print("Enter Branch ID: ");
         String id = scanner.nextLine();
         Branch branch = branches.get(id);
-
+    
         if (branch != null) {
             // Update Branch Name
             System.out.print("Enter new Name for Branch (current: " + branch.getName() + "): ");
             String name = scanner.nextLine();
-
+    
             // Update Branch Phone Number with validation
             String phoneNum;
             while (true) {
                 System.out.print("Enter new Phone Number for Branch (current: " + branch.getPhoneNum() + "): ");
                 phoneNum = scanner.nextLine();
-
+                
                 // Check phone number validity
                 if (phoneNum.length() > 11) {
                     System.out.println("Phone number is too long!");
                 } else if (phoneNum.startsWith("011") && phoneNum.length() == 11) {
-                    break; // Valid phone number starting with 011
+                    break;  // Valid phone number starting with 011
                 } else if ((phoneNum.startsWith("01") || phoneNum.startsWith("03")) && phoneNum.length() == 10) {
-                    break; // Valid phone number starting with 01 or 03
+                    break;  // Valid phone number starting with 01 or 03
                 } else {
-                    System.out.println("Invalid phone number! Please ensure the phone number follows the format:");
-                    System.out.println("- Starts with 011");
-                    System.out.println("- Starts with 01 or 03");
+                    System.out.println("""
+                                       Invalid phone number! Please ensure the phone number follows the format:
+                                        - Starts with 011 
+                                        - Starts with 01 or 03""");
                 }
             }
-
+    
             // Update Branch Address
             System.out.print("Enter new Address for Branch (current: " + branch.getAddress() + "): ");
             String address = scanner.nextLine();
-
+    
             // Update Branch Manager Name
             System.out.print("Enter new Manager for Branch (current: " + branch.getManagerName() + "): ");
             String managerName = scanner.nextLine();
-
+    
             // Update Branch Employee Count with validation
             int employeeCount = -1;
             while (true) {
                 System.out.print("Enter new Employee Count (current: " + branch.getEmployeeCount() + "): ");
                 if (scanner.hasNextInt()) {
                     employeeCount = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
-
+                    scanner.nextLine();  // Consume newline
+                    
                     // Check if employee count is positive and does not exceed 60
                     if (employeeCount > 0 && employeeCount <= 60) {
-                        break; // Valid employee count
+                        break;  // Valid employee count
                     } else {
                         System.out.println("Invalid employee count! Please enter a positive number not exceeding 60.");
                     }
                 } else {
                     System.out.println("Invalid input! Please enter a numeric value.");
-                    scanner.next(); // Clear invalid input
+                    scanner.next();  // Clear invalid input
                 }
             }
 
             // Update branch information
             branch.updateBranch(name, phoneNum, address, employeeCount, managerName);
             System.out.println("Branch updated.");
-
+    
             // Save branches to file
             saveBranches();
         } else {
             System.out.println("Branch ID not found.");
         }
     }
-
+    
+    
     private static void showDetails() {
-        System.out
-                .println("\n+=======================================================================================+");
+        System.out.println("\n+=======================================================================================+");
         System.out.println("                     ____                      _     ");
         System.out.println("                    / ___|  ___  __ _ _ __ ___| |__  ");
         System.out.println("                    \\___ \\ / _ \\/ _` | '__/ __| '_ \\ ");
@@ -217,17 +205,16 @@ public class BranchManager {
         System.out.print("Enter Branch ID: ");
         String id = scanner.nextLine();
         Branch branch = branches.get(id);
-
+    
         if (branch != null) {
-            displayDetails(branch); // Pass the branch object here
+            displayDetails(branch);  // Pass the branch object here
         } else {
             System.out.println("Branch ID not found.");
         }
     }
 
     private static void deleteBranch() {
-        System.out
-                .println("\n+=======================================================================================+");
+        System.out.println("\n+=======================================================================================+");
         System.out.println("                     ____       _      _       ");
         System.out.println("                    |  _ \\  ___| | ___| |_ ___ ");
         System.out.println("                    | | | |/ _ \\ |/ _ \\ __/ _ \\");
@@ -265,8 +252,7 @@ public class BranchManager {
     }
 
     private static void displayDetails(Branch branch) {
-        System.out
-                .println("\n+=======================================================================================+");
+        System.out.println("\n+=======================================================================================+");
         System.out.println("                     ____  _           _             ");
         System.out.println("                    |  _ \\(_)___ _ __ | | __ _ _   _ ");
         System.out.println("                    | | | | / __| '_ \\| |/ _` | | | |");
@@ -327,12 +313,15 @@ public class BranchManager {
     private static void saveBranches() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("branches.txt"))) {
             for (Branch branch : branches.values()) {
-                bw.write(branch.getBranchId() + "," + branch.getName() + "," + branch.getPhoneNum() + ","
-                        + branch.getAddress() + "," + branch.getEmployeeCount() + "," + branch.getManagerName());
+                bw.write(branch.getBranchId() + "," + branch.getName() + "," + branch.getPhoneNum() + "," + branch.getAddress() + "," + branch.getEmployeeCount() + "," + branch.getManagerName());
                 bw.newLine();
             }
         } catch (IOException e) {
         }
     }
 
+    public static void main(String[] args) {
+        BranchManager manager = new BranchManager();
+        manager.displayMenu();
+    }
 }
