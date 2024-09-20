@@ -87,6 +87,14 @@ public class AccessoryManager {
         System.out.println("\nAll Accessories Details:");
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
+            System.out.println("\n+=======================================================================================+");
+                    System.out.println("                     ____  _           _             ");
+                    System.out.println("                    |  _ \\(_)___ _ __ | | __ _ _   _ ");
+                    System.out.println("                    | | | | / __| '_ \\| |/ _` | | | |");
+                    System.out.println("                    | |_| | \\__ \\ |_) | | (_| | |_| |");
+                    System.out.println("                    |____/|_|___/ .__/|_|\\__,_|\\__, |");
+                    System.out.println("                                |_|            |___/ ");
+                    System.out.println("+=======================================================================================+");
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 5) {
@@ -95,16 +103,6 @@ public class AccessoryManager {
                     double price = Double.parseDouble(parts[2]);
                     int quantity = Integer.parseInt(parts[3]);
                     String supplierId = parts[4];
-                    System.out.println(
-                            "\n+=======================================================================================+");
-                    System.out.println("                     ____  _           _             ");
-                    System.out.println("                    |  _ \\(_)___ _ __ | | __ _ _   _ ");
-                    System.out.println("                    | | | | / __| '_ \\| |/ _` | | | |");
-                    System.out.println("                    | |_| | \\__ \\ |_) | | (_| | |_| |");
-                    System.out.println("                    |____/|_|___/ .__/|_|\\__,_|\\__, |");
-                    System.out.println("                                |_|            |___/ ");
-                    System.out.println(
-                            "+=======================================================================================+");
                     System.out.println("ID: " + id);
                     System.out.println("Name: " + name);
                     System.out.println("Price: RM" + price);
