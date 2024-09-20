@@ -83,19 +83,21 @@ public class Payment {
     public static void updateAccessoryQuantities(String orderFilename, String accessoriesFilename) {
         List<String> accessoryData = new ArrayList<>();
         Map<String, Integer> accessoryMap = new HashMap<>();
-        
+
+        // Read accessories file (Including supplierId)
         try (BufferedReader accessoryReader = new BufferedReader(new FileReader(accessoriesFilename))) {
             String line;
             while ((line = accessoryReader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 4) {
+                if (parts.length == 5) { 
                     String accessoryId = parts[0].trim();
                     String item = parts[1].trim();
-                    double price = Double.parseDouble(parts[2].trim());  
+                    double price = Double.parseDouble(parts[2].trim());
                     int qty = (int) Double.parseDouble(parts[3].trim()); 
-    
+                    String supplierId = parts[4].trim(); 
+
                     accessoryMap.put(accessoryId, qty);
-                    accessoryData.add(line); 
+                    accessoryData.add(String.format("%s,%s,%.2f,%d,%s", accessoryId, item, price, qty, supplierId));
                 }
             }
         } catch (IOException e) {
@@ -103,19 +105,19 @@ public class Payment {
             e.printStackTrace();
             return;
         }
-            
+
         try (BufferedReader orderReader = new BufferedReader(new FileReader(orderFilename))) {
             String orderLine;
             while ((orderLine = orderReader.readLine()) != null) {
                 String[] orderParts = orderLine.split(",");
-                if (orderParts.length == 4) {
+                if (orderParts.length == 4) { 
                     String orderAccessoryId = orderParts[0].trim();
-                    int orderQty = Integer.parseInt(orderParts[3].trim()); 
-    
+                    int orderQty = Integer.parseInt(orderParts[3].trim());
+
                     if (accessoryMap.containsKey(orderAccessoryId)) {
                         int availableQty = accessoryMap.get(orderAccessoryId);
                         int updatedQty = availableQty - orderQty;
-    
+
                         accessoryMap.put(orderAccessoryId, updatedQty);
                     }
                 }
@@ -125,22 +127,27 @@ public class Payment {
             e.printStackTrace();
             return;
         }
-    
+
         try (BufferedWriter accessoryWriter = new BufferedWriter(new FileWriter(accessoriesFilename))) {
-            for (String line : accessoryData) {
-                String[] parts = line.split(",");
-                if (parts.length == 4) {
-                    String accessoryId = parts[0].trim();
-                    String item = parts[1].trim();
-                    double price = Double.parseDouble(parts[2].trim()); 
-    
-                    if (accessoryMap.containsKey(accessoryId)) {
-                        int updatedQty = accessoryMap.get(accessoryId);
-                        accessoryWriter.write(String.format("%s,%s,%.2f,%d\n", accessoryId, item, price, updatedQty));
-                    } else {
-                        accessoryWriter.write(line + "\n"); 
+            if (!accessoryMap.isEmpty() && !accessoryData.isEmpty()) {
+                for (String line : accessoryData) {
+                    String[] parts = line.split(",");
+                    if (parts.length == 5) { 
+                        String accessoryId = parts[0].trim();
+                        String item = parts[1].trim();
+                        double price = Double.parseDouble(parts[2].trim());
+                        String supplierId = parts[4].trim(); 
+
+                        if (accessoryMap.containsKey(accessoryId)) {
+                            int updatedQty = accessoryMap.get(accessoryId);
+                            accessoryWriter.write(String.format("%s,%s,%.2f,%d,%s\n", accessoryId, item, price, updatedQty, supplierId));
+                        } else {
+                            accessoryWriter.write(line + "\n"); 
+                        }
                     }
                 }
+            } else {
+                System.out.println("Accessory data is empty or invalid. No update to accessories.txt.");
             }
         } catch (IOException e) {
             System.out.println("Error writing to accessories file.");
@@ -150,7 +157,7 @@ public class Payment {
 
     public static void clearOrderFile(String filename) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            writer.write("");
+            writer.write(""); 
         } catch (IOException e) {
             System.out.println("Error clearing the order file.");
             e.printStackTrace();

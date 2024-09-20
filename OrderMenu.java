@@ -15,7 +15,14 @@ public class OrderMenu {
     public void OrderAccessories() {
         String ANSI_RESET = "\u001B[0m";
         String ANSI_BOLD_YELLOW = "\u001B[1;33m"; 
-    
+
+
+        System.out.println(ANSI_BOLD_YELLOW + " ____   _                _      ___            _             ");
+        System.out.println("/ ___| | |_  __ _  _ __ | |_   / _ \\  _ __  __| |  ___  _ __ ");
+        System.out.println("\\___ \\ | __|/ _` || '__|| __| | | | || '__|/ _` | / _ \\| '__|");
+        System.out.println(" ___) || |_| (_| || |   | |_  | |_| || |  | (_| ||  __/| |   ");
+        System.out.println("|____/  \\__|\\__,_||_|    \\__|  \\___/ |_|   \\__,_| \\___||_|   " + ANSI_RESET);
+
         System.out.println("\nAll Accessories Details:");
         System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+---------------+--------------+");
         System.out.printf("| %-13s | %-48s | %-13s | %-12s |%n", "ID", "Item", "Price (RM)", "Stock");

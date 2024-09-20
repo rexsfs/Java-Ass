@@ -56,6 +56,12 @@ public class OrderFunc extends Order {
         String accessoryId;
         int orderQty;
 
+
+        System.out.println(ANSI_BOLD_YELLOW + "\n    _        _      _   __  __                    _  _  _ ");
+        System.out.println("   / \\    __| |  __| | |  \\/  |  ___   _ __  ___ | || || |");
+        System.out.println("  / _ \\  / _` | / _` | | |\\/| | / _ \\ | '__|/ _ \\| || || |");
+        System.out.println(" / ___ \\| (_| || (_| | | |  | || (_) || |  |  __/|_||_||_|");
+        System.out.println("/_/   \\_\\\\__,_| \\__,_| |_|  |_| \\___/ |_|   \\___|(_)(_)(_)" + ANSI_RESET);
         System.out.println("\nAll Accessories Details:");
         System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+");
         System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Item", "Price (RM)", "Stock");
@@ -65,16 +71,16 @@ public class OrderFunc extends Order {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 4) {
+                if (parts.length >= 4) {
                     String id = parts[0];
                     String item = parts[1];
                     double price = Double.parseDouble(parts[2]);
                     int qty = Integer.parseInt(parts[3]);
+        
 
-                    accessoriesMap.put(id, parts);
-
-                    System.out.printf(ANSI_BOLD_YELLOW + "| %-13s | %-48s | RM%-11.2f | %-12d |%n", id, item, price, qty);            
-                    System.out.println("+---------------+--------------------------------------------------+--------------+---------------+" + ANSI_RESET);
+                    accessoriesMap.put(id, new String[]{id, item, String.valueOf(price), String.valueOf(qty)});
+                    System.out.printf(ANSI_BOLD_YELLOW + "| %-13s | %-48s | RM%-11.2f | %-12d |%n", id, item, price, qty);
+                    System.out.println("+---------------+--------------------------------------------------+---------------+--------------+" + ANSI_RESET);
                 }
             }
 
@@ -167,6 +173,13 @@ public class OrderFunc extends Order {
             e.printStackTrace();
         }
     
+
+        System.out.println(ANSI_BOLD_YELLOW + "\n  ____  _                                   ___                        _    _  _          ");
+        System.out.println(" / ___|| |__    __ _  _ __    __ _   ___   / _ \\  _   _   __ _  _ __  | |_ (_)| |_  _   _ ");
+        System.out.println("| |    | '_ \\  / _` || '_ \\  / _` | / _ \\ | | | || | | | / _` || '_ \\ | __|| || __|| | | |");
+        System.out.println("| |___ | | | || (_| || | | || (_| ||  __/ | |_| || |_| || (_| || | | || |_ | || |_ | |_| |");
+        System.out.println(" \\____||_| |_| \\__,_||_| |_| \\__, | \\___|  \\__\\_\\ \\__,_| \\__,_||_| |_| \\__||_| \\__| \\__, |");
+        System.out.println("                             |___/                                                  |___/ " + ANSI_RESET);
         System.out.println("\nYour Current Orders: ");
         System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+---------------+");
         System.out.printf("| %-13s | %-48s | %-13s | %-12s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
@@ -195,7 +208,7 @@ public class OrderFunc extends Order {
             e.printStackTrace();
         }
     
-        System.out.println("Change Quantity (Type '0' To Finish):");
+        System.out.println("What Quantity You Want To Change (Type '0' To Finish):");
         while (true) {
             System.out.print("Enter Accessory ID: accs-");
             String accessoryIdToUpdate = "accs-" + scanner.next();
@@ -264,6 +277,11 @@ public class OrderFunc extends Order {
         List<OrderFunc> orders = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         
+        System.out.println(ANSI_BOLD_YELLOW + " ____                                       ___            _             ");
+        System.out.println("|  _ \\  ___  _ __ ___    ___ __   __ ___   / _ \\  _ __  __| |  ___  _ __ ");
+        System.out.println("| |_) |/ _ \\| '_ ` _ \\  / _ \\\\ \\ / // _ \\ | | | || '__|/ _` | / _ \\| '__|");
+        System.out.println("|  _ <|  __/| | | | | || (_) |\\ V /|  __/ | |_| || |  | (_| ||  __/| |   ");
+        System.out.println("|_| \\_\\\\___||_| |_| |_| \\___/  \\_/  \\___|  \\___/ |_|   \\__,_| \\___||_|   " + ANSI_RESET);
         System.out.println("\nYour Orders: ");
         System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+---------------+");
         System.out.printf("| %-13s | %-48s | %-13s | %-12s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
@@ -332,7 +350,13 @@ public class OrderFunc extends Order {
     public static void cancelOrder() {
         String ANSI_RESET = "\u001B[0m";
         String ANSI_RED = "\u001B[31m";
+        String ANSI_BOLD_YELLOW = "\u001B[1;33m";
 
+        System.out.println(ANSI_BOLD_YELLOW + "  ____                          _    ___            _             ");
+        System.out.println(" / ___| __ _  _ __    ___  ___ | |  / _ \\  _ __  __| |  ___  _ __ ");
+        System.out.println("| |    / _` || '_ \\  / __|/ _ \\| | | | | || '__|/ _` | / _ \\| '__|");
+        System.out.println("| |___| (_| || | | || (__|  __/| | | |_| || |  | (_| ||  __/| |   ");
+        System.out.println(" \\____|\\__,_||_| |_| \\___|\\___||_|  \\___/ |_|   \\__,_| \\___||_|   " + ANSI_RESET);
         System.out.println("\nAre You Sure You Want To Cancel Your Order?");
         System.out.println("1. Yes");
         System.out.println("2. No");
@@ -384,7 +408,7 @@ public class OrderFunc extends Order {
             System.out.println("|       4. Remove Order             |");
             System.out.println("|       5. Cancel Order             |");
             System.out.println("-------------------------------------");
-            System.out.print(ANSI_BOLD_YELLOW + "Enter Your Option: " + ANSI_RESET);
+            System.out.print("Enter Your Option: ");
 
             if (scanner.hasNextInt()) {
                 int choice = scanner.nextInt();

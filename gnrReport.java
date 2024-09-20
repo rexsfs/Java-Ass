@@ -44,15 +44,15 @@ public class gnrReport {
             System.out.println("\nAccessories Sold Report:");
             System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+---------------+");
             System.out.printf("| %-13s | %-48s | %-13s |%n", "Accessory ID", "Item", "Sold");
-            System.out.println("+---------------+--------------------------------------------------+---------------+");
+            System.out.println("+---------------+--------------------------------------------------+---------------+" + ANSI_RESET);
 
             for (Map.Entry<String, Integer> entry : accessoryIdSold.entrySet()) {
                 String accessoryId = entry.getKey();
                 String item = accessoryIdToItem.get(accessoryId);
                 int soldQty = entry.getValue();
-                System.out.printf("| %-13s | %-48s | %-13d |%n", accessoryId, item, soldQty);
+                System.out.printf(ANSI_BOLD_YELLOW + "| %-13s | %-48s | %-13d |%n", accessoryId, item, soldQty);
+                System.out.println("+---------------+--------------------------------------------------+---------------+" + ANSI_RESET);
             }
-            System.out.println("+---------------+--------------------------------------------------+---------------+" + ANSI_RESET);
 
             System.out.printf("Total Revenue: RM%.2f%n", totalRevenue);
             System.out.printf("Total Items Sold: %d%n", totalItemsSold);
