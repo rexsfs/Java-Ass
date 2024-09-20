@@ -6,28 +6,39 @@ import java.util.Scanner;
 
 public class AccessoryManager {
 
-    private Map<String, Accessory> accessories;
-    private Scanner scanner;
-    private Map<String, Integer> idCounters;
+    private static Map<String, Accessory> accessories;
+    private static Scanner scanner;
+    private static Map<String, Integer> idCounters;
+
+    static {
+        accessories = new HashMap<>();
+        scanner = new Scanner(System.in); // Initialize the scanner here
+        idCounters = new HashMap<>();
+    }
 
     public AccessoryManager() {
-        accessories = new HashMap<>();
-        scanner = new Scanner(System.in);
-        idCounters = new HashMap<>();
         loadAccessories();
     }
 
-    public void displayMenu() {
+    public static void displayMenu(int staffIndex) {
         while (true) {
-            System.out.println("\n+=======================================================================================+");
-            System.out.println("|                        _                                                              |");
-            System.out.println("|                       / \\   ___ ___ ___  ___ ___  ___  _ __ _   _                     |");
-            System.out.println("|                      / _ \\ / __/ __/ _ \\/ __/ __|/ _ \\| '__| | | |                    |");
-            System.out.println("|                     / ___ \\ (_| (_|  __/\\__ \\__ \\ (_) | |  | |_| |                    |");
-            System.out.println("|                    /_/   \\_\\___\\___\\___||___/___/\\___/|_|   \\__, |                    |");
-            System.out.println("|                                                             |___/                     |");
-            System.out.println("+=======================================================================================+");
-            
+            System.out.println(
+                    "\n+=======================================================================================+");
+            System.out.println(
+                    "|                        _                                                              |");
+            System.out.println(
+                    "|                       / \\   ___ ___ ___  ___ ___  ___  _ __ _   _                     |");
+            System.out.println(
+                    "|                      / _ \\ / __/ __/ _ \\/ __/ __|/ _ \\| '__| | | |                    |");
+            System.out.println(
+                    "|                     / ___ \\ (_| (_|  __/\\__ \\__ \\ (_) | |  | |_| |                    |");
+            System.out.println(
+                    "|                    /_/   \\_\\___\\___\\___||___/___/\\___/|_|   \\__, |                    |");
+            System.out.println(
+                    "|                                                             |___/                     |");
+            System.out.println(
+                    "+=======================================================================================+");
+
             System.out.println("\nAccessory Management System");
             System.out.println("1. Add New Accessory");
             System.out.println("2. Update Accessory Details");
@@ -36,6 +47,7 @@ public class AccessoryManager {
             System.out.println("5. Stock In Accessory");
             System.out.println("6. Stock Out Accessory");
             System.out.println("7. Display All Accessories");
+            System.out.println("8. Return");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -62,13 +74,16 @@ public class AccessoryManager {
                 case 7:
                     displayAllAccessories();
                     break;
+                case 8:
+                    StaffMain.staffTypeRecognize(staffIndex);
+                    break;
                 default:
                     System.out.println("Invalid choice! Please try again.");
             }
         }
     }
 
-    private void displayAllAccessories() {
+    private static void displayAllAccessories() {
         System.out.println("\nAll Accessories Details:");
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
@@ -80,14 +95,16 @@ public class AccessoryManager {
                     double price = Double.parseDouble(parts[2]);
                     int quantity = Integer.parseInt(parts[3]);
                     String supplierId = parts[4];
-                    System.out.println("\n+=======================================================================================+");
+                    System.out.println(
+                            "\n+=======================================================================================+");
                     System.out.println("                     ____  _           _             ");
                     System.out.println("                    |  _ \\(_)___ _ __ | | __ _ _   _ ");
                     System.out.println("                    | | | | / __| '_ \\| |/ _` | | | |");
                     System.out.println("                    | |_| | \\__ \\ |_) | | (_| | |_| |");
                     System.out.println("                    |____/|_|___/ .__/|_|\\__,_|\\__, |");
-                    System.out.println("                                |_|            |___/ ");           
-                    System.out.println("+=======================================================================================+");
+                    System.out.println("                                |_|            |___/ ");
+                    System.out.println(
+                            "+=======================================================================================+");
                     System.out.println("ID: " + id);
                     System.out.println("Name: " + name);
                     System.out.println("Price: RM" + price);
@@ -103,7 +120,7 @@ public class AccessoryManager {
         }
     }
 
-    private void addAccessory() {
+    private static void addAccessory() {
 
         ArrayList<Supplier> supplierList = SupplierMain.readSupplierToArray();
         System.out.println("\n+=======================================================================================+");
@@ -157,7 +174,7 @@ public class AccessoryManager {
         System.out.println("Accessory added with ID: " + id);
     }
 
-    private String generateId() {
+    private static String generateId() {
         // Always use the "accs-" prefix
         String prefix = "accs-";
 
@@ -173,8 +190,9 @@ public class AccessoryManager {
         return id;
     }
 
-    private void updateAccessory() {
-        System.out.println("\n+=======================================================================================+");
+    private static void updateAccessory() {
+        System.out
+                .println("\n+=======================================================================================+");
         System.out.println("                     _   _           _       _       ");
         System.out.println("                    | | | |_ __   __| | __ _| |_ ___ ");
         System.out.println("                    | | | | '_ \\ / _` |/ _` | __/ _ \\");
@@ -231,15 +249,16 @@ public class AccessoryManager {
         }
     }
 
-    private void showDetails() {
-        System.out.println("\n+=======================================================================================+");
+    private static void showDetails() {
+        System.out
+                .println("\n+=======================================================================================+");
         System.out.println("                     ____                      _     ");
         System.out.println("                    / ___|  ___  __ _ _ __ ___| |__  ");
         System.out.println("                    \\___ \\ / _ \\/ _` | '__/ __| '_ \\ ");
         System.out.println("                     ___) |  __/ (_| | | | (__| | | |");
         System.out.println("                    |____/ \\___|\\__,_|_|  \\___|_| |_|");
         System.out.println("+=======================================================================================+");
-        
+
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
         Accessory accessory = accessories.get(id);
@@ -251,7 +270,7 @@ public class AccessoryManager {
         }
     }
 
-    private void displayDetails(Accessory accessory) {
+    private static void displayDetails(Accessory accessory) {
         System.out.println("Accessory Details:");
         System.out.println("ID: " + accessory.getAccessoryId());
         System.out.println("Name: " + accessory.getName());
@@ -259,8 +278,9 @@ public class AccessoryManager {
         System.out.println("Quantity: " + accessory.getQuantity());
     }
 
-    private void deleteAccessory() {
-        System.out.println("\n+=======================================================================================+");
+    private static void deleteAccessory() {
+        System.out
+                .println("\n+=======================================================================================+");
         System.out.println("                     ____       _      _       ");
         System.out.println("                    |  _ \\  ___| | ___| |_ ___ ");
         System.out.println("                    | | | |/ _ \\ |/ _ \\ __/ _ \\");
@@ -280,8 +300,9 @@ public class AccessoryManager {
         }
     }
 
-    private void stockInAccessory() {
-        System.out.println("\n+=======================================================================================+");
+    private static void stockInAccessory() {
+        System.out
+                .println("\n+=======================================================================================+");
         System.out.println("                     ____  _             _    ___       ");
         System.out.println("                    / ___|| |_ ___   ___| | _|_ _|_ __  ");
         System.out.println("                    \\___ \\| __/ _ \\ / __| |/ /| || '_ \\ ");
@@ -314,13 +335,14 @@ public class AccessoryManager {
         }
     }
 
-    private void stockOutAccessory() {
-        System.out.println("\n+=======================================================================================+");
+    private static void stockOutAccessory() {
+        System.out
+                .println("\n+=======================================================================================+");
         System.out.println("                     ____  _             _     ___        _   ");
         System.out.println("                    / ___|| |_ ___   ___| | __/ _ \\ _   _| |_ ");
         System.out.println("                    \\___ \\| __/ _ \\ / __| |/ / | | | | | | __|");
         System.out.println("                     ___) | || (_) | (__|   <| |_| | |_| | |_ ");
-        System.out.println("                    |____/ \\__\\___/ \\___|_|\\_\\\\___/ \\__,_|\\__|");        
+        System.out.println("                    |____/ \\__\\___/ \\___|_|\\_\\\\___/ \\__,_|\\__|");
         System.out.println("+=======================================================================================+");
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
@@ -356,7 +378,7 @@ public class AccessoryManager {
         }
     }
 
-    private void loadAccessories() {
+    private static void loadAccessories() {
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -399,7 +421,7 @@ public class AccessoryManager {
         }
     }
 
-    private void saveAccessories() {
+    private static void saveAccessories() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt"))) {
             accessories.entrySet()
                     .stream()
@@ -419,8 +441,4 @@ public class AccessoryManager {
         }
     }
 
-    public static void main(String[] args) {
-        AccessoryManager manager = new AccessoryManager();
-        manager.displayMenu();
-    }
 }

@@ -249,7 +249,8 @@ public class StaffMain {
             System.out.println("7. Remove Staff");
             System.out.println("8. Search Staff");
             System.out.println("9. Display All Staff");
-            System.out.println("10. Exit");
+            System.out.println("10. Accessory Management");
+            System.out.println("11. Exit");
             System.out.println(
                     "--------------------------------------------------------------------------------------------");
             System.out.print("Select your choice : ");
@@ -297,6 +298,9 @@ public class StaffMain {
                 displayStaff(staffList, foundIndex);
                 break;
             case 10:
+                AccessoryManager.displayMenu(foundIndex);
+                break;
+            case 11:
                 System.out.println("exit...");
                 break;
         }
@@ -719,14 +723,22 @@ public class StaffMain {
         String staffId = generateNewStaffId();
         String name = "";
 
-        System.out.println("\n+=========================================================================================+");
-        System.out.println("|                         _       _     _   ____  _         __  __                        |");
-        System.out.println("|                        / \\   __| | __| | / ___|| |_ __ _ / _|/ _|                       |");
-        System.out.println("|                       / _ \\ / _` |/ _` | \\___ \\| __/ _` | |_| |_                        |");
-        System.out.println("|                      / ___ \\ (_| | (_| |  ___) | || (_| |  _|  _|                       |");
-        System.out.println("|                     /_/   \\_\\__,_|\\__,_| |____/ \\__\\__,_|_| |_|                         |");
-        System.out.println("|                                                                                         |");
-        System.out.println("+=========================================================================================+");
+        System.out.println(
+                "\n+=========================================================================================+");
+        System.out
+                .println("|                         _       _     _   ____  _         __  __                        |");
+        System.out.println(
+                "|                        / \\   __| | __| | / ___|| |_ __ _ / _|/ _|                       |");
+        System.out.println(
+                "|                       / _ \\ / _` |/ _` | \\___ \\| __/ _` | |_| |_                        |");
+        System.out.println(
+                "|                      / ___ \\ (_| | (_| |  ___) | || (_| |  _|  _|                       |");
+        System.out.println(
+                "|                     /_/   \\_\\__,_|\\__,_| |____/ \\__\\__,_|_| |_|                         |");
+        System.out
+                .println("|                                                                                         |");
+        System.out
+                .println("+=========================================================================================+");
 
         while (true) {
             System.out.print("Enter Staff Name: ");
@@ -763,7 +775,7 @@ public class StaffMain {
         String address = scanner.nextLine();
 
         String emailFormat = "^(.+)@(.+)$";
-        
+
         System.out.print("Enter Staff Email (must include @): ");
         String email = scanner.nextLine();
 
@@ -851,21 +863,27 @@ public class StaffMain {
         Staff staff = new Staff(staffId, name, phoneNum, address, email, position, salary, staffType, password1,
                 answer);
 
-        
         System.out.print("Are you confirm to add this staff? (Y): ");
         char message = scanner.nextLine().charAt(0);
 
-
         if (Character.toUpperCase(message) == 'Y') {
 
-            System.out.println("\n+=========================================================================================+");
-            System.out.println("|                ____  _         __  __   ____       _        _ _                         |");
-            System.out.println("|               / ___|| |_ __ _ / _|/ _| |  _ \\  ___| |_ __ _(_) |___                     |");
-            System.out.println("|               \\___ \\| __/ _` | |_| |_  | | | |/ _ \\ __/ _` | | / __|                    |");
-            System.out.println("|                 ___) | || (_| |  _|  _| | |_| |  __/ || (_| | | \\__ \\                   |");
-            System.out.println("|               |____/ \\__\\__,_|_| |_|   |____/ \\___|\\__\\__,_|_|_|___/                    |");
-            System.out.println("|                                                                                         |");
-            System.out.println("+=========================================================================================+");
+            System.out.println(
+                    "\n+=========================================================================================+");
+            System.out.println(
+                    "|                ____  _         __  __   ____       _        _ _                         |");
+            System.out.println(
+                    "|               / ___|| |_ __ _ / _|/ _| |  _ \\  ___| |_ __ _(_) |___                     |");
+            System.out.println(
+                    "|               \\___ \\| __/ _` | |_| |_  | | | |/ _ \\ __/ _` | | / __|                    |");
+            System.out.println(
+                    "|                 ___) | || (_| |  _|  _| | |_| |  __/ || (_| | | \\__ \\                   |");
+            System.out.println(
+                    "|               |____/ \\__\\__,_|_| |_|   |____/ \\___|\\__\\__,_|_|_|___/                    |");
+            System.out.println(
+                    "|                                                                                         |");
+            System.out.println(
+                    "+=========================================================================================+");
             System.out.println("\nStaff Id: " + staff.getPersonId());
             System.out.println("Staff Name: " + staff.getName());
             System.out.println("Staff Phone Number: " + staff.getPhoneNum());
@@ -1113,6 +1131,18 @@ public class StaffMain {
         }
 
         writeArrayToFile(staffList);
+
+    }
+
+    public static void staffTypeRecognize(int foundIndex) {
+
+        ArrayList<Staff> staffList = readStaffToArray();
+
+        if (staffList.get(foundIndex).getStaffType().equals("staff")) {
+            menu(foundIndex);
+        } else {
+            adminMenu(foundIndex);
+        }
 
     }
 
