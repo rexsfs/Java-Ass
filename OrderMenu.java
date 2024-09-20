@@ -25,24 +25,25 @@ public class OrderMenu {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length == 4) {
+                if (parts.length >= 4) {
                     String id = parts[0];
                     String item = parts[1];
-                    double price = Double.parseDouble(parts[2]);  
-                    int qty = Integer.parseInt(parts[3]);     
-    
-                    accessoriesMap.put(id, parts);
+                    double price = Double.parseDouble(parts[2]);
+                    int qty = Integer.parseInt(parts[3]);
+        
+
+                    accessoriesMap.put(id, new String[]{id, item, String.valueOf(price), String.valueOf(qty)});
                     System.out.printf(ANSI_BOLD_YELLOW + "| %-13s | %-48s | RM%-11.2f | %-12d |%n", id, item, price, qty);
                     System.out.println("+---------------+--------------------------------------------------+---------------+--------------+" + ANSI_RESET);
-                } 
+                }
             }
-            
-            StartOrder(); 
-    
+        
+            StartOrder();
+        
         } catch (IOException e) {
             System.out.println("Error loading accessories.");
             e.printStackTrace();
-        }
+        }        
     
     }
     
