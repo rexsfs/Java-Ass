@@ -53,7 +53,7 @@ public class Staff extends Person{
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     @Override
     public String toString(){
         return super.toString() + "|" + getPosition() + "|" + getSalary() + "|" + getStaffType() + "|" + getPassword() + "|" + getAnswer() + "\n" ;

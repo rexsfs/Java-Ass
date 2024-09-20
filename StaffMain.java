@@ -782,7 +782,6 @@ public class StaffMain {
         while (!position.matches(positionFormat)) {
             System.out.println("Invalid input!!!");
             System.out.print("Enter Staff Position: ");
-            System.out.print("\n");
             position = scanner.nextLine();
         }
 
@@ -811,7 +810,6 @@ public class StaffMain {
         while (!staffType.equals("staff") && !staffType.equals("admin")) {
             System.out.println("Invalid input!!!");
             System.out.print("Enter Staff Type (staff/admin): ");
-            System.out.print("\n");
             staffType = scanner.nextLine();
             staffType = staffType.toLowerCase();
         }
@@ -822,7 +820,6 @@ public class StaffMain {
         String password1 = scanner.nextLine();
 
         System.out.print("Confirm Password: ");
-        System.out.print("\n");
         String password2 = scanner.nextLine();
 
         // Check if both passwords match
@@ -834,7 +831,6 @@ public class StaffMain {
             password1 = scanner.nextLine();
 
             System.out.print("Confirm Password: ");
-            System.out.print("\n");
             password2 = scanner.nextLine();
         }
 
@@ -855,29 +851,22 @@ public class StaffMain {
         Staff staff = new Staff(staffId, name, phoneNum, address, email, position, salary, staffType, password1,
                 answer);
 
-        System.out.print("\nAre you confirm to add this staff? (Y): ");
-        System.out.print("Staff added successfully!!!");
+        
+        System.out.print("Are you confirm to add this staff? (Y): ");
         char message = scanner.nextLine().charAt(0);
+
 
         if (Character.toUpperCase(message) == 'Y') {
 
-            System.out.println(
-                    "\n+=========================================================================================+");
-            System.out.println(
-                    "|                ____  _         __  __   ____       _        _ _                         |");
-            System.out.println(
-                    "|               / ___|| |_ __ _ / _|/ _| |  _ \\  ___| |_ __ _(_) |___                     |");
-            System.out.println(
-                    "|               \\___ \\| __/ _` | |_| |_  | | | |/ _ \\ __/ _` | | / __|                    |");
-            System.out.println(
-                    "|                 ___) | || (_| |  _|  _| | |_| |  __/ || (_| | | \\__ \\                    |");
-            System.out.println(
-                    "|               |____/ \\__\\__,_|_| |_|   |____/ \\___|\\__\\__,_|_|_|___/               |");
-            System.out.println(
-                    "|                                                                                         |");
-            System.out.println(
-                    "+=========================================================================================+");
-            System.out.println("Staff Id: " + staff.getPersonId());
+            System.out.println("\n+=========================================================================================+");
+            System.out.println("|                ____  _         __  __   ____       _        _ _                         |");
+            System.out.println("|               / ___|| |_ __ _ / _|/ _| |  _ \\  ___| |_ __ _(_) |___                     |");
+            System.out.println("|               \\___ \\| __/ _` | |_| |_  | | | |/ _ \\ __/ _` | | / __|                    |");
+            System.out.println("|                 ___) | || (_| |  _|  _| | |_| |  __/ || (_| | | \\__ \\                   |");
+            System.out.println("|               |____/ \\__\\__,_|_| |_|   |____/ \\___|\\__\\__,_|_|_|___/                    |");
+            System.out.println("|                                                                                         |");
+            System.out.println("+=========================================================================================+");
+            System.out.println("\nStaff Id: " + staff.getPersonId());
             System.out.println("Staff Name: " + staff.getName());
             System.out.println("Staff Phone Number: " + staff.getPhoneNum());
             System.out.println("Staff Address: " + staff.getAddress());
