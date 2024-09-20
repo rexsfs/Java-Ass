@@ -17,7 +17,12 @@ public class OrderFile {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
 
-            System.out.println("Your Order: ");
+            System.out.println(ANSI_BOLD_YELLOW + "  ___            _             ");
+            System.out.println(" / _ \\  _ __  __| |  ___  _ __ ");
+            System.out.println("| | | || '__|/ _` | / _ \\| '__|");
+            System.out.println("| |_| || |  | (_| ||  __/| |   ");
+            System.out.println(" \\___/ |_|   \\__,_| \\___||_|   " + ANSI_RESET);
+            System.out.println("\nYour Order: ");
             System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+---------------+");
             System.out.printf("| %-13s | %-48s | %-13s | %-12s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
             System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+" + ANSI_RESET);
@@ -56,7 +61,8 @@ public class OrderFile {
         String ANSI_BOLD_YELLOW = "\u001B[1;33m";
         List<OrderFunc> orders = new ArrayList<>();
         double totalAmount = 0.0;
-    
+        String generatedOrderID = null; 
+        
         try (BufferedReader reader = new BufferedReader(new FileReader(filename));
              BufferedWriter writer = new BufferedWriter(new FileWriter("receipt.txt", true))) { 
     
@@ -64,8 +70,14 @@ public class OrderFile {
     
             String header = "+---------------+--------------------------------------------------+--------------+---------------+---------------+\n";
             String point = String.format("| %-13s | %-48s | %-12s | %-13s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
-    
-            System.out.println("Your Receipt: ");
+                
+            System.out.println(ANSI_BOLD_YELLOW + " ____                   _         _   ");
+            System.out.println("|  _ \\  ___   ___  ___ (_) _ __  | |_ ");
+            System.out.println("| |_) |/ _ \\ / __|/ _ \\| || '_ \\ | __|");
+            System.out.println("|  _ <|  __/| (__|  __/| || |_) || |_ ");
+            System.out.println("|_| \\_\\\\___| \\___|\\___||_|| .__/  \\__|");
+            System.out.println("                          |_|         " + ANSI_RESET);
+            System.out.println("\nYour Receipt: ");
             System.out.print(ANSI_BOLD_YELLOW + header);
             System.out.printf(point);
             System.out.print(header + ANSI_RESET);
@@ -81,7 +93,14 @@ public class OrderFile {
     
                     OrderFunc order = new OrderFunc(null, accessoryId, item, qty);
                     order.calculateAmount(price);
-                    order.randomOrderID();
+    
+                    if (generatedOrderID == null) {
+                        order.randomOrderID();
+                        generatedOrderID = order.getOrderID(); 
+                    } else {
+                        order.setOrderID(generatedOrderID); 
+                    }
+    
                     order.dateOrder();
                     orders.add(order);
     
@@ -104,7 +123,7 @@ public class OrderFile {
     
             if (!orders.isEmpty()) {
                 totalAmount = OrderFunc.calculateTotalAmount(orders);
-                String orderID = orders.get(0).getOrderID();
+                String orderID = orders.get(0).getOrderID();  
                 String orderDt = orders.get(0).getOrderDate();
                 String paymentMtd = Payment.getPaymentMethod();
     
@@ -123,6 +142,6 @@ public class OrderFile {
             System.out.println("Error reading the file.");
             e.printStackTrace();
         }
-    }    
+    }
     
 }

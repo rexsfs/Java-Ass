@@ -237,7 +237,7 @@ public class OrderFunc extends Order {
                                     order.calculateAmount(price);  
     
                                     System.out.println("Quantity updated successfully for " + DEEP_GREEN + order.getName() + ANSI_RESET + "\n");
-                                } else {
+                                } else if(newQty < 1){
                                     System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Quantity. Quantity Cannot Be 0.\n");
                                 }
                             } else {
@@ -252,11 +252,13 @@ public class OrderFunc extends Order {
                     }
                 }
             }
-    
+
             if (!found) {
                 System.out.println("Accessory ID " + ANSI_RED + "not found.\n" + ANSI_RESET);
             }
         }
+
+        System.out.println("Your Order Change Quantity " + DEEP_GREEN + "Successfully" + ANSI_RESET + ".\n");
 
         try (FileWriter writer = new FileWriter("order.txt", false)) {
             for (OrderFunc order : orders) {
@@ -330,11 +332,14 @@ public class OrderFunc extends Order {
                     break;
                 }
             }
+
     
             if (!found) {
                 System.out.println("Accessory ID " + ANSI_RED + "Not Found" + ANSI_RESET + ".\n");
             }
         }
+
+        System.out.println("Your Order Remove " + DEEP_GREEN + "Successfully" + ANSI_RESET + ".\n");
     
         try (FileWriter writer = new FileWriter("order.txt", false)) {
             for (OrderFunc order : orders) {
@@ -397,17 +402,18 @@ public class OrderFunc extends Order {
         boolean validChoice = false;
 
         while (!validChoice) {
-            System.out.println("\n-------------------------------------");
-            System.out.println("|                                   |");
-            System.out.println("|       Choose Your Option          |");
-            System.out.println("|                                   |");
-            System.out.println("-------------------------------------");
-            System.out.println("|       1. Proceed to Payment       |");
-            System.err.println("|       2. Add More Order           |");
-            System.out.println("|       3. Change Quantity          |");
-            System.out.println("|       4. Remove Order             |");
-            System.out.println("|       5. Cancel Order             |");
-            System.out.println("-------------------------------------");
+            System.out.println(ANSI_BOLD_YELLOW + "  ____  _                  _       ___          _   ");
+            System.out.println(" / ___|| |__    ___   ___ | | __  / _ \\  _   _ | |_ ");
+            System.out.println("| |    | '_ \\  / _ \\ / __|| |/ / | | | || | | || __|");
+            System.out.println("| |___ | | | ||  __/| (__ |   <  | |_| || |_| || |_ ");
+            System.out.println(" \\____||_| |_| \\___| \\___||_|\\_\\  \\___/  \\__,_| \\__|");
+            System.out.println("----------------------------------------------------");
+            System.out.println("|               1. Proceed to Payment              |");
+            System.err.println("|               2. Add More Order                  |");
+            System.out.println("|               3. Change Quantity                 |");
+            System.out.println("|               4. Remove Order                    |");
+            System.out.println("|               5. Cancel Order                    |");
+            System.out.println("----------------------------------------------------" + ANSI_RESET);
             System.out.print("Enter Your Option: ");
 
             if (scanner.hasNextInt()) {

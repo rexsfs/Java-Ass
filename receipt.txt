@@ -1,0 +1,5 @@
+accs-0010, iPhone 8 Plus Rugged Case, 40.00, 1, 40.00, 40.00, ORD7222399, 09/21/2024 01:04 am, Touch'N Go
+accs-0019, iPhone 12 Car Mount, 22.00, 1, 22.00, 62.00, ORD7222399, 09/21/2024 01:04 am, Touch'N Go
+accs-0017, iPhone 14 Pro MagSafe Charger, 55.00, 9, 495.00, 495.00, ORD8047585, 09/21/2024 01:05 am, Debit Card
+accs-0018, iPhone 13 Mini Tempered Glass Protector, 16.00, 1, 16.00, 511.00, ORD8047585, 09/21/2024 01:05 am, Debit Card
+accs-0010, iPhone 8 Plus Rugged Case, 40.00, 2, 80.00, 80.00, ORD6663929, 09/21/2024 01:08 am, Credit Card
