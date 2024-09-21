@@ -420,7 +420,7 @@ public class AccessoryManager {
     }
 
     private static void saveAccessories() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt", true))) {
             accessories.entrySet()
                     .stream()
                     .sorted(Map.Entry.comparingByKey()) // Sort by accessory ID in ascending order

@@ -14,6 +14,7 @@ public class Accessory implements Serializable {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.supplierId = supplierId;
     }
 
     // No-argument constructor
