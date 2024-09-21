@@ -1110,6 +1110,17 @@ public class StaffMain {
         boolean found = false;
         int foundIndex = -1;
 
+        System.out.println("\n                         _____                            _____                                                                                 ");
+        System.out.println("___________         _____\\    \\            _____     _____\\    \\   ________    ________                                                         ");
+        System.out.println("\\          \\       /    / |    |      _____\\    \\   /    / |    | /        \\  /        \\                                                        ");
+        System.out.println(" \\    /\\    \\     /    /  /___/|     /    / \\    | /    /  /___/||\\         \\/         /|                                                       ");
+        System.out.println("  |   \\_\\    |   |    |__ |___|/    |    |  /___/||    |__ |___|/| \\            /\\____/ |                                                       ");
+        System.out.println("  |      ___/    |       \\       ____\\    \\ |   |||       \\      |  \\______\\/   \\     | |                                                       ");
+        System.out.println("  |      \\  ____ |     __/ __   /    /\\    \\|___|/|     __/ __    \\ |      | \\   \\____|/                                                        ");
+        System.out.println(" /     /\\ \\/    \\|\\    \\  /  \\ |    |/ \\    \\     |\\    \\  /  \\    \\|______|  \\   \\                                                             ");
+        System.out.println("/_____/ |\\______|| \\____\\/    ||\\____\\ /____/|    | \\____\\/    |            \\  \\___\\                                                            ");
+        System.out.println("|     | | |     || |    |____/|| |   ||    | |    | |    |____/|             \\ |   |                                                            ");
+        System.out.println("|_____|/ \\|_____| \\|____|   | | \\|___||____|/      \\|____|   | |              \\|___|                                                            ");
         System.out.print("Enter Staff ID (9999 to exit): ");
         String staffId = scanner.nextLine();
 
