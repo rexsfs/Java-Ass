@@ -144,14 +144,11 @@ public class Shipment {
 
     public static void main(String[] args) {
         ArrayList<Item> itemList = new ArrayList<>();
-        itemList.add(new Item("Phone case", 1, 50.00, "P1001"));
-        itemList.add(new Item("Ear phone", 1, 10.00, "P1002"));
+        itemList.add(new Item("iphone 9 Battery Pack", 1, 60.00, "accs-0009"));
+        itemList.add(new Item("iphone 12 Car Mount", 1, 28.00, "accs-0019"));
 
         Shipment shipment = new Shipment("In Transit", "2024-09-17", "Jalan34/70a,50480, Kuala Lumpur, Malaysia", itemList);
         shipment.generateInvoice();  // Generate  invoice
         shipment.trackingShipment();  // Track shipment status
     }
 }
-
-
-

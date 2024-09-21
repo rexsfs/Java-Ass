@@ -1,0 +1,12 @@
+Invoice ID: INV264387
+Shipment Date: 2024-09-17
+Address: Jalan34/70a,50480, Kuala Lumpur, Malaysia
+-------------------------------------------------------------
+No.  | Product ID | Item                  | Quantity | Total(RM)
+1    | accs-0009  | iphone 9 Battery Pack | 1        | 60.00   
+2    | accs-0019  | iphone 12 Car Mount   | 1        | 28.00   
+-------------------------------------------------------------
+Tax (5%)                                 : 4.40    
+Shipment Cost                            : 10.00   
+TOTAL (RM)                               : 102.40  
+-------------------------------------------------------------
