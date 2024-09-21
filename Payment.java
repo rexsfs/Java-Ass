@@ -25,14 +25,18 @@ public class Payment {
         boolean isValid = false;
 
         while (!isValid) { 
-            System.out.println("\n----------------------------------------");
-            System.out.println("|   Please Select Your Payment Method  |");
-            System.out.println("----------------------------------------");
-            System.out.println("|            1. Credit Card            |");
-            System.out.println("|            2. Debit Card             |");
-            System.out.println("|            3. Touch'N Go             |");
-            System.out.println("----------------------------------------");
-            System.out.print(ANSI_BOLD_YELLOW + "Enter Your Option: " + ANSI_RESET);
+            System.out.println(ANSI_BOLD_YELLOW + " ____                                        _     __  __        _    _                 _ ");
+            System.out.println("|  _ \\  __ _  _   _  _ __ ___    ___  _ __  | |_  |  \\/  |  ___ | |_ | |__    ___    __| |");
+            System.out.println("| |_) |/ _` || | | || '_ ` _ \\  / _ \\| '_ \\ | __| | |\\/| | / _ \\| __|| '_ \\  / _ \\  / _` |");
+            System.out.println("|  __/| (_| || |_| || | | | | ||  __/| | | || |_  | |  | ||  __/| |_ | | | || (_) || (_| |");
+            System.out.println("|_|    \\__,_| \\__, ||_| |_| |_| \\___||_| |_| \\__| |_|  |_| \\___| \\__||_| |_| \\___/  \\__,_|");
+            System.out.println("              |___/                                                                      ");
+            System.out.println("-------------------------------------------------------------------------------------------");
+            System.out.println("|                                    1. Credit Card                                       |");
+            System.out.println("|                                    2. Debit Card                                        |");
+            System.out.println("|                                    3. Touch'N Go                                        |");
+            System.out.println("-------------------------------------------------------------------------------------------" + ANSI_RESET);
+            System.out.print("Enter Your Option: ");
             int option = scanner.nextInt();
             System.out.println();
 
