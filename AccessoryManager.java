@@ -281,22 +281,16 @@ public class AccessoryManager {
             // Remove the accessory from the in-memory map
             accessories.remove(id);
     
-            // Rewrite the file with the remaining accessories
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt"))) {
-                for (Accessory acc : accessories.values()) {
-                    bw.write(acc.getAccessoryId() + "," + acc.getName() + "," +
-                             acc.getPrice() + "," + acc.getQuantity() + "," + acc.getSupplierId());
-                    bw.newLine();  // Ensure each accessory is on a new line
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Rewrite the file with the remaining accessories, sorted
+            saveAccessories(); // Now this will handle sorting
     
             System.out.println("Accessory with ID " + id + " has been deleted.");
         } else {
             System.out.println("Accessory ID not found.");
         }
     }
+    
+    
     
     private static void stockInAccessory() {
         loadAccessories(); // Ensure the map is populated with current data
@@ -364,10 +358,10 @@ public class AccessoryManager {
     private static void saveAccessories() {
         // Create a list from the map entries
         List<Map.Entry<String, Accessory>> accessoryList = new ArrayList<>(accessories.entrySet());
-
+    
         // Sort the list by accessory ID
         accessoryList.sort(Comparator.comparing(Map.Entry::getKey));
-
+    
         // Write sorted accessories back to the file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt", false))) { // Overwrite mode
             for (Map.Entry<String, Accessory> entry : accessoryList) {
@@ -380,7 +374,7 @@ public class AccessoryManager {
             e.printStackTrace();
         }
     }
-
+    
     public static void main(String[] args) {
         AccessoryManager manager = new AccessoryManager();
         manager.displayMenu(0); // Pass in any staff index for the demo

@@ -19,4 +19,4 @@ accs-0019,iPhone 12 Car Mount,22.0,30,S1001
 accs-0020,iPhone 11 Pro Max Charging Case,65.0,9,S1006
 accs-0021,rrwe,10.0,10,S1003
 accs-0022,cfe,12.0,12,S1002
-accs-0023,jqwnxw,1.0,10,S1001
+accs-0023,asd,20.0,2,S1001
