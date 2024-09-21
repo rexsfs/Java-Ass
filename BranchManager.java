@@ -124,7 +124,7 @@ public class BranchManager {
         System.out.println("Branch added with ID: " + id);
 
         // Save branches to file
-        saveBranches();
+        saveBranches(branch);
     }
 
     private static void updateBranch() {
@@ -199,7 +199,7 @@ public class BranchManager {
             System.out.println("Branch updated.");
 
             // Save branches to file
-            saveBranches();
+            saveBranches(branch);
         } else {
             System.out.println("Branch ID not found.");
         }
@@ -243,7 +243,7 @@ public class BranchManager {
             System.out.println("Branch with ID " + id + " has been deleted.");
 
             // Save branches to file
-            saveBranches();
+            saveBranches(branch);
         } else {
             System.out.println("Branch ID not found.");
         }
@@ -251,18 +251,34 @@ public class BranchManager {
 
     private static String generateId(String name) {
         String prefix = "br-";
+        String lastId = prefix + "0000"; // Default start if file is empty
 
-        // Get the current ID counter for this prefix
-        int idNumber = idCounters.getOrDefault(prefix, 1);
+        try (Scanner scanner = new Scanner(new File("branches.txt"))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] split = line.split(","); // Assuming the ID is the first field in a CSV format
+                if (split.length > 0) {
+                    lastId = split[0]; // Extract the branch ID (first field)
+                }
+            }
+        } catch (IOException e) { // File not found or does not exist
+            System.out.println("Error reading branches file.");
+            e.printStackTrace(); // Use for debugging: locates the error
+        }
 
-        // Generate the ID
-        String id = String.format("%s%04d", prefix, idNumber);
+        // Check if lastId is empty or not correctly formatted
+        if (lastId.length() < 5 || !lastId.startsWith(prefix)) {
+            return prefix + "0001"; // Return default ID if lastId is invalid
+        }
 
-        // Increment and store the updated counter
-        idCounters.put(prefix, idNumber + 1);
+        // Remove the prefix and parse the number
+        String numberPart = lastId.substring(prefix.length()); // Remove the 'br-' prefix
+        int newIdNumber = Integer.parseInt(numberPart) + 1; // Auto increment the number part
 
-        return id;
+        // Format the new ID with the prefix
+        return String.format("%s%04d", prefix, newIdNumber);
     }
+
 
     private static void displayDetails(Branch branch) {
         System.out
@@ -286,53 +302,52 @@ public class BranchManager {
     private static void loadBranches() {
         try (BufferedReader br = new BufferedReader(new FileReader("branches.txt"))) {
             String line;
+            int highestIdNumber = 0; // Track the highest numeric part of the IDs
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length != 6) {
-                    System.err.println("Skipping malformed line: " + line);
-                    continue; // Skip this line if it doesn't have exactly 6 parts
-                }
-
-                String id = parts[0];
-                String name = parts[1];
-                String phoneNum = parts[2];
-                String address = parts[3];
-                int employeeCount = 0;
-
-                try {
-                    employeeCount = Integer.parseInt(parts[4]);
-                } catch (NumberFormatException e) {
-                    System.err.println("Error parsing employee count for line: " + line);
-                    continue; // Skip this line if parsing fails
-                }
-
-                Branch branch = new Branch(id, name, phoneNum, address, employeeCount, parts[5]);
-                branches.put(id, branch);
-
-                // Update the ID counter based on the loaded branch ID
-                String prefix = id.substring(0, id.indexOf('-') + 1);
-                int idNumber = Integer.parseInt(id.substring(prefix.length()));
-                int currentMax = idCounters.getOrDefault(prefix, 0);
-                if (idNumber > currentMax) {
-                    idCounters.put(prefix, idNumber + 1);
+                if (parts.length == 6) {
+                    String id = parts[0];
+                    Branch branch = new Branch(id, parts[1], parts[2], parts[3], Integer.parseInt(parts[4]), parts[5]);
+                    branches.put(id, branch);
+    
+                    // Extract numeric part of ID to find the highest
+                    int idNumber = Integer.parseInt(id.substring(3)); // "br-xxxx"
+                    if (idNumber > highestIdNumber) {
+                        highestIdNumber = idNumber;
+                    }
+                } else {
+                    System.err.println("Skipping malformed line: " + line); // Handle malformed lines
                 }
             }
+            // Set the counter to the next available ID
+            idCounters.put("br-", highestIdNumber + 1); // Ensure the next ID will be unique
+            System.out.println("Initialized idCounter to: " + (highestIdNumber + 1)); // Debug output
         } catch (FileNotFoundException e) {
+            System.out.println("No branches file found. Starting fresh.");
             branches = new HashMap<>();
-            idCounters = new HashMap<>();
+            idCounters.put("br-", 1); // Start with ID 1 if the file does not exist
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-
-    private static void saveBranches() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("branches.txt"))) {
-            for (Branch branch : branches.values()) {
-                bw.write(branch.getBranchId() + "," + branch.getName() + "," + branch.getPhoneNum() + ","
-                        + branch.getAddress() + "," + branch.getEmployeeCount() + "," + branch.getManagerName());
-                bw.newLine();
-            }
+    
+    private static void saveBranches(Branch branch) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("branches.txt", true))) { // Append mode
+            bw.write(branch.getBranchId() + "," + branch.getName() + "," +
+                      branch.getPhoneNum() + "," + branch.getAddress() + "," +
+                      branch.getEmployeeCount() + "," + branch.getManagerName());
+            bw.newLine(); // Adds a newline after each record
         } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+    
+    
+    
+    public static void main(String[] args) {
+        // Example usage
+        String branchId = generateId("SomeBranchName");
+        System.out.println("Generated Branch ID: " + branchId);
     }
 
 }
