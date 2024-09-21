@@ -23,12 +23,12 @@ public class gnrReport {
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",\\s*");
 
-                if (parts.length == 9) {
-                    String accessoryId = parts[0].trim();
-                    String item = parts[1].trim();
-                    double total = Double.parseDouble(parts[4].trim());
-                    int qty = Integer.parseInt(parts[3].trim());
-                    String paymentMethod = parts[8].trim();
+                if (parts.length == 8) {
+                    String accessoryId = parts[0].trim(); 
+                    String item = parts[1].trim();       
+                    int qty = Integer.parseInt(parts[3].trim());        
+                    double total = Double.parseDouble(parts[4].trim()); 
+                    String paymentMethod = parts[7].trim(); 
 
                     totalRevenue += total;
                     totalItemsSold += qty;
@@ -41,6 +41,7 @@ public class gnrReport {
                 }
             }
 
+            // Generate the report
             System.out.println("\nAccessories Sold Report:");
             System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+---------------+");
             System.out.printf("| %-13s | %-48s | %-13s |%n", "Accessory ID", "Item", "Sold");
