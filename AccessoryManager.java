@@ -1,13 +1,14 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 public class AccessoryManager {
     private static Map<String, Accessory> accessories;
     private static Scanner scanner;
-    private static int idCounter = 1; 
 
     static {
         accessories = new HashMap<>();
@@ -20,6 +21,22 @@ public class AccessoryManager {
 
     public static void displayMenu(int staffIndex) {
         while (true) {
+            System.out.println(
+                "\n+=======================================================================================+");
+        System.out.println(
+                "|                        _                                                              |");
+        System.out.println(
+                "|                       / \\   ___ ___ ___  ___ ___  ___  _ __ _   _                     |");
+        System.out.println(
+                "|                      / _ \\ / __/ __/ _ \\/ __/ __|/ _ \\| '__| | | |                    |");
+        System.out.println(
+                "|                     / ___ \\ (_| (_|  __/\\__ \\__ \\ (_) | |  | |_| |                    |");
+        System.out.println(
+                "|                    /_/   \\_\\___\\___\\___||___/___/\\___/|_|   \\__, |                    |");
+        System.out.println(
+                "|                                                             |___/                     |");
+        System.out.println(
+                "+=======================================================================================+");
             System.out.println("\nAccessory Management System");
             System.out.println("1. Add New Accessory");
             System.out.println("2. Update Accessory Details");
@@ -65,7 +82,16 @@ public class AccessoryManager {
         }
     }
 
+
     private static void displayAllAccessories() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____  _           _             ");
+        System.out.println("                    |  _ \\(_)___ _ __ | | __ _ _   _ ");
+        System.out.println("                    | | | | / __| '_ \\| |/ _` | | | |");
+        System.out.println("                    | |_| | \\__ \\ |_) | | (_| | |_| |");
+        System.out.println("                    |____/|_|___/ .__/|_|\\__,_|\\__, |");
+        System.out.println("                                |_|            |___/ ");
+        System.out.println("+=======================================================================================+");
         System.out.println("\nAll Accessories Details:");
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
@@ -93,6 +119,13 @@ public class AccessoryManager {
     }
 
     private static void addAccessory() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                        _       _     _ ");
+        System.out.println("                       / \\   __| | __| |");
+        System.out.println("                      / _ \\ / _` |/ _` |");
+        System.out.println("                     / ___ \\ (_| | (_| |");
+        System.out.println("                    /_/   \\_\\__,_|\\__,_|");
+        System.out.println("+=======================================================================================+");
         ArrayList<Supplier> supplierList = SupplierMain.readSupplierToArray();
         System.out.print("Enter supplier ID: ");
         String supplierId = scanner.nextLine();
@@ -163,8 +196,6 @@ public class AccessoryManager {
         return String.format("%s%04d", prefix, newIdNumber);
     }
     
-    
-
     private static void saveSingleAccessory(Accessory accessory) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt", true))) { // Append mode
             bw.write(accessory.getAccessoryId() + "," + accessory.getName() + "," +
@@ -176,6 +207,14 @@ public class AccessoryManager {
     }
 
     private static void updateAccessory() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     _   _           _       _       ");
+        System.out.println("                    | | | |_ __   __| | __ _| |_ ___ ");
+        System.out.println("                    | | | | '_ \\ / _` |/ _` | __/ _ \\");
+        System.out.println("                    | |_| | |_) | (_| | (_| | ||  __/");
+        System.out.println("                     \\___/| .__/ \\__,_|\\__,_|\\__\\___|");
+        System.out.println("                          |_|                        ");
+        System.out.println("+=======================================================================================+");
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
         
@@ -250,8 +289,14 @@ public class AccessoryManager {
         System.out.println("Accessory updated.");
     }
     
-
     private static void showDetails() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____                      _     ");
+        System.out.println("                    / ___|  ___  __ _ _ __ ___| |__  ");
+        System.out.println("                    \\___ \\ / _ \\/ _` | '__/ __| '_ \\ ");
+        System.out.println("                     ___) |  __/ (_| | | | (__| | | |");
+        System.out.println("                    |____/ \\___|\\__,_|_|  \\___|_| |_|");
+        System.out.println("+=======================================================================================+");
         loadAccessories(); // Reload accessories from file to ensure the latest data is in memory
         
         System.out.print("Enter Accessory ID: ");
@@ -265,7 +310,6 @@ public class AccessoryManager {
         }
     }
     
-
     private static void displayDetails(Accessory accessory) {
         System.out.println("Accessory Details:");
         System.out.println("ID: " + accessory.getAccessoryId());
@@ -275,6 +319,14 @@ public class AccessoryManager {
     }
 
     private static void deleteAccessory() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____       _      _       ");
+        System.out.println("                    |  _ \\  ___| | ___| |_ ___ ");
+
+        System.out.println("                    | | | |/ _ \\ |/ _ \\ __/ _ \\");
+        System.out.println("                    | |_| |  __/ |  __/ ||  __/");
+        System.out.println("                    |____/ \\___|_|\\___|\\__\\___|");
+        System.out.println("+=======================================================================================+");
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine().trim(); // Trim spaces around the input
         Accessory accessory = accessories.get(id);
@@ -283,16 +335,8 @@ public class AccessoryManager {
             // Remove the accessory from the in-memory map
             accessories.remove(id);
     
-            // Rewrite the file with the remaining accessories
-            try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt"))) {
-                for (Accessory acc : accessories.values()) {
-                    bw.write(acc.getAccessoryId() + "," + acc.getName() + "," +
-                             acc.getPrice() + "," + acc.getQuantity() + "," + acc.getSupplierId());
-                    bw.newLine();  // Ensure each accessory is on a new line
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Rewrite the file with the remaining accessories, sorted
+            saveAccessories(); // Now this will handle sorting
     
             System.out.println("Accessory with ID " + id + " has been deleted.");
         } else {
@@ -300,18 +344,27 @@ public class AccessoryManager {
         }
     }
     
-    private static void stockInAccessory() {
-        loadAccessories(); // Ensure the map is populated with current data
     
+    
+    private static void stockInAccessory() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____  _             _    ___       ");
+        System.out.println("                    / ___|| |_ ___   ___| | _|_ _|_ __  ");
+        System.out.println("                    \\___ \\| __/ _ \\ / __| |/ /| || '_ \\ ");
+        System.out.println("                     ___) | || (_) | (__|   < | || | | |");
+        System.out.println("                    |____/ \\__\\___/ \\___|_|\\_\\___|_| |_|");
+        System.out.println("+=======================================================================================+");
+        loadAccessories(); // Ensure the map is populated with current data
+        
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine().trim(); // Trim spaces around the input
         Accessory accessory = accessories.get(id);
-    
+        
         if (accessory != null) {
             System.out.print("Enter quantity to stock in: ");
             int amount = scanner.nextInt();
             scanner.nextLine(); // Consume the newline
-    
+        
             accessory.stockIn(amount); // Stock in the amount
             saveAccessories(); // Save updated map to the file
             System.out.println("Stock updated. New quantity: " + accessory.getQuantity());
@@ -320,19 +373,25 @@ public class AccessoryManager {
         }
     }
     
-
     private static void stockOutAccessory() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____  _             _     ___        _   ");
+        System.out.println("                    / ___|| |_ ___   ___| | __/ _ \\ _   _| |_ ");
+        System.out.println("                    \\___ \\| __/ _ \\ / __| |/ / | | | | | | __|");
+        System.out.println("                     ___) | || (_) | (__|   <| |_| | |_| | |_ ");
+        System.out.println("                    |____/ \\__\\___/ \\___|_|\\_\\\\___/ \\__,_|\\__|");
+        System.out.println("+=======================================================================================+");
         loadAccessories(); // Ensure the map is populated with current data
-    
+        
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine().trim(); // Trim spaces around the input
         Accessory accessory = accessories.get(id);
-    
+        
         if (accessory != null) {
             System.out.print("Enter quantity to stock out: ");
             int amount = scanner.nextInt();
             scanner.nextLine(); // Consume the newline
-    
+        
             if (accessory.stockOut(amount)) { // Stock out the amount
                 saveAccessories(); // Save updated map to the file
                 System.out.println("Stock updated. New quantity: " + accessory.getQuantity());
@@ -343,32 +402,21 @@ public class AccessoryManager {
             System.out.println("Accessory ID not found.");
         }
     }
-
+    
     private static void loadAccessories() {
         accessories.clear(); // Clear the map before loading
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
-            int highestIdNumber = 0; // Track the highest numeric part of the IDs
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 5) {
                     String id = parts[0];
                     Accessory accessory = new Accessory(id, parts[1], Double.parseDouble(parts[2]), Integer.parseInt(parts[3]), parts[4]);
                     accessories.put(id, accessory);
-    
-                    // Extract numeric part of ID to find the highest
-                    int idNumber = Integer.parseInt(id.substring(5)); // "accs-xxxx"
-                    if (idNumber > highestIdNumber) {
-                        highestIdNumber = idNumber;
-                    }
                 }
             }
-            // Set the counter to the next available ID
-            idCounter = highestIdNumber + 1; // Ensure the next ID will be unique
-            // System.out.println("Initialized idCounter to: " + idCounter); // Remove or comment out this line
         } catch (FileNotFoundException e) {
             System.out.println("No accessories file found. Starting fresh.");
-            idCounter = 1; // Optional: Start with ID 1 if the file does not exist
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -376,10 +424,16 @@ public class AccessoryManager {
     
     
     private static void saveAccessories() {
-        // System.out.println("Saving " + accessories.size() + " accessories to file."); // Remove or comment out this line
-        
+        // Create a list from the map entries
+        List<Map.Entry<String, Accessory>> accessoryList = new ArrayList<>(accessories.entrySet());
+    
+        // Sort the list by accessory ID
+        accessoryList.sort(Comparator.comparing(Map.Entry::getKey));
+    
+        // Write sorted accessories back to the file
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt", false))) { // Overwrite mode
-            for (Accessory accessory : accessories.values()) {
+            for (Map.Entry<String, Accessory> entry : accessoryList) {
+                Accessory accessory = entry.getValue();
                 bw.write(accessory.getAccessoryId() + "," + accessory.getName() + "," +
                           accessory.getPrice() + "," + accessory.getQuantity() + "," + accessory.getSupplierId());
                 bw.newLine(); // Ensure each accessory is written on a new line
@@ -389,10 +443,9 @@ public class AccessoryManager {
         }
     }
     
-    
-
     public static void main(String[] args) {
-        // Example usage
-        System.out.println(generateUniqueId());
+        AccessoryManager manager = new AccessoryManager();
+        manager.displayMenu(0); // Pass in any staff index for the demo
     }
 }
+

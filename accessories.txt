@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 accs-0001,iPhone 14 Pro Max Leather Case,10.00,25,S1001
 accs-0002,iPhone 13 Pro Max Silicone Case,35.00,8,S1002
 accs-0004,iPhone 14 Pro Max Leather Case,45.00,30,S1004
@@ -20,3 +21,27 @@ accs-0020,iPhone 11 Pro Max Charging Case,65.00,7,S1006
 accs-0021,rrwe,10.00,10,S1003
 accs-0022,cfe,12.00,12,S1002
 accs-0023,jqwnxw,1.00,10,S1001
+=======
+accs-0001,iPhone 14 Pro Max Leather Case,10.0,28,S1001
+accs-0002,iPhone 13 Pro Max Silicone Case,35.0,17,S1002
+accs-0004,iPhone 14 Pro Max Leather Case,45.0,30,S1004
+accs-0005,iPhone 13 Pro Max Silicone Case,35.0,25,S105
+accs-0006,iPhone 12 Pro Max Tempered Glass Protector,15.0,20,S1002
+accs-0007,iPhone 11 Pro Max Wireless Charger,50.0,18,S1006
+accs-0008,iPhone 10 Charging Dock,25.0,40,S1001
+accs-0009,iPhone 9 Battery Pack,60.0,21,S1004
+accs-0010,iPhone 8 Plus Rugged Case,40.0,26,S1002
+accs-0011,iPhone 7 Plus Privacy Screen Protector,12.0,49,S1001
+accs-0012,iPhone 6s Plus Magnetic Mount,20.0,30,S1001
+accs-0013,iPhone 6 Clear Case with Kickstand,18.0,28,S1006
+accs-0014,iPhone SE 2nd Gen Wireless Charger,30.0,15,S1001
+accs-0015,iPhone XR PopSocket Grip,14.0,45,S1005
+accs-0016,iPhone XS Max Leather Wallet Case,37.0,25,S1003
+accs-0017,iPhone 14 Pro MagSafe Charger,55.0,11,S1001
+accs-0018,iPhone 13 Mini Tempered Glass Protector,16.0,33,S1003
+accs-0019,iPhone 12 Car Mount,22.0,30,S1001
+accs-0020,iPhone 11 Pro Max Charging Case,65.0,9,S1006
+accs-0021,rrwe,10.0,10,S1003
+accs-0022,cfe,12.0,12,S1002
+accs-0023,asd,20.0,2,S1001
+>>>>>>> 86529e5bbffdcbe299aae4bb3a2aba4fd9f2afa0

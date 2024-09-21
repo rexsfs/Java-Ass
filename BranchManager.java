@@ -1,5 +1,8 @@
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -124,7 +127,7 @@ public class BranchManager {
         System.out.println("Branch added with ID: " + id);
 
         // Save branches to file
-        saveBranches(branch);
+        saveBranches();
     }
 
     private static void updateBranch() {
@@ -199,55 +202,64 @@ public class BranchManager {
             System.out.println("Branch updated.");
 
             // Save branches to file
-            saveBranches(branch);
+            saveBranches();
         } else {
             System.out.println("Branch ID not found.");
         }
     }
 
     private static void showDetails() {
-        System.out
-                .println("\n+=======================================================================================+");
+        System.out.println("\n+=======================================================================================+");
         System.out.println("                     ____                      _     ");
         System.out.println("                    / ___|  ___  __ _ _ __ ___| |__  ");
         System.out.println("                    \\___ \\ / _ \\/ _` | '__/ __| '_ \\ ");
         System.out.println("                     ___) |  __/ (_| | | | (__| | | |");
         System.out.println("                    |____/ \\___|\\__,_|_|  \\___|_| |_|");
         System.out.println("+=======================================================================================+");
+        loadBranches(); // Reload branches from file to ensure the latest data is in memory
+        
         System.out.print("Enter Branch ID: ");
         String id = scanner.nextLine();
+        System.out.println("Looking for Branch ID: " + id); // Debug line
         Branch branch = branches.get(id);
-
+        
         if (branch != null) {
-            displayDetails(branch); // Pass the branch object here
+            displayDetails(branch);
         } else {
             System.out.println("Branch ID not found.");
         }
     }
+    
+    
+    
+    
 
     private static void deleteBranch() {
-        System.out
-                .println("\n+=======================================================================================+");
+        System.out.println("\n+=======================================================================================+");
         System.out.println("                     ____       _      _       ");
         System.out.println("                    |  _ \\  ___| | ___| |_ ___ ");
+
         System.out.println("                    | | | |/ _ \\ |/ _ \\ __/ _ \\");
         System.out.println("                    | |_| |  __/ |  __/ ||  __/");
         System.out.println("                    |____/ \\___|_|\\___|\\__\\___|");
         System.out.println("+=======================================================================================+");
         System.out.print("Enter Branch ID: ");
-        String id = scanner.nextLine();
+        String id = scanner.nextLine().trim(); // Trim spaces around the input
         Branch branch = branches.get(id);
-
+    
         if (branch != null) {
+            // Remove the branch from the in-memory map
             branches.remove(id);
+            
+            // Rewrite the file with the remaining branches, sorted
+            saveBranches(); // Now this will handle sorting
+    
             System.out.println("Branch with ID " + id + " has been deleted.");
-
-            // Save branches to file
-            saveBranches(branch);
         } else {
             System.out.println("Branch ID not found.");
         }
     }
+    
 
     private static String generateId(String name) {
         String prefix = "br-";
@@ -302,45 +314,44 @@ public class BranchManager {
     private static void loadBranches() {
         try (BufferedReader br = new BufferedReader(new FileReader("branches.txt"))) {
             String line;
-            int highestIdNumber = 0; // Track the highest numeric part of the IDs
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length == 6) {
                     String id = parts[0];
                     Branch branch = new Branch(id, parts[1], parts[2], parts[3], Integer.parseInt(parts[4]), parts[5]);
                     branches.put(id, branch);
-    
-                    // Extract numeric part of ID to find the highest
-                    int idNumber = Integer.parseInt(id.substring(3)); // "br-xxxx"
-                    if (idNumber > highestIdNumber) {
-                        highestIdNumber = idNumber;
-                    }
+                    // System.out.println("Loaded branch: " + branch.getName()); // Debug line removed
                 } else {
-                    System.err.println("Skipping malformed line: " + line); // Handle malformed lines
+                    System.err.println("Skipping malformed line: " + line);
                 }
             }
-            // Set the counter to the next available ID
-            idCounters.put("br-", highestIdNumber + 1); // Ensure the next ID will be unique
-            System.out.println("Initialized idCounter to: " + (highestIdNumber + 1)); // Debug output
         } catch (FileNotFoundException e) {
             System.out.println("No branches file found. Starting fresh.");
-            branches = new HashMap<>();
-            idCounters.put("br-", 1); // Start with ID 1 if the file does not exist
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
     
-    private static void saveBranches(Branch branch) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("branches.txt", true))) { // Append mode
+    
+    
+    
+    private static void saveBranches() {
+    List<Branch> branchList = new ArrayList<>(branches.values());
+    
+    // Sort the list based on branch IDs
+    branchList.sort(Comparator.comparing(Branch::getBranchId));
+    
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter("branches.txt"))) { // Overwrite mode
+        for (Branch branch : branchList) {
             bw.write(branch.getBranchId() + "," + branch.getName() + "," +
                       branch.getPhoneNum() + "," + branch.getAddress() + "," +
                       branch.getEmployeeCount() + "," + branch.getManagerName());
             bw.newLine(); // Adds a newline after each record
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
     
     
     

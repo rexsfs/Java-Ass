@@ -66,7 +66,7 @@ public class SupplierMain {
             case 4:
                 displaySupplier(foundIndex);
             case 5:
-                StaffMain.menu(foundIndex);
+                StaffMain.staffTypeRecognize(foundIndex);
                 break;
         }
 
