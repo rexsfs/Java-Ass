@@ -182,7 +182,8 @@ public class StaffMain {
             System.out.println("5. Accessory Management");
             System.out.println("6. Branch Function");
             System.out.println("7. Exit");
-            System.out.println("--------------------------------------------------------------------------------------------");
+            System.out.println(
+                    "--------------------------------------------------------------------------------------------");
             System.out.print("Select your choice : ");
 
             try {
@@ -297,7 +298,7 @@ public class StaffMain {
                 cancelAccount(foundIndex);
                 break;
             case 7:
-                removeStaff();
+                removeStaff(foundIndex);
                 break;
             case 8:
                 searchStaff(foundIndex);
@@ -966,7 +967,7 @@ public class StaffMain {
 
     }
 
-    public static void removeStaff() {
+    public static void removeStaff(int staffIndex) {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Staff> staffList = readStaffToArray();
@@ -985,11 +986,55 @@ public class StaffMain {
         System.out
                 .println("|                                                                                         |");
         System.out
-                .println("+========================================================================================+");
+                .println("+=========================================================================================+");
 
         System.out.print("Enter Staff ID to remove (9999 to exit): ");
-        System.out.println("exit...");
         String staffId = scanner.nextLine();
+
+        if (staffId.equals("9999")) {
+            adminMenu(staffIndex);
+        }
+
+        int indexFound = -1;
+        boolean found = false;
+
+        for (int i = 0; i < staffList.size(); i++) {
+            if (staffList.get(i).getPersonId().equals(staffId)) {
+                indexFound = i;
+                found = true;
+                System.out.println("Staff ID: " + staffList.get(i).getPersonId());
+                System.out.println("Staff Name: " + staffList.get(i).getName());
+                System.out.println("Staff Phone Number: " + staffList.get(i).getPhoneNum());
+                System.out.println("Staff Address: " + staffList.get(i).getAddress());
+                System.out.println("Staff Email: " + staffList.get(i).getEmail());
+                break;
+            }
+        }
+
+        if (!found){
+            System.out.println("Staff not found...");
+            removeStaff(staffIndex);
+        }
+
+        System.out.print("\nSure to remove this staff (Y = yes) ?: ");
+        String confirmation = scanner.nextLine();
+
+        if (confirmation.equals("Y") || confirmation.equals("y")){
+            System.out.println("Staff removed successfully!!!");
+            staffList.remove(indexFound);
+        }else{
+            System.out.println("Staff removed unsuccessfully!!!");
+        }
+
+        writeArrayToFile(staffList);
+
+        System.out.print("Back to main (Y = yes) ? ");
+        confirmation = scanner.nextLine();
+        if (confirmation.equals("Y") || confirmation.equals("y")){
+            adminMenu(staffIndex);
+        }else{
+            removeStaff(staffIndex);
+        }
 
     }
 
@@ -1110,17 +1155,28 @@ public class StaffMain {
         boolean found = false;
         int foundIndex = -1;
 
-        System.out.println("\n                         _____                            _____                                                                                 ");
-        System.out.println("___________         _____\\    \\            _____     _____\\    \\   ________    ________                                                         ");
-        System.out.println("\\          \\       /    / |    |      _____\\    \\   /    / |    | /        \\  /        \\                                                        ");
-        System.out.println(" \\    /\\    \\     /    /  /___/|     /    / \\    | /    /  /___/||\\         \\/         /|                                                       ");
-        System.out.println("  |   \\_\\    |   |    |__ |___|/    |    |  /___/||    |__ |___|/| \\            /\\____/ |                                                       ");
-        System.out.println("  |      ___/    |       \\       ____\\    \\ |   |||       \\      |  \\______\\/   \\     | |                                                       ");
-        System.out.println("  |      \\  ____ |     __/ __   /    /\\    \\|___|/|     __/ __    \\ |      | \\   \\____|/                                                        ");
-        System.out.println(" /     /\\ \\/    \\|\\    \\  /  \\ |    |/ \\    \\     |\\    \\  /  \\    \\|______|  \\   \\                                                             ");
-        System.out.println("/_____/ |\\______|| \\____\\/    ||\\____\\ /____/|    | \\____\\/    |            \\  \\___\\                                                            ");
-        System.out.println("|     | | |     || |    |____/|| |   ||    | |    | |    |____/|             \\ |   |                                                            ");
-        System.out.println("|_____|/ \\|_____| \\|____|   | | \\|___||____|/      \\|____|   | |              \\|___|                                                            ");
+        System.out.println(
+                "\n                         _____                            _____                                                                                 ");
+        System.out.println(
+                "___________         _____\\    \\            _____     _____\\    \\   ________    ________                                                         ");
+        System.out.println(
+                "\\          \\       /    / |    |      _____\\    \\   /    / |    | /        \\  /        \\                                                        ");
+        System.out.println(
+                " \\    /\\    \\     /    /  /___/|     /    / \\    | /    /  /___/||\\         \\/         /|                                                       ");
+        System.out.println(
+                "  |   \\_\\    |   |    |__ |___|/    |    |  /___/||    |__ |___|/| \\            /\\____/ |                                                       ");
+        System.out.println(
+                "  |      ___/    |       \\       ____\\    \\ |   |||       \\      |  \\______\\/   \\     | |                                                       ");
+        System.out.println(
+                "  |      \\  ____ |     __/ __   /    /\\    \\|___|/|     __/ __    \\ |      | \\   \\____|/                                                        ");
+        System.out.println(
+                " /     /\\ \\/    \\|\\    \\  /  \\ |    |/ \\    \\     |\\    \\  /  \\    \\|______|  \\   \\                                                             ");
+        System.out.println(
+                "/_____/ |\\______|| \\____\\/    ||\\____\\ /____/|    | \\____\\/    |            \\  \\___\\                                                            ");
+        System.out.println(
+                "|     | | |     || |    |____/|| |   ||    | |    | |    |____/|             \\ |   |                                                            ");
+        System.out.println(
+                "|_____|/ \\|_____| \\|____|   | | \\|___||____|/      \\|____|   | |              \\|___|                                                            ");
         System.out.print("Enter Staff ID (9999 to exit): ");
         String staffId = scanner.nextLine();
 

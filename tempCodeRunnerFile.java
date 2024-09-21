@@ -1,19 +1,13 @@
-public static String generateNewStaffId() {
-        String lastId = "1000"; // Default start if file is empty
+private static void deleteAccessory() {
+        System.out.print("Enter Accessory ID: ");
+        String id = scanner.nextLine();
+        Accessory accessory = accessories.get(id);
 
-        try (Scanner scanner = new Scanner(new File("staff.txt"))) {
-            while (scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                String[] split = line.split("\\|");
-                if (split.length > 0) {
-                    lastId = split[0]; // Extract the staff ID (first field)
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error reading staff file.");
-            e.printStackTrace();
+        if (accessory != null) {
+            accessories.remove(id);
+            saveAccessories();
+            System.out.println("Accessory with ID " + id + " has been deleted.");
+        } else {
+            System.out.println("Accessory ID not found.");
         }
-
-        int newId = Integer.parseInt(lastId) + 1; // Increment the latest ID by 1
-        return String.valueOf(newId);
     }
