@@ -276,44 +276,65 @@ public class AccessoryManager {
 
     private static void deleteAccessory() {
         System.out.print("Enter Accessory ID: ");
-        String id = scanner.nextLine();
+        String id = scanner.nextLine().trim(); // Trim spaces around the input
         Accessory accessory = accessories.get(id);
-
+    
         if (accessory != null) {
+            // Remove the accessory from the in-memory map
             accessories.remove(id);
-            saveAccessories();
+    
+            // Rewrite the file with the remaining accessories
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt"))) {
+                for (Accessory acc : accessories.values()) {
+                    bw.write(acc.getAccessoryId() + "," + acc.getName() + "," +
+                             acc.getPrice() + "," + acc.getQuantity() + "," + acc.getSupplierId());
+                    bw.newLine();  // Ensure each accessory is on a new line
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+    
             System.out.println("Accessory with ID " + id + " has been deleted.");
         } else {
             System.out.println("Accessory ID not found.");
         }
     }
-
+    
     private static void stockInAccessory() {
+        loadAccessories(); // Ensure the map is populated with current data
+    
         System.out.print("Enter Accessory ID: ");
-        String id = scanner.nextLine();
+        String id = scanner.nextLine().trim(); // Trim spaces around the input
         Accessory accessory = accessories.get(id);
-
+    
         if (accessory != null) {
             System.out.print("Enter quantity to stock in: ");
             int amount = scanner.nextInt();
-            accessory.stockIn(amount);
-            saveAccessories();
+            scanner.nextLine(); // Consume the newline
+    
+            accessory.stockIn(amount); // Stock in the amount
+            saveAccessories(); // Save updated map to the file
             System.out.println("Stock updated. New quantity: " + accessory.getQuantity());
         } else {
             System.out.println("Accessory ID not found.");
         }
     }
+    
 
     private static void stockOutAccessory() {
+        loadAccessories(); // Ensure the map is populated with current data
+    
         System.out.print("Enter Accessory ID: ");
-        String id = scanner.nextLine();
+        String id = scanner.nextLine().trim(); // Trim spaces around the input
         Accessory accessory = accessories.get(id);
-
+    
         if (accessory != null) {
             System.out.print("Enter quantity to stock out: ");
             int amount = scanner.nextInt();
-            if (accessory.stockOut(amount)) {
-                saveAccessories();
+            scanner.nextLine(); // Consume the newline
+    
+            if (accessory.stockOut(amount)) { // Stock out the amount
+                saveAccessories(); // Save updated map to the file
                 System.out.println("Stock updated. New quantity: " + accessory.getQuantity());
             } else {
                 System.out.println("Insufficient stock.");
@@ -324,6 +345,7 @@ public class AccessoryManager {
     }
 
     private static void loadAccessories() {
+        accessories.clear(); // Clear the map before loading
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
             int highestIdNumber = 0; // Track the highest numeric part of the IDs
@@ -333,7 +355,7 @@ public class AccessoryManager {
                     String id = parts[0];
                     Accessory accessory = new Accessory(id, parts[1], Double.parseDouble(parts[2]), Integer.parseInt(parts[3]), parts[4]);
                     accessories.put(id, accessory);
-
+    
                     // Extract numeric part of ID to find the highest
                     int idNumber = Integer.parseInt(id.substring(5)); // "accs-xxxx"
                     if (idNumber > highestIdNumber) {
@@ -343,7 +365,7 @@ public class AccessoryManager {
             }
             // Set the counter to the next available ID
             idCounter = highestIdNumber + 1; // Ensure the next ID will be unique
-            System.out.println("Initialized idCounter to: " + idCounter); // Debug output
+            // System.out.println("Initialized idCounter to: " + idCounter); // Remove or comment out this line
         } catch (FileNotFoundException e) {
             System.out.println("No accessories file found. Starting fresh.");
             idCounter = 1; // Optional: Start with ID 1 if the file does not exist
@@ -351,21 +373,22 @@ public class AccessoryManager {
             e.printStackTrace();
         }
     }
-
-    private static void saveAccessories() {
-        // Print the map size before saving for debugging
-        System.out.println("Saving " + accessories.size() + " accessories to file.");
     
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt"))) { // Overwrite mode
+    
+    private static void saveAccessories() {
+        // System.out.println("Saving " + accessories.size() + " accessories to file."); // Remove or comment out this line
+        
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt", false))) { // Overwrite mode
             for (Accessory accessory : accessories.values()) {
                 bw.write(accessory.getAccessoryId() + "," + accessory.getName() + "," +
                           accessory.getPrice() + "," + accessory.getQuantity() + "," + accessory.getSupplierId());
-                bw.newLine();
+                bw.newLine(); // Ensure each accessory is written on a new line
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
     
 
     public static void main(String[] args) {
