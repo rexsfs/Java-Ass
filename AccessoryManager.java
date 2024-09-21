@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class AccessoryManager {
     private static Map<String, Accessory> accessories;
     private static Scanner scanner;
-    private static int idCounter; // Keep track of the next available ID number
+    private static int idCounter = 1; 
 
     static {
         accessories = new HashMap<>();
@@ -135,10 +135,35 @@ public class AccessoryManager {
 
     private static String generateUniqueId() {
         String prefix = "accs-";
-        String id = String.format("%s%04d", prefix, idCounter);
-        idCounter++; // Increment for the next unique ID
-        return id;
+        String lastId = prefix + "0000"; // Default start if file is empty
+    
+        try (Scanner scanner = new Scanner(new File("accessories.txt"))) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] split = line.split(","); // Correct delimiter is ','
+                if (split.length > 0) {
+                    lastId = split[0]; // Extract the accessory ID (first field)
+                }
+            }
+        } catch (IOException e) { // File not found or does not exist
+            System.out.println("Error reading accessory file.");
+            e.printStackTrace(); // Use for debugging: locates the error
+        }
+    
+        // Check if lastId is empty or not correctly formatted
+        if (lastId.length() < 5 || !lastId.startsWith(prefix)) {
+            return prefix + "0001"; // Return default ID if lastId is invalid
+        }
+    
+        // Remove the prefix and parse the number
+        String numberPart = lastId.substring(prefix.length()); // Remove the 'accs-' prefix
+        int newIdNumber = Integer.parseInt(numberPart) + 1; // Auto increment the number part
+    
+        // Format the new ID with the prefix
+        return String.format("%s%04d", prefix, newIdNumber);
     }
+    
+    
 
     private static void saveSingleAccessory(Accessory accessory) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt", true))) { // Append mode
@@ -285,6 +310,7 @@ public class AccessoryManager {
     }
 
     private static void saveAccessories() {
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt"))) { // Overwrite mode
             for (Accessory accessory : accessories.values()) {
                 bw.write(accessory.getAccessoryId() + "," + accessory.getName() + "," +
@@ -294,5 +320,10 @@ public class AccessoryManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void main(String[] args) {
+        // Example usage
+        System.out.println(generateUniqueId());
     }
 }
