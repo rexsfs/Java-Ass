@@ -12,7 +12,6 @@ public class AccessoryManager {
     static {
         accessories = new HashMap<>();
         scanner = new Scanner(System.in);
-        idCounter = 1; // Initialize ID counter
     }
 
     public AccessoryManager() {
@@ -112,7 +111,7 @@ public class AccessoryManager {
 
         System.out.print("Enter Accessory Name: ");
         String name = scanner.nextLine();
-        String id = generateUniqueId(); // Generate unique ID
+        String id = generateUniqueId(); // Generate ID
         System.out.print("Enter Accessory Price: ");
         double price = scanner.nextDouble();
 
@@ -266,7 +265,7 @@ public class AccessoryManager {
                     String id = parts[0];
                     Accessory accessory = new Accessory(id, parts[1], Double.parseDouble(parts[2]), Integer.parseInt(parts[3]), parts[4]);
                     accessories.put(id, accessory);
-    
+
                     // Extract numeric part of ID to find the highest
                     int idNumber = Integer.parseInt(id.substring(5)); // "accs-xxxx"
                     if (idNumber > highestIdNumber) {
@@ -275,15 +274,15 @@ public class AccessoryManager {
                 }
             }
             // Set the counter to the next available ID
-            idCounter = highestIdNumber + 1; // This ensures the next ID will be unique
+            idCounter = highestIdNumber + 1; // Ensure the next ID will be unique
             System.out.println("Initialized idCounter to: " + idCounter); // Debug output
         } catch (FileNotFoundException e) {
             System.out.println("No accessories file found. Starting fresh.");
+            idCounter = 1; // Optional: Start with ID 1 if the file does not exist
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
 
     private static void saveAccessories() {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("accessories.txt"))) { // Overwrite mode
