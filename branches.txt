@@ -1,2 +1,3 @@
-br-0001,werc,0123456789,cwfe,12,ce
-br-0002,qwer,0123456789,xddwsc,12,sxacewd
+br-0001,Main Branch,01123456789,123 Main St,58,John Doe
+br-0002,East Branch,0123456789,456East,30,Jane Smith
+br-0003,West Branch,0123456789,789 West Ave,40,Emily Johnson

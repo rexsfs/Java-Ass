@@ -209,6 +209,13 @@ public class BranchManager {
     }
 
     private static void showDetails() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____                      _     ");
+        System.out.println("                    / ___|  ___  __ _ _ __ ___| |__  ");
+        System.out.println("                    \\___ \\ / _ \\/ _` | '__/ __| '_ \\ ");
+        System.out.println("                     ___) |  __/ (_| | | | (__| | | |");
+        System.out.println("                    |____/ \\___|\\__,_|_|  \\___|_| |_|");
+        System.out.println("+=======================================================================================+");
         loadBranches(); // Reload branches from file to ensure the latest data is in memory
         
         System.out.print("Enter Branch ID: ");
@@ -228,6 +235,14 @@ public class BranchManager {
     
 
     private static void deleteBranch() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____       _      _       ");
+        System.out.println("                    |  _ \\  ___| | ___| |_ ___ ");
+
+        System.out.println("                    | | | |/ _ \\ |/ _ \\ __/ _ \\");
+        System.out.println("                    | |_| |  __/ |  __/ ||  __/");
+        System.out.println("                    |____/ \\___|_|\\___|\\__\\___|");
+        System.out.println("+=======================================================================================+");
         System.out.print("Enter Branch ID: ");
         String id = scanner.nextLine().trim(); // Trim spaces around the input
         Branch branch = branches.get(id);

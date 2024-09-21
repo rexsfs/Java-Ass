@@ -21,6 +21,22 @@ public class AccessoryManager {
 
     public static void displayMenu(int staffIndex) {
         while (true) {
+            System.out.println(
+                "\n+=======================================================================================+");
+        System.out.println(
+                "|                        _                                                              |");
+        System.out.println(
+                "|                       / \\   ___ ___ ___  ___ ___  ___  _ __ _   _                     |");
+        System.out.println(
+                "|                      / _ \\ / __/ __/ _ \\/ __/ __|/ _ \\| '__| | | |                    |");
+        System.out.println(
+                "|                     / ___ \\ (_| (_|  __/\\__ \\__ \\ (_) | |  | |_| |                    |");
+        System.out.println(
+                "|                    /_/   \\_\\___\\___\\___||___/___/\\___/|_|   \\__, |                    |");
+        System.out.println(
+                "|                                                             |___/                     |");
+        System.out.println(
+                "+=======================================================================================+");
             System.out.println("\nAccessory Management System");
             System.out.println("1. Add New Accessory");
             System.out.println("2. Update Accessory Details");
@@ -68,6 +84,14 @@ public class AccessoryManager {
 
 
     private static void displayAllAccessories() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____  _           _             ");
+        System.out.println("                    |  _ \\(_)___ _ __ | | __ _ _   _ ");
+        System.out.println("                    | | | | / __| '_ \\| |/ _` | | | |");
+        System.out.println("                    | |_| | \\__ \\ |_) | | (_| | |_| |");
+        System.out.println("                    |____/|_|___/ .__/|_|\\__,_|\\__, |");
+        System.out.println("                                |_|            |___/ ");
+        System.out.println("+=======================================================================================+");
         System.out.println("\nAll Accessories Details:");
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
@@ -95,6 +119,13 @@ public class AccessoryManager {
     }
 
     private static void addAccessory() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                        _       _     _ ");
+        System.out.println("                       / \\   __| | __| |");
+        System.out.println("                      / _ \\ / _` |/ _` |");
+        System.out.println("                     / ___ \\ (_| | (_| |");
+        System.out.println("                    /_/   \\_\\__,_|\\__,_|");
+        System.out.println("+=======================================================================================+");
         ArrayList<Supplier> supplierList = SupplierMain.readSupplierToArray();
         System.out.print("Enter supplier ID: ");
         String supplierId = scanner.nextLine();
@@ -176,6 +207,14 @@ public class AccessoryManager {
     }
 
     private static void updateAccessory() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     _   _           _       _       ");
+        System.out.println("                    | | | |_ __   __| | __ _| |_ ___ ");
+        System.out.println("                    | | | | '_ \\ / _` |/ _` | __/ _ \\");
+        System.out.println("                    | |_| | |_) | (_| | (_| | ||  __/");
+        System.out.println("                     \\___/| .__/ \\__,_|\\__,_|\\__\\___|");
+        System.out.println("                          |_|                        ");
+        System.out.println("+=======================================================================================+");
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
         
@@ -251,6 +290,13 @@ public class AccessoryManager {
     }
     
     private static void showDetails() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____                      _     ");
+        System.out.println("                    / ___|  ___  __ _ _ __ ___| |__  ");
+        System.out.println("                    \\___ \\ / _ \\/ _` | '__/ __| '_ \\ ");
+        System.out.println("                     ___) |  __/ (_| | | | (__| | | |");
+        System.out.println("                    |____/ \\___|\\__,_|_|  \\___|_| |_|");
+        System.out.println("+=======================================================================================+");
         loadAccessories(); // Reload accessories from file to ensure the latest data is in memory
         
         System.out.print("Enter Accessory ID: ");
@@ -273,6 +319,14 @@ public class AccessoryManager {
     }
 
     private static void deleteAccessory() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____       _      _       ");
+        System.out.println("                    |  _ \\  ___| | ___| |_ ___ ");
+
+        System.out.println("                    | | | |/ _ \\ |/ _ \\ __/ _ \\");
+        System.out.println("                    | |_| |  __/ |  __/ ||  __/");
+        System.out.println("                    |____/ \\___|_|\\___|\\__\\___|");
+        System.out.println("+=======================================================================================+");
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine().trim(); // Trim spaces around the input
         Accessory accessory = accessories.get(id);
@@ -293,6 +347,13 @@ public class AccessoryManager {
     
     
     private static void stockInAccessory() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____  _             _    ___       ");
+        System.out.println("                    / ___|| |_ ___   ___| | _|_ _|_ __  ");
+        System.out.println("                    \\___ \\| __/ _ \\ / __| |/ /| || '_ \\ ");
+        System.out.println("                     ___) | || (_) | (__|   < | || | | |");
+        System.out.println("                    |____/ \\__\\___/ \\___|_|\\_\\___|_| |_|");
+        System.out.println("+=======================================================================================+");
         loadAccessories(); // Ensure the map is populated with current data
         
         System.out.print("Enter Accessory ID: ");
@@ -313,6 +374,13 @@ public class AccessoryManager {
     }
     
     private static void stockOutAccessory() {
+        System.out.println("\n+=======================================================================================+");
+        System.out.println("                     ____  _             _     ___        _   ");
+        System.out.println("                    / ___|| |_ ___   ___| | __/ _ \\ _   _| |_ ");
+        System.out.println("                    \\___ \\| __/ _ \\ / __| |/ / | | | | | | __|");
+        System.out.println("                     ___) | || (_) | (__|   <| |_| | |_| | |_ ");
+        System.out.println("                    |____/ \\__\\___/ \\___|_|\\_\\\\___/ \\__,_|\\__|");
+        System.out.println("+=======================================================================================+");
         loadAccessories(); // Ensure the map is populated with current data
         
         System.out.print("Enter Accessory ID: ");
