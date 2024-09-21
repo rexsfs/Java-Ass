@@ -252,16 +252,19 @@ public class AccessoryManager {
     
 
     private static void showDetails() {
+        loadAccessories(); // Reload accessories from file to ensure the latest data is in memory
+        
         System.out.print("Enter Accessory ID: ");
         String id = scanner.nextLine();
         Accessory accessory = accessories.get(id);
-
+    
         if (accessory != null) {
             displayDetails(accessory);
         } else {
             System.out.println("Accessory ID not found.");
         }
     }
+    
 
     private static void displayDetails(Accessory accessory) {
         System.out.println("Accessory Details:");
