@@ -25,11 +25,9 @@ public class Accessory implements Serializable {
         this.quantity = 0;
     }
 
-    public String getSupplierId(){
+    public String getSupplierId() {
         return supplierId;
     }
-
-    
 
     // Method to add stock
     public void stockIn(int amount) {
@@ -52,14 +50,6 @@ public class Accessory implements Serializable {
         setName(name);
         setPrice(price);
         setQuantity(quantity);
-    }
-
-    // Method to delete the accessory (typically handled by the manager, but can be a flag)
-    public void deleteAccessory() {
-        this.accessoryId = null;
-        this.name = null;
-        this.price = 0.0;
-        this.quantity = 0;
     }
 
     // Getters and setters
