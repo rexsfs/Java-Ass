@@ -1043,7 +1043,7 @@ public class StaffMain {
 
         ArrayList<Staff> staffList = readStaffToArray();
 
-        System.out.print("Enter Staff ID (9999 to exit) : ");
+        System.out.print("\nEnter Staff ID to search (9999 to exit) : ");
         String staffId = scanner.nextLine();
 
         if (staffId.equals("9999")) {
@@ -1075,7 +1075,7 @@ public class StaffMain {
             System.out.println("Staff Not Exist");
         }
 
-        System.out.print("Do you want to search more staff (Y = yes)?");
+        System.out.print("\nDo you want to search more staff (Y = yes)?: ");
         char confirmation = scanner.nextLine().charAt(0);
 
         if (Character.toUpperCase(confirmation) == 'Y') {
@@ -1111,14 +1111,14 @@ public class StaffMain {
         System.out.println(
                 "+==========================================================================================+");
         System.out.println(
-                "+------------+----------------------+----------------------+------------------------------------------------+--------------------------------+----------------------+-----------------+-----------------+");
-        System.out.printf("| %-10s | %-20s | %-20s | %-45s  | %-30s | %-20s | %-15s | %-15s |%n",
+                "+------------+----------------------+-----------------+------------------------------------------------+----------------------------+-----------------+-----------------+-----------------+");
+        System.out.printf("| %-10s | %-20s | %-15s | %-45s  | %-26s | %-15s | %-15s | %-15s |%n",
                 "Staff ID", "Name", "Phone Number", "Address", "Email", "Position", "Salary", "Staff Type");
         System.out.println(
-                "+------------+----------------------+----------------------+------------------------------------------------+--------------------------------+----------------------+-----------------+-----------------+");
+                "+------------+----------------------+-----------------+------------------------------------------------+----------------------------+-----------------+-----------------+-----------------+");
 
         for (Staff staff : staffList) {
-            System.out.printf("| %-10s | %-20s | %-20s | %-45s  | %-30s | %-20s | %-15s | %-15s |%n",
+            System.out.printf("| %-10s | %-20s | %-15s | %-45s  | %-26s | %-15s | %-15s | %-15s |%n",
                     staff.getPersonId(),
                     staff.getName(),
                     staff.getPhoneNum(),
@@ -1130,7 +1130,7 @@ public class StaffMain {
         }
 
         System.out.println(
-                "+------------+----------------------+----------------------+------------------------------------------------+--------------------------------+----------------------+-----------------+-----------------+");
+                "+------------+----------------------+-----------------+------------------------------------------------+----------------------------+-----------------+-----------------+-----------------+");
         System.out.print("Back to Admin menu (Y = yes): ");
         char choice = scanner.nextLine().charAt(0);
 
