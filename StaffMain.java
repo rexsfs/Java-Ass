@@ -359,16 +359,16 @@ public class StaffMain {
         System.out.println("Staff Password: " + staffList.get(foundIndex).getPassword());
         System.out.println("Staff Security Answer: " + staffList.get(foundIndex).getAnswer());
 
-        System.out.print("Back to (admin/staff) menu (Y = yes)? : ");
+        System.out.print("\nBack to (admin/staff) menu (Y = yes)? : ");
         char confirmation = scanner.nextLine().charAt(0);
 
-        if (Character.toUpperCase(confirmation) == 'Y') {
-            if (staffList.get(foundIndex).getStaffType().equals("staff")) {
-                menu(foundIndex);
-            } else {
-                adminMenu(foundIndex);
-            }
+        while (Character.toUpperCase(confirmation) != 'Y'){
+            System.out.println("Invalid input.Please enter letter 'y' return to menu!!!");
+            System.out.print("\nBack to (admin/staff) menu (Y = yes)? : ");
+            confirmation = scanner.nextLine().charAt(0);
         }
+
+        staffTypeRecognize(foundIndex);
 
     }
 
