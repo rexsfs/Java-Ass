@@ -223,10 +223,10 @@ public class StaffMain {
                 BranchManager.displayMenu(foundIndex); // Pass the foundIndex
                 break;
             case 7:
-                MainStaffOrderMenu.StaffMenu(foundIndex);
+                MainOrderMenu.StaffMenu(foundIndex);
                 break;
             case 8:
-                MainUserOrderMenu.UserMenu(foundIndex);
+                MainOrderMenu.UserMenu(foundIndex);
                 break;
             case 9:
                 Shipment.shipmentProcess(foundIndex);
@@ -340,10 +340,10 @@ public class StaffMain {
                 BranchManager.displayMenu(foundIndex); // Pass the foundIndex
                 break;
             case 12:
-                MainStaffOrderMenu.StaffMenu(foundIndex);
+                MainOrderMenu.StaffMenu(foundIndex);
                 break;
             case 13:
-                MainUserOrderMenu.UserMenu(foundIndex);
+                MainOrderMenu.UserMenu(foundIndex);
                 break;
             case 14:
                 Shipment.shipmentProcess(foundIndex);

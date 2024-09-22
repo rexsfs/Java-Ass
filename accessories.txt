@@ -1,12 +1,12 @@
-accs-0001,iPhone 14 Pro Max Leather Case,10.00,28,S1001
+accs-0001,iPhone 14 Pro Max Leather Case,10.00,26,S1001
 accs-0002,iPhone 13 Pro Max Silicone Case,35.00,17,S1002
 accs-0004,iPhone 14 Pro Max Leather Case,45.00,30,S1004
 accs-0005,iPhone 13 Pro Max Silicone Case,35.00,25,S105
 accs-0006,iPhone 12 Pro Max Tempered Glass Protector,15.00,20,S1002
 accs-0007,iPhone 11 Pro Max Wireless Charger,50.00,18,S1006
-accs-0008,iPhone 10 Charging Dock,25.00,40,S1001
-accs-0009,iPhone 9 Battery Pack,60.00,21,S1004
-accs-0010,iPhone 8 Plus Rugged Case,40.00,25,S1002
+accs-0008,iPhone 10 Charging Dock,25.00,20,S1001
+accs-0009,iPhone 9 Battery Pack,60.00,20,S1004
+accs-0010,iPhone 8 Plus Rugged Case,40.00,17,S1002
 accs-0011,iPhone 7 Plus Privacy Screen Protector,12.00,49,S1001
 accs-0012,iPhone 6s Plus Magnetic Mount,20.00,30,S1001
 accs-0013,iPhone 6 Clear Case with Kickstand,18.00,28,S1006

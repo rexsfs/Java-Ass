@@ -31,11 +31,11 @@ public class OrderFunc extends Order {
         this.accessoryId = accessoryId;
     }
 
-    public String getName() {
+    public String getItem() {
         return item;
     }
 
-    public void setName(String item) {
+    public void setItem(String item) {
         this.item = item;
     }
 
@@ -294,7 +294,7 @@ public class OrderFunc extends Order {
                                     double price = Double.parseDouble(accessoryDetails[2]);
                                     order.calculateAmount(price);  
     
-                                    System.out.println("Quantity updated successfully for " + DEEP_GREEN + order.getName() + ANSI_RESET + "\n");
+                                    System.out.println("Quantity updated successfully for " + DEEP_GREEN + order.getItem() + ANSI_RESET + "\n");
                                 } else if(newQty < 1){
                                     System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Quantity. Quantity Cannot Be 0.\n");
                                 }
@@ -320,7 +320,7 @@ public class OrderFunc extends Order {
 
         try (FileWriter writer = new FileWriter("order.txt", false)) {
             for (OrderFunc order : orders) {
-                writer.write(order.getAccessoryId() + "," + order.getName() + "," + (order.getAmount() / order.getQty()) + "," + order.getQty() + "\n");
+                writer.write(order.getAccessoryId() + "," + order.getItem() + "," + (order.getAmount() / order.getQty()) + "," + order.getQty() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Error updating the file.");
@@ -401,7 +401,7 @@ public class OrderFunc extends Order {
     
         try (FileWriter writer = new FileWriter("order.txt", false)) {
             for (OrderFunc order : orders) {
-                writer.write(order.getAccessoryId() + "," + order.getName() + "," + (order.getAmount() / order.getQty()) + "," + order.getQty() + "\n");
+                writer.write(order.getAccessoryId() + "," + order.getItem() + "," + (order.getAmount() / order.getQty()) + "," + order.getQty() + "\n");
             }
         } catch (IOException e) {
             System.out.println("Error Updating The File.");
@@ -445,11 +445,6 @@ public class OrderFunc extends Order {
             System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Option. Please Try Again.");
         }
         scanner.close();
-    }
-
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
     }
 
     public static void checkOut(List<OrderFunc> orders) {

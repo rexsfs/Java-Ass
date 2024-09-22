@@ -61,34 +61,32 @@ public class Payment {
 
         OrderFile.YourReceipt("order.txt");
         updateAccessoryQuantities("order.txt", "accessories.txt");
-        quit();
-        scanner.close();
+        clearOrderFile("order.txt");
+        back(0);
     }
 
-    public static void quit() {
+    public static void back(int foundIndex) {
         String ANSI_RESET = "\u001B[0m";
         String ANSI_RED = "\u001B[31m";
         Scanner scanner = new Scanner(System.in);
         String yn = "";
         
         while (!yn.equalsIgnoreCase("y")) {
-            System.out.printf("Please Press y To Quit: ");
+            System.out.printf("\nPlease Press y To Quit: ");
             yn = scanner.next();
             
             if (yn.equalsIgnoreCase("y")) {
-                clearOrderFile("order.txt");
+                StaffMain.staffTypeRecognize(foundIndex);
             } else {
                 System.out.println(ANSI_RED + "\nInvalid" + ANSI_RESET + " Option. Please Try Again.\n");
             }
         }
-        scanner.close();
     }
 
     public static void updateAccessoryQuantities(String orderFilename, String accessoriesFilename) {
         List<String> accessoryData = new ArrayList<>();
         Map<String, Integer> accessoryMap = new HashMap<>();
 
-        // Read accessories file (Including supplierId)
         try (BufferedReader accessoryReader = new BufferedReader(new FileReader(accessoriesFilename))) {
             String line;
             while ((line = accessoryReader.readLine()) != null) {

@@ -41,7 +41,6 @@ public class gnrReport {
                 }
             }
 
-            // Generate the report
             System.out.println("\nAccessories Sold Report:");
             System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+---------------+");
             System.out.printf("| %-13s | %-48s | %-13s |%n", "Accessory ID", "Item", "Sold");
