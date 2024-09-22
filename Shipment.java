@@ -142,7 +142,7 @@ public class Shipment {
         System.out.println("InvoiceId " + invoiceId + " status: " + shipmentStatus);
     }
 
-    public static void main(String[] args) {
+    public static void shipmentProcess(int foundIndex) {
         ArrayList<Item> itemList = new ArrayList<>();
         itemList.add(new Item("iphone 9 Battery Pack", 1, 60.00, "accs-0009"));
         itemList.add(new Item("iphone 12 Car Mount", 1, 28.00, "accs-0019"));
@@ -150,5 +150,8 @@ public class Shipment {
         Shipment shipment = new Shipment("In Transit", "2024-09-17", "Jalan34/70a,50480, Kuala Lumpur, Malaysia", itemList);
         shipment.generateInvoice();  // Generate  invoice
         shipment.trackingShipment();  // Track shipment status
+
+        System.out.println("\n\n");
+        StaffMain.staffTypeRecognize(foundIndex);
     }
 }

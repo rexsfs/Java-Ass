@@ -181,7 +181,10 @@ public class StaffMain {
             System.out.println("4. Cancel Account");
             System.out.println("5. Accessory Management");
             System.out.println("6. Branch Function");
-            System.out.println("7. Exit");
+            System.out.println("7. Staff Order Function");
+            System.out.println("8. User Order");
+            System.out.println("9. Shipment");
+            System.out.println("10. Exit");
             System.out.println(
                     "--------------------------------------------------------------------------------------------");
             System.out.print("Select your choice : ");
@@ -189,13 +192,13 @@ public class StaffMain {
             try {
                 choice = scanner.nextInt();
 
-                if (choice >= 1 && choice <= 7) {
+                if (choice >= 1 && choice <= 10) {
                     break;
                 } else {
-                    System.out.println("Invalid choice. Please enter a number between 1 and 7!!!");
+                    System.out.println("Invalid choice. Please enter a number between 1 and 10!!!");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter an integer between 1 and 7!!!");
+                System.out.println("Invalid input. Please enter an integer between 1 and 10!!!");
                 scanner.next();
             }
         }
@@ -220,6 +223,15 @@ public class StaffMain {
                 BranchManager.displayMenu(foundIndex); // Pass the foundIndex
                 break;
             case 7:
+                MainStaffOrderMenu.StaffMenu(foundIndex);
+                break;
+            case 8:
+                MainUserOrderMenu.UserMenu(foundIndex);
+                break;
+            case 9:
+                Shipment.shipmentProcess(foundIndex);
+                break;
+            case 10:
                 System.out.println("        _____                                                          ");
                 System.out.println("   _____\\    \\ _____       _____ ____________    ________    ________  ");
                 System.out.println("  /    / |    |\\    \\     /    //            \\  /        \\  /        \\ ");
@@ -426,7 +438,7 @@ public class StaffMain {
                 System.out.println("6. Security question answer");
                 System.out.println("7. Exit ");
                 System.out.println(
-                    "--------------------------------------------------------------------------------------------");
+                        "--------------------------------------------------------------------------------------------");
                 System.out.print("Enter Choice: ");
                 choice = scanner.nextInt();
                 validChoice = true;
@@ -569,15 +581,24 @@ public class StaffMain {
 
             while (!validChoice) {
                 try {
-                    System.out.println("\n+=========================================================================================+");
-                    System.out.println("|                __  __           _ _  __         ____  _         __  __                  |");
-                    System.out.println("|               |  \\/  | ___   __| (_)/ _|_   _  / ___|| |_ __ _ / _|/ _|                 |");
-                    System.out.println("|               | |\\/| |/ _ \\ / _ \\| | |_| | | | \\___ \\| __/ _` | |_| |_                  |");
-                    System.out.println("|               | |  | | (_) | (_| | |  _| |_| |  ___) | || (_| |  _|  _|                 |");
-                    System.out.println("|               |_|  |_|\\___/ \\__,_|_|_|  \\__, | |____/ \\__\\__,_|_| |_|                   |");
-                    System.out.println("|                ___        __            |___/           _   _                           |");
-                    System.out.println("|               |_ _|_ __  / _| ___  _ __ _ __ ___   __ _| |_(_) ___  _ __                |");
-                    System.out.println("|                | || '_ \\| |_ / _ \\| '__| '_ ` _ \\ / _` | __| |/ _ \\| '_ \\               |");
+                    System.out.println(
+                            "\n+=========================================================================================+");
+                    System.out.println(
+                            "|                __  __           _ _  __         ____  _         __  __                  |");
+                    System.out.println(
+                            "|               |  \\/  | ___   __| (_)/ _|_   _  / ___|| |_ __ _ / _|/ _|                 |");
+                    System.out.println(
+                            "|               | |\\/| |/ _ \\ / _ \\| | |_| | | | \\___ \\| __/ _` | |_| |_                  |");
+                    System.out.println(
+                            "|               | |  | | (_) | (_| | |  _| |_| |  ___) | || (_| |  _|  _|                 |");
+                    System.out.println(
+                            "|               |_|  |_|\\___/ \\__,_|_|_|  \\__, | |____/ \\__\\__,_|_| |_|                   |");
+                    System.out.println(
+                            "|                ___        __            |___/           _   _                           |");
+                    System.out.println(
+                            "|               |_ _|_ __  / _| ___  _ __ _ __ ___   __ _| |_(_) ___  _ __                |");
+                    System.out.println(
+                            "|                | || '_ \\| |_ / _ \\| '__| '_ ` _ \\ / _` | __| |/ _ \\| '_ \\               |");
                     System.out.println(
                             "|                | || | | |  _| (_) | |  | | | | | | (_| | |_| | (_) | | | |              |");
                     System.out.println(
