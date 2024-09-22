@@ -4,6 +4,6 @@
 1004|thtdfdrtf|012-1332332|hiigwruig|qdhbnh@gvhcje|intern|1100.0|staff|123|123
 1005|LGFTfiy|012-3456789|auwgdawd|awda@catwd|intern|2000.0|admin|abc|123
 1006|aetgrer|012-4534234|ergshgg|ghvgv@ghhh|ntysry|1000.0|staff|abc|123
-1007|Abu|012-3456789|123, Jalan Abc Taman Bunga Raya|ali@gmail.com|intern|1000.0|staff|abu123|Abu
+1007|Abu|012-3456789|123, Jalan Abc Taman Bunga Raya|abu@gmail.com|intern|1000.0|staff|abu123|Abu
 1008|qwveqcer|012-34322345|werv|ace@evr|wer|1000.0|staff|123|abc
 1009|cqerw|012-23123432|wcqe|wf2wec@cew|cwe|1000.0|staff|123|wce

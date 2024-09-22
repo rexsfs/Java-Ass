@@ -5,3 +5,6 @@ S1003|Dabria|012-2222222|456, Jalan 123 Taman Bunga Raya|dabria@gmail.com|Three 
 S1005|Abu|011-1111111|afgfbrdbhstfdbz|orbgnae@kfv|resrgeg
 S1005|aabrb|011-1111111|afgfbrdbhstfdbz|orbgnae@kfv|resrgeg
 S1006|Ali|012-3456789|gufuykfu|uffy@cgfy|igyugig
+S1007|John Doe|012-9876543|789, Jalan Empat Taman Lima|johndoe@gmail.com|Empat Company
+S1008|Jane Smith|011-2222222|321, Lorong Enam Taman Tujuh|janesmith@yahoo.com|Tujuh Corporation
+S1009|Ahmad Faiz|013-1234567|99, Jalan Lapan Taman Sembilan|ahmad.faiz@gmail.com|Sembilan Enterprise

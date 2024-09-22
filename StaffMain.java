@@ -220,7 +220,19 @@ public class StaffMain {
                 BranchManager.displayMenu(foundIndex); // Pass the foundIndex
                 break;
             case 7:
-                System.out.print("exit...");
+                System.out.println("        _____                                                          ");
+                System.out.println("   _____\\    \\ _____       _____ ____________    ________    ________  ");
+                System.out.println("  /    / |    |\\    \\     /    //            \\  /        \\  /        \\ ");
+                System.out.println(" /    /  /___/| \\    |   |    /|\\___/\\  \\\\___/||\\         \\/         /|");
+                System.out.println("|    |__ |___|/  \\    \\ /    /  \\|____\\  \\___|/| \\            /\\____/ |");
+                System.out.println("|       \\         \\    |    /         |  |     |  \\______ /\\   \\     | |");
+                System.out.println("|     __/ __      /    |    \\    __  /   / __   \\ |      | \\   \\____|/ ");
+                System.out.println("|\\    \\  /  \\    /    /|\\    \\  /  \\/   /_/  |   \\|______|  \\   \\      ");
+                System.out.println("| \\____\\/    |  |____|/ \\|____||____________/|            \\  \\___\\    ");
+                System.out.println("| |    |____/|  |    |   |    ||           | /             \\ |   |    ");
+                System.out.println(" \\|____|   | |  |____|   |____||___________|/               \\|___|    ");
+                System.out.println("       |___|/                                                          ");
+                System.out.println("\nexit...");
                 break;
         }
     }
@@ -359,12 +371,12 @@ public class StaffMain {
         System.out.println("Staff Password: " + staffList.get(foundIndex).getPassword());
         System.out.println("Staff Security Answer: " + staffList.get(foundIndex).getAnswer());
 
-        System.out.print("\nBack to (admin/staff) menu (Y = yes)? : ");
+        System.out.print("\nBack to Menu (Y = yes)? : ");
         char confirmation = scanner.nextLine().charAt(0);
 
-        while (Character.toUpperCase(confirmation) != 'Y'){
+        while (Character.toUpperCase(confirmation) != 'Y') {
             System.out.println("Invalid input.Please enter letter 'y' return to menu!!!");
-            System.out.print("\nBack to (admin/staff) menu (Y = yes)? : ");
+            System.out.print("\nBack to Menu (Y = yes)? : ");
             confirmation = scanner.nextLine().charAt(0);
         }
 
@@ -405,13 +417,16 @@ public class StaffMain {
                         "|                                                                                         |");
                 System.out.println(
                         "+=========================================================================================+");
-                System.out.println("Select the information to modify:");
+                System.out.println("\nSelect the information to modify:");
                 System.out.println("1. Name");
                 System.out.println("2. Phone Number");
                 System.out.println("3. Address");
                 System.out.println("4. Email");
                 System.out.println("5. Password");
                 System.out.println("6. Security question answer");
+                System.out.println("7. Exit ");
+                System.out.println(
+                    "--------------------------------------------------------------------------------------------");
                 System.out.print("Enter Choice: ");
                 choice = scanner.nextInt();
                 validChoice = true;
@@ -430,6 +445,7 @@ public class StaffMain {
                 System.out.println("Current Staff name: " + staffList.get(foundIndex).getName());
                 System.out.print("Enter new Staff name: ");
                 staffList.get(foundIndex).setName(scanner.nextLine());
+                System.out.println("\nName changed successfully!!!");
                 break;
             case 2:
                 System.out.println(
@@ -440,6 +456,7 @@ public class StaffMain {
                 System.out.println("Current Phone Number: " + staffList.get(foundIndex).getPhoneNum());
                 System.out.print("Enter new Phone Number(01X-XXXXXXX/ 01X-XXXXXXXX): ");
                 String phoneNum = scanner.nextLine();
+                System.out.println("\nPhone Number changed successfully!!!");
 
                 while (!phoneNum.matches(phoneNumFormat1) && !phoneNum.matches(phoneNumFormat2)) {
                     System.out.println("Invalid input!!!");
@@ -453,6 +470,7 @@ public class StaffMain {
                 System.out.println("Current Address: " + staffList.get(foundIndex).getAddress());
                 System.out.print("Enter New Address: ");
                 staffList.get(foundIndex).setAddress(scanner.nextLine());
+                System.out.println("\nAddress changed successfully!!!");
                 break;
             case 4:
                 String emailFormat = "^(.+)@(.+)$";
@@ -462,6 +480,7 @@ public class StaffMain {
                 System.out.println("Current Email: " + staffList.get(foundIndex).getEmail());
                 System.out.print("Enter new Email (must include @): ");
                 String email = scanner.nextLine();
+                System.out.println("\nEmail changed successfully!!!");
 
                 while (!email.matches(emailFormat)) {
                     System.out.println("Invalid input!!!");
@@ -493,33 +512,28 @@ public class StaffMain {
             case 6:
                 System.out.println(
                         "\n------------------------------------------------------------------------------------------");
-                System.out.println("What is your childhood nickname?");
-                System.out.print("Enter your current Security Question answer: ");
-                String answer = scanner.nextLine();
-                if (answer.equals(staffList.get(foundIndex).getAnswer())) {
-                    System.out.print("Enter your new Security Question answer: ");
+                System.out.print("Enter Your Current Password: ");
+                String password = scanner.nextLine();
+                if (password.equals(staffList.get(foundIndex).getPassword())) {
+                    System.out.println("Current Security Question answer: " + staffList.get(foundIndex).getAnswer());
+                    System.out.print("\nEnter your new Security Question answer: ");
                     staffList.get(foundIndex).setAnswer(scanner.nextLine());
+                    System.out.println("Security answer changed successfully!!!");
                     break;
                 } else {
-                    System.out.println("Wrong answer!!!");
-                    resetPassword();
+                    System.out.println("Wrong password!!!");
                 }
+                break;
+            case 7:
+                staffTypeRecognize(foundIndex);
+                break;
             default:
                 System.out.println("Invalid choice!!!");
         }
 
         writeArrayToFile(staffList);
 
-        System.out.print("Back to (admin/staff) menu (Y = yes)?: ");
-        char confirmation = scanner.nextLine().charAt(0);
-
-        if (Character.toUpperCase(confirmation) == 'Y') {
-            if (staffList.get(foundIndex).getStaffType().equals("staff")) {
-                menu(foundIndex);
-            } else {
-                adminMenu(foundIndex);
-            }
-        }
+        modifyPersonal(foundIndex);
 
     }
 
@@ -555,24 +569,15 @@ public class StaffMain {
 
             while (!validChoice) {
                 try {
-                    System.out.println(
-                            "\n+=========================================================================================+");
-                    System.out.println(
-                            "|                __  __           _ _  __         ____  _         __  __                  |");
-                    System.out.println(
-                            "|               |  \\/  | ___   __| (_)/ _|_   _  / ___|| |_ __ _ / _|/ _|                 |");
-                    System.out.println(
-                            "|               | |\\/| |/ _ \\ / _ \\| | |_| | | | \\___ \\| __/ _` | |_| |_                  |");
-                    System.out.println(
-                            "|               | |  | | (_) | (_| | |  _| |_| |  ___) | || (_| |  _|  _|                 |");
-                    System.out.println(
-                            "|               |_|  |_\\___/ \\__,_|_|_|  \\__, | |____/ \\__\\__,_|_| |_|                    |");
-                    System.out.println(
-                            "|                ___        __            |___/           _   _                           |");
-                    System.out.println(
-                            "|               |_ _|_ __  / _| ___  _ __ _ __ ___   __ _| |_(_) ___  _ __                |");
-                    System.out.println(
-                            "|                | || '_ \\| |_ / _ \\| '__| '_ ` _ \\ / _` | __| |/ _ \\| '_ \\               |");
+                    System.out.println("\n+=========================================================================================+");
+                    System.out.println("|                __  __           _ _  __         ____  _         __  __                  |");
+                    System.out.println("|               |  \\/  | ___   __| (_)/ _|_   _  / ___|| |_ __ _ / _|/ _|                 |");
+                    System.out.println("|               | |\\/| |/ _ \\ / _ \\| | |_| | | | \\___ \\| __/ _` | |_| |_                  |");
+                    System.out.println("|               | |  | | (_) | (_| | |  _| |_| |  ___) | || (_| |  _|  _|                 |");
+                    System.out.println("|               |_|  |_|\\___/ \\__,_|_|_|  \\__, | |____/ \\__\\__,_|_| |_|                   |");
+                    System.out.println("|                ___        __            |___/           _   _                           |");
+                    System.out.println("|               |_ _|_ __  / _| ___  _ __ _ __ ___   __ _| |_(_) ___  _ __                |");
+                    System.out.println("|                | || '_ \\| |_ / _ \\| '__| '_ ` _ \\ / _` | __| |/ _ \\| '_ \\               |");
                     System.out.println(
                             "|                | || | | |  _| (_) | |  | | | | | | (_| | |_| | (_) | | | |              |");
                     System.out.println(
@@ -958,23 +963,19 @@ public class StaffMain {
                 .println("+=========================================================================================+");
 
         System.out.print("Confirm to cancel (Y = yes)?: ");
-        System.out.println("exit...");
         char confirmation = scanner.nextLine().charAt(0);
 
         if (Character.toUpperCase(confirmation) == 'Y') {
             staffList.remove(foundIndex);
             writeArrayToFile(staffList);
+            System.out.println("Cancel account successful!!!");
+            Login();
         } else {
-            System.out.print("Back to (staff/admin) menu (Y = yes)?: ");
+            System.out.println("Cancel unsuccessful!!!");
+            System.out.print("Back to Menu (Y = yes)?: ");
             confirmation = scanner.nextLine().charAt(0);
 
-            if (Character.toUpperCase(confirmation) == 'Y') {
-                if (staffList.get(foundIndex).getStaffType().equals("staff")) {
-                    menu(foundIndex);
-                } else {
-                    adminMenu(foundIndex);
-                }
-            }
+            staffTypeRecognize(foundIndex);
         }
 
     }
@@ -1062,7 +1063,7 @@ public class StaffMain {
         System.out
                 .println("|                            / ___|  ___  __ _ _ __ ___| |__                              |");
         System.out.println(
-                "|                             \\___ \\ / _ \\/ _` | '__/ __| '_ \\                            |");
+                "|                            \\___ \\ / _ \\/ _` | '__/ __| '_ \\                             |");
         System.out
                 .println("|                             ___) |  __/ (_| | | | (__| | | |                            |");
         System.out.println(
@@ -1207,6 +1208,10 @@ public class StaffMain {
                 "|_____|/ \\|_____| \\|____|   | | \\|___||____|/      \\|____|   | |              \\|___|                                                            ");
         System.out.print("Enter Staff ID (9999 to exit): ");
         String staffId = scanner.nextLine();
+
+        if (staffId.equals("9999")) {
+            Login();
+        }
 
         for (int i = 0; i < staffList.size(); i++) {
             if (staffId.equals(staffList.get(i).getPersonId())) {
