@@ -134,9 +134,4 @@ public class OrderMenu {
         scanner.close();
     }
     
-
-    public static void main(String[] args) {
-        OrderMenu menu = new OrderMenu();
-        menu.OrderAccessories();
-    }
 }

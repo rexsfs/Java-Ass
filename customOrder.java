@@ -27,9 +27,4 @@ public class customOrder {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        customOrder cusOrder = new customOrder();
-        cusOrder.displayCusOrder();
-    }
 }

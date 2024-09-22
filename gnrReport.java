@@ -68,9 +68,4 @@ public class gnrReport {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        gnrReport report = new gnrReport();
-        report.generateReport();
-    }
 }
