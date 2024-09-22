@@ -1,6 +1,7 @@
-S1000|Lee Siu Yee|012-83256242|24, Lorong Masria 3|weihao@gmail.com|SIUSIUSIU SDN BHD
+S1000|Lee Siu Yee|012-83256242|24, Lorong Masria 3|siuyee@gmail.com|SIUSIUSIU SDN BHD
 S1001|Jia Xin|011-11111111|111, Jalan One Taman Two|jiaxin@gmail.com|One Company
 S1002|Lee Jee Yang|012-2222222|123, Jalan Dua Taman Tiga|jeeyang@hotmail.com|Dua Company
 S1003|Dabria|012-2222222|456, Jalan 123 Taman Bunga Raya|dabria@gmail.com|Three Company
+S1005|Abu|011-1111111|afgfbrdbhstfdbz|orbgnae@kfv|resrgeg
 S1005|aabrb|011-1111111|afgfbrdbhstfdbz|orbgnae@kfv|resrgeg
 S1006|Ali|012-3456789|gufuykfu|uffy@cgfy|igyugig
