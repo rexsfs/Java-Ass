@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -24,19 +25,29 @@ public class SupplierMain {
         int choice = 0;
 
         while (true) {
-            System.out.println("\n+=========================================================================================+");
-            System.out.println("|                          ____                    _ _                                    |");
-            System.out.println("|                         / ___| _   _ _ __  _ __ | (_) ___ _ __                          |");
-            System.out.println("|                         \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__|                         |");
-            System.out.println("|                          ___) | |_| | |_) | |_) | | |  __/ |                            |");
-            System.out.println("|                         |____/ \\__,_| .__/| .__/|_|_|\\___|_|                            |");
-            System.out.println("|                                     |_|   |_|                                           |");
-            System.out.println("+=========================================================================================+");
-            System.out.println("1. Add supplier");
+            System.out.println(
+                    "\n+=========================================================================================+");
+            System.out.println(
+                    "|                          ____                    _ _                                    |");
+            System.out.println(
+                    "|                         / ___| _   _ _ __  _ __ | (_) ___ _ __                          |");
+            System.out.println(
+                    "|                         \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__|                         |");
+            System.out.println(
+                    "|                          ___) | |_| | |_) | |_) | | |  __/ |                            |");
+            System.out.println(
+                    "|                         |____/ \\__,_| .__/| .__/|_|_|\\___|_|                            |");
+            System.out.println(
+                    "|                                     |_|   |_|                                           |");
+            System.out.println(
+                    "+=========================================================================================+");
+            System.out.println("\n1. Add supplier");
             System.out.println("2. Modify supplier");
             System.out.println("3. Delete supplier");
             System.out.println("4. Display supplier");
             System.out.println("5. Exit");
+            System.out.println(
+                    "--------------------------------------------------------------------------------------------");
             System.out.print("Enter your choice (1-5): ");
 
             try {
@@ -49,7 +60,7 @@ public class SupplierMain {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input.Please enter a number between 1 and 5!!!");
-                scanner.next(); //rewind stdin = clear
+                scanner.next(); // rewind stdin = clear
             }
         }
 
@@ -83,9 +94,9 @@ public class SupplierMain {
                     lastId = split[0]; // Extract the supplier ID (first field)
                 }
             }
-        } catch (IOException e) { //file not found or does not exist
+        } catch (IOException e) { // file not found or does not exist
             System.out.println("Error reading supplier file.");
-            e.printStackTrace(); //use for debugging: locates the error
+            e.printStackTrace(); // use for debugging: locates the error
         }
 
         // Check if lastId is empty or not correctly formatted
@@ -115,10 +126,10 @@ public class SupplierMain {
     }
 
     public static ArrayList<Supplier> readSupplierToArray() {
-        ArrayList<Supplier> supplierList = new ArrayList<>();   //no need initialise array size
+        ArrayList<Supplier> supplierList = new ArrayList<>(); // no need initialise array size
 
         try (Scanner scanner = new Scanner(new File("supplier.txt"))) {
-            while (scanner.hasNextLine()) {  //has next line = continue loop
+            while (scanner.hasNextLine()) { // has next line = continue loop
                 String line = scanner.nextLine();
                 String[] split = line.split("\\|");
 
@@ -147,22 +158,46 @@ public class SupplierMain {
 
         String supplierId = generateNewSupplierId();
 
-        System.out.println("\n+=========================================================================================+");
-        System.out.println("|                   _       _     _   ____                    _ _                         |");
-        System.out.println("|                  / \\   __| | __| | / ___| _   _ _ __  _ __ | (_) ___ _ __               |");
-        System.out.println("|                 / _ \\ / _` |/ _` | \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__|              |");
-        System.out.println("|                / ___ \\ (_| | (_| |  ___) | |_| | |_) | |_) | | |  __/ |                 |");
-        System.out.println("|               /_/   \\_\\__,_|\\__,_| |____/ \\__,_| .__/| .__/|_|_|\\___|_|                 |");
-        System.out.println("|                                                |_|   |_|                                |");
-        System.out.println("+=========================================================================================+");
-        System.out.print("Enter Supplier Name: ");
-        String name = scanner.nextLine();
+        System.out.println(
+                "\n+=========================================================================================+");
+        System.out
+                .println("|                   _       _     _   ____                    _ _                         |");
+        System.out.println(
+                "|                  / \\   __| | __| | / ___| _   _ _ __  _ __ | (_) ___ _ __               |");
+        System.out.println(
+                "|                 / _ \\ / _` |/ _` | \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__|              |");
+        System.out.println(
+                "|                / ___ \\ (_| | (_| |  ___) | |_| | |_) | |_) | | |  __/ |                 |");
+        System.out.println(
+                "|               /_/   \\_\\__,_|\\__,_| |____/ \\__,_| .__/| .__/|_|_|\\___|_|                 |");
+        System.out
+                .println("|                                                |_|   |_|                                |");
+        System.out
+                .println("+=========================================================================================+");
+
+        String name = "";
+        while (true) {
+            System.out.print("Enter Supplier Name: ");
+            name = scanner.nextLine();
+            // Check if name contains any digits
+            if (name.matches(".*\\d.*")) {
+                System.out.println("Name cannot contain numbers. Please enter a valid name!!!");
+            }
+            // Check if the name exceeds 30 characters
+            else if (name.length() > 30) {
+                System.out.println("Name cannot be more than 30 characters. Please enter a shorter name!!!\n");
+            }
+            // If both checks pass, break the loop
+            else {
+                break;
+            }
+        }
 
         System.out.print("Enter Supplier Phone Number (01X-XXXXXXX/ 01X-XXXXXXXX): ");
         String phoneNum = scanner.nextLine();
 
         while (!isValidPhoneNum(phoneNum)) {
-            System.out.println("Invalid input!!!");
+            System.out.println("\nInvalid input!!!");
             System.out.print("Enter Supplier Phone Number (01X-XXXXXXX/ 01X-XXXXXXXX): ");
             phoneNum = scanner.nextLine();
         }
@@ -174,7 +209,7 @@ public class SupplierMain {
         String email = scanner.nextLine();
 
         while (!isValidEmail(email)) {
-            System.out.println("Invalid Email!!!");
+            System.out.println("\nInvalid Email!!!");
             System.out.print("Enter Supplier Email (must include @): ");
             email = scanner.nextLine();
         }
@@ -184,20 +219,28 @@ public class SupplierMain {
 
         Supplier supplier = new Supplier(supplierId, name, phoneNum, address, email, companyName);
 
-        System.out.print("Are you confirm to add this supplier?(Y): ");
+        System.out.print("\nAre you confirm to add this supplier?(Y): ");
         char message = scanner.nextLine().charAt(0);
 
         if (Character.toUpperCase(message) == 'Y') {
 
-            System.out.println("\n+=========================================================================================+");
-            System.out.println("|           ____                    _ _             ____       _        _ _               |");
-            System.out.println("|          / ___| _   _ _ __  _ __ | (_) ___ _ __  |  _ \\  ___| |_ __ _(_) |___           |");
-            System.out.println("|          \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__| | | | |/ _ \\ __/ _` | | / __|          |");
-            System.out.println("|           ___) | |_| | |_) | |_) | | |  __/ |    | |_| |  __/ || (_| | | \\__ \\          |");
-            System.out.println("|          |____/ \\__,_| .__/| .__/|_|_|\\___|_|    |____/ \\___|\\__\\__,_|_|_|___/          |");
-            System.out.println("|                 |_|   |_|                                                               |");
-            System.out.println("+=========================================================================================+");
-            System.out.println("Supplier Id: " + supplier.getPersonId());
+            System.out.println(
+                    "\n+=========================================================================================+");
+            System.out.println(
+                    "|           ____                    _ _             ____       _        _ _               |");
+            System.out.println(
+                    "|          / ___| _   _ _ __  _ __ | (_) ___ _ __  |  _ \\  ___| |_ __ _(_) |___           |");
+            System.out.println(
+                    "|          \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__| | | | |/ _ \\ __/ _` | | / __|          |");
+            System.out.println(
+                    "|           ___) | |_| | |_) | |_) | | |  __/ |    | |_| |  __/ || (_| | | \\__ \\          |");
+            System.out.println(
+                    "|          |____/ \\__,_| .__/| .__/|_|_|\\___|_|    |____/ \\___|\\__\\__,_|_|_|___/          |");
+            System.out.println(
+                    "|                 |_|   |_|                                                               |");
+            System.out.println(
+                    "+=========================================================================================+");
+            System.out.println("\nSupplier Id: " + supplier.getPersonId());
             System.out.println("Supplier Name: " + supplier.getName());
             System.out.println("Supplier Phone Number: " + supplier.getPhoneNum());
             System.out.println("Supplier Address: " + supplier.getAddress());
@@ -234,7 +277,7 @@ public class SupplierMain {
             menu(staffFound);
         }
 
-        int foundIndex = 0;
+        int foundIndex = -1;
         boolean found = false;
 
         for (int i = 0; i < supplierList.size(); i++) {
@@ -258,28 +301,37 @@ public class SupplierMain {
 
             while (!validChoice) {
                 try {
-                    System.out.println("\n+=========================================================================================+");
-                    System.out.println("|          __  __           _ _  __         ____                    _ _                   |");
-                    System.out.println("|         |  \\/  | ___   __| (_)/ _|_   _  / ___| _   _ _ __  _ __ | (_) ___ _ __         |");
-                    System.out.println("|         | |\\/| |/ _ \\ / _` | | |_| | | | \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__|        |");
-                    System.out.println("|         | |  | | (_) | (_| | |  _| |_| |  ___) | |_| | |_) | |_) | | |  __/ |           |");
-                    System.out.println("|         |_|  |_|\\___/ \\__,_|_|_|  \\__, | |____/ \\__,_| .__/| .__/|_|_|\\___|_|           |");
-                    System.out.println("|                                   |___/              |_|   |_|                          |");
-                    System.out.println("+=========================================================================================+");
-                    System.out.println("1. Supplier Name");
+                    System.out.println(
+                            "\n+=========================================================================================+");
+                    System.out.println(
+                            "|          __  __           _ _  __         ____                    _ _                   |");
+                    System.out.println(
+                            "|         |  \\/  | ___   __| (_)/ _|_   _  / ___| _   _ _ __  _ __ | (_) ___ _ __         |");
+                    System.out.println(
+                            "|         | |\\/| |/ _ \\ / _` | | |_| | | | \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__|        |");
+                    System.out.println(
+                            "|         | |  | | (_) | (_| | |  _| |_| |  ___) | |_| | |_) | |_) | | |  __/ |           |");
+                    System.out.println(
+                            "|         |_|  |_|\\___/ \\__,_|_|_|  \\__, | |____/ \\__,_| .__/| .__/|_|_|\\___|_|           |");
+                    System.out.println(
+                            "|                                   |___/              |_|   |_|                          |");
+                    System.out.println(
+                            "+=========================================================================================+");
+                    System.out.println("\n1. Supplier Name");
                     System.out.println("2. Supplier Phone Number");
                     System.out.println("3. Supplier Email");
                     System.out.println("4. Supplier Address");
                     System.out.println("5. Supplier Company");
                     System.out.println("6. Exit");
+                    System.out.println("--------------------------------------------------------------------------------------------");
                     System.out.print("Select the information to modify: ");
 
                     // Attempt to read the user's choice
                     choice = scanner.nextInt();
-                    validChoice = true;  // if the input is valid, exit the loop
+                    validChoice = true; // if the input is valid, exit the loop
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid input.Please enter a number!!!");
-                    scanner.next();  // clear the invalid input
+                    scanner.next(); // clear the invalid input
                 }
             }
 
@@ -287,43 +339,65 @@ public class SupplierMain {
 
             switch (choice) {
                 case 1:
-                    System.out.println("\n------------------------------------------------------------------------------------------\n");
+                    System.out.println(
+                            "\n------------------------------------------------------------------------------------------\n");
                     System.out.println("Current Supplier name: " + supplierList.get(foundIndex).getName());
-                    System.out.print("Enter new Supplier name: ");
-                    supplierList.get(foundIndex).setName(scanner.nextLine());
+                    String name = "";
+                    while (true) {
+                        System.out.print("Enter new Supplier Name: ");
+                        name = scanner.nextLine();
+                        // Check if name contains any digits
+                        if (name.matches(".*\\d.*")) {
+                            System.out.println("Name cannot contain numbers. Please enter a valid name!!!");
+                        }
+                        // Check if the name exceeds 30 characters
+                        else if (name.length() > 30) {
+                            System.out.println(
+                                    "Name cannot be more than 30 characters. Please enter a shorter name!!!\n");
+                        }
+                        // If both checks pass, break the loop
+                        else {
+                            supplierList.get(foundIndex).setName(name);
+                            break;
+                        }
+                    }
                     break;
                 case 2:
-                    System.out.println("\n------------------------------------------------------------------------------------------\n");
+                    System.out.println(
+                            "\n------------------------------------------------------------------------------------------\n");
                     System.out.println("Current Phone Number: " + supplierList.get(foundIndex).getPhoneNum());
                     System.out.print("Enter new Phone Number: ");
                     supplierList.get(foundIndex).setPhoneNum(scanner.nextLine());
 
                     while (!isValidPhoneNum(supplierList.get(foundIndex).getPhoneNum())) {
-                        System.out.println("Invalid Phone Number!!!");
+                        System.out.println("Invalid Phone Number!!!\n");
                         System.out.print("Enter new Phone Number: ");
                         supplierList.get(foundIndex).setPhoneNum(scanner.nextLine());
                     }
                     break;
                 case 3:
-                    System.out.println("\n------------------------------------------------------------------------------------------\n");
+                    System.out.println(
+                            "\n------------------------------------------------------------------------------------------\n");
                     System.out.println("Current Email: " + supplierList.get(foundIndex).getEmail());
                     System.out.print("Enter new Email: ");
                     supplierList.get(foundIndex).setEmail(scanner.nextLine());
 
                     while (!isValidEmail(supplierList.get(foundIndex).getEmail())) {
-                        System.out.println("Invalid Email!!!");
+                        System.out.println("Invalid Email!!!\n");
                         System.out.print("Enter new Email: ");
                         supplierList.get(foundIndex).setEmail(scanner.nextLine());
                     }
                     break;
                 case 4:
-                    System.out.println("\n------------------------------------------------------------------------------------------\n");
+                    System.out.println(
+                            "\n------------------------------------------------------------------------------------------\n");
                     System.out.println("Current Address: " + supplierList.get(foundIndex).getAddress());
                     System.out.print("Enter new Address: ");
                     supplierList.get(foundIndex).setAddress(scanner.nextLine());
                     break;
                 case 5:
-                    System.out.println("\n------------------------------------------------------------------------------------------\n");
+                    System.out.println(
+                            "\n------------------------------------------------------------------------------------------\n");
                     System.out.println("Current Address: " + supplierList.get(foundIndex).getCompanyName());
                     System.out.print("Enter new Company: ");
                     supplierList.get(foundIndex).setCompanyName(scanner.nextLine());
@@ -358,7 +432,7 @@ public class SupplierMain {
     }
 
     public static boolean isValidEmail(String email) {
-        String regex = "^(.+)@(.+)$";  // Email format pattern
+        String regex = "^(.+)@(.+)$"; // Email format pattern
         return email.matches(regex);
     }
 
@@ -366,14 +440,22 @@ public class SupplierMain {
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Supplier> supplierList = readSupplierToArray();
-        System.out.println("\n+=========================================================================================+");
-        System.out.println("|       ____                                 ____                    _ _                  |");
-        System.out.println("|      |  _ \\ ___ _ __ ___   _____   _____  / ___| _   _ _ __  _ __ | (_) ___ _ __        |");
-        System.out.println("|      | |_) / _ \\ '_ ` _ \\ / _ \\ \\ / / _ \\ \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__|       |");
-        System.out.println("|      |  _ <  __/ | | | | | (_) \\ V /  __/  ___) | |_| | |_) | |_) | | |  __/ |          |");
-        System.out.println("|      |_| \\_\\___|_| |_| |_|\\___/ \\_/ \\___| |____/ \\__,_| .__/| .__/|_|_|\\___|_|          |");
-        System.out.println("|                                                       |_|   |_|                         |");
-        System.out.println("+=========================================================================================+");
+        System.out.println(
+                "\n+=========================================================================================+");
+        System.out
+                .println("|       ____                                 ____                    _ _                  |");
+        System.out.println(
+                "|      |  _ \\ ___ _ __ ___   _____   _____  / ___| _   _ _ __  _ __ | (_) ___ _ __        |");
+        System.out.println(
+                "|      | |_) / _ \\ '_ ` _ \\ / _ \\ \\ / / _ \\ \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__|       |");
+        System.out.println(
+                "|      |  _ <  __/ | | | | | (_) \\ V /  __/  ___) | |_| | |_) | |_) | | |  __/ |          |");
+        System.out.println(
+                "|      |_| \\_\\___|_| |_| |_|\\___/ \\_/ \\___| |____/ \\__,_| .__/| .__/|_|_|\\___|_|          |");
+        System.out
+                .println("|                                                       |_|   |_|                         |");
+        System.out
+                .println("+=========================================================================================+");
         System.out.print("Enter Supplier ID to remove (9999 to exit): ");
         String supplierId = scanner.nextLine();
 
@@ -396,14 +478,22 @@ public class SupplierMain {
             removeSupplier(staffFound);
         }
 
-        System.out.println("\n+=========================================================================================+");
-        System.out.println("|           ____                    _ _             ____       _        _ _               |");
-        System.out.println("|          / ___| _   _ _ __  _ __ | (_) ___ _ __  |  _ \\  ___| |_ __ _(_) |___           |");
-        System.out.println("|          \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__| | | | |/ _ \\ __/ _` | | / __|          |");
-        System.out.println("|           ___) | |_| | |_) | |_) | | |  __/ |    | |_| |  __/ || (_| | | \\__ \\          |");
-        System.out.println("|          |____/ \\__,_| .__/| .__/|_|_|\\___|_|    |____/ \\___|\\__\\__,_|_|_|___/          |");
-        System.out.println("|                 |_|   |_|                                                               |");
-        System.out.println("+=========================================================================================+");
+        System.out.println(
+                "\n+=========================================================================================+");
+        System.out
+                .println("|           ____                    _ _             ____       _        _ _               |");
+        System.out.println(
+                "|          / ___| _   _ _ __  _ __ | (_) ___ _ __  |  _ \\  ___| |_ __ _(_) |___           |");
+        System.out.println(
+                "|          \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__| | | | |/ _ \\ __/ _` | | / __|          |");
+        System.out.println(
+                "|           ___) | |_| | |_) | |_) | | |  __/ |    | |_| |  __/ || (_| | | \\__ \\          |");
+        System.out.println(
+                "|          |____/ \\__,_| .__/| .__/|_|_|\\___|_|    |____/ \\___|\\__\\__,_|_|_|___/          |");
+        System.out
+                .println("|                 |_|   |_|                                                               |");
+        System.out
+                .println("+=========================================================================================+");
         System.out.println("Supplier ID: " + supplierList.get(foundIndex).getPersonId());
         System.out.println("Supplier Name: " + supplierList.get(foundIndex).getName());
         System.out.println("Supplier Phone Number: " + supplierList.get(foundIndex).getPhoneNum());
@@ -412,7 +502,7 @@ public class SupplierMain {
         System.out.println("Supplier Company Name: " + supplierList.get(foundIndex).getCompanyName());
 
         System.out.print("\nAre you sure to remove this supplier details(Y): ");
-        char choice = scanner.nextLine().charAt(0); //character at the position 0
+        char choice = scanner.nextLine().charAt(0); // character at the position 0
 
         if (Character.toUpperCase(choice) == 'Y') {
             System.out.println("Remove successfully!!!");
@@ -423,8 +513,8 @@ public class SupplierMain {
             System.out.print("Do you want to remove other supplier(Y)?: ");
             choice = scanner.nextLine().charAt(0);
         }
-        //if yes, removeSupplier
-        //if no, menu
+        // if yes, removeSupplier
+        // if no, menu
         if (Character.toUpperCase(choice) == 'Y') {
             removeSupplier(staffFound);
         } else {
@@ -443,14 +533,23 @@ public class SupplierMain {
             return;
         }
 
-        System.out.println("\nSupplier List:");
-        System.out.println("+------------+----------------------+----------------------+-----------------------------------------------+--------------------------------+---------------------------+");
-        System.out.printf("| %-10s | %-20s | %-20s | %-45s | %-30s | %-25s |%n",
+        System.out.println("\n+=========================================================================================+");
+        System.out.println("|                 ____                    _ _             _     _     _                   |");
+        System.out.println("|                / ___| _   _ _ __  _ __ | (_) ___ _ __  | |   (_)___| |_                 |");
+        System.out.println("|                \\___ \\| | | | '_ \\| '_ \\| | |/ _ \\ '__| | |   | / __| __|                |");
+        System.out.println("|                 ___) | |_| | |_) | |_) | | |  __/ |    | |___| \\__ \\ |_                 |");
+        System.out.println("|                |____/ \\__,_| .__/| .__/|_|_|\\___|_|    |_____|_|___/\\__|                |");
+        System.out.println("|                            |_|   |_|                                                    |");
+        System.out.println("+=========================================================================================+");
+        System.out.println(
+                "+------------+----------------------+-----------------+------------------------------------------+--------------------------------+---------------------------+");
+        System.out.printf("| %-10s | %-20s | %-15s | %-40s | %-30s | %-25s |%n",
                 "ID", "Name", "Phone Number", "Address", "Email", "Company");
-        System.out.println("+------------+----------------------+----------------------+-----------------------------------------------+--------------------------------+---------------------------+");
+        System.out.println(
+                "+------------+----------------------+-----------------+------------------------------------------+--------------------------------+---------------------------+");
 
         for (Supplier supplier : supplierList) {
-            System.out.printf("| %-10s | %-20s | %-20s | %-45s | %-30s | %-25s |%n",
+            System.out.printf("| %-10s | %-20s | %-15s | %-40s | %-30s | %-25s |%n",
                     supplier.getPersonId(),
                     supplier.getName(),
                     supplier.getPhoneNum(),
@@ -459,7 +558,8 @@ public class SupplierMain {
                     supplier.getCompanyName());
         }
 
-        System.out.println("+------------+----------------------+----------------------+-----------------------------------------------+--------------------------------+---------------------------+");
+        System.out.println(
+                "+------------+----------------------+----------- -----+------------------------------------------+--------------------------------+---------------------------+");
 
         System.out.print("Back to main (Y = yes): ");
         char choice = scanner.nextLine().charAt(0);

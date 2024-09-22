@@ -58,10 +58,5 @@ public class Staff extends Person{
     public String toString(){
         return super.toString() + "|" + getPosition() + "|" + getSalary() + "|" + getStaffType() + "|" + getPassword() + "|" + getAnswer() + "\n" ;
     }
-    
-    @Override
-    public void modifyDetails(){
-        
-    } 
 }
 
