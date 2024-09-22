@@ -114,7 +114,7 @@ public class OrderMenu {
                         System.out.println("Insufficient Stock For " + item + ". Only " + DEEP_GREEN + availableStock + ANSI_RESET + " Available.\n");
                     }
                 } else {
-                    System.out.println("Cannot Find accessory ID: " + ANSI_RED + accessoryId + ANSI_RESET);
+                    System.out.println("Cannot Find accessory ID: " + ANSI_RED + accessoryId + ANSI_RESET + "\n");
                 }
             }
     
