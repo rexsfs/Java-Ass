@@ -4,7 +4,7 @@ public class MainStaffOrderMenu {
     public static void StaffMenu(int foundIndex) {
         Scanner choices = new Scanner(System.in);
 
-        System.out.println("Order:");
+        System.out.println("\nOrder:");
         System.out.println("1. Start Order");
         System.out.println("2. Customer Order");
         System.out.println("3. Generate Report");

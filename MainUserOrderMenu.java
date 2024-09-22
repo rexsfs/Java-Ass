@@ -4,7 +4,7 @@ public class MainUserOrderMenu {
     public static void UserMenu(int foundIndex) {
         Scanner choices = new Scanner(System.in);
 
-        System.out.println("Order:");
+        System.out.println("\nOrder:");
         System.out.println("1. Start Order");
         System.out.println("2. History");
         System.out.println("3. Return");
