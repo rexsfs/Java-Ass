@@ -85,7 +85,7 @@ public class OrderMenu {
                 }
     
                 if (exists) {
-                    System.out.println("This" + ANSI_BOLD_YELLOW + " Accessory" + ANSI_RESET + " Is Already In Your Order.\n");
+                    System.out.println("This" + ANSI_BOLD_YELLOW + " Accessory" + ANSI_RESET + " Is Already" + ANSI_BOLD_YELLOW + " In Your Order" + ANSI_RESET +".\n" );
                     continue; 
                 }
     
