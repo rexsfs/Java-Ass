@@ -85,7 +85,7 @@ public class OrderMenu {
                 }
     
                 if (exists) {
-                    System.out.println("This" + ANSI_BOLD_YELLOW + " Accessory" + ANSI_RESET + " Is Already In Your Order.\n");
+                    System.out.println("This" + ANSI_BOLD_YELLOW + " Accessory" + ANSI_RESET + " Is Already" + ANSI_BOLD_YELLOW + " In Your Order" + ANSI_RESET +".\n" );
                     continue; 
                 }
     
@@ -114,7 +114,7 @@ public class OrderMenu {
                         System.out.println("Insufficient Stock For " + item + ". Only " + DEEP_GREEN + availableStock + ANSI_RESET + " Available.\n");
                     }
                 } else {
-                    System.out.println("Cannot Find accessory ID: " + ANSI_RED + accessoryId + ANSI_RESET);
+                    System.out.println("Cannot Find accessory ID: " + ANSI_RED + accessoryId + ANSI_RESET + "\n");
                 }
             }
     

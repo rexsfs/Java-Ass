@@ -46,7 +46,7 @@ public class OrderFunc extends Order {
         }
         return totalAmount;
     }
-    
+
     public static void addMoreOrders(Map<String, String[]> accessoriesMap) {
         String ANSI_RESET = "\u001B[0m"; 
         String DEEP_GREEN = "\u001B[38;5;28m";
@@ -56,10 +56,9 @@ public class OrderFunc extends Order {
         String accessoryId;
         int orderQty;
     
-        // Display ASCII Art and table header
         System.out.println(ANSI_BOLD_YELLOW + "\n    _        _      _   __  __                    _  _  _ ");
         System.out.println("   / \\    __| |  __| | |  \\/  |  ___   _ __  ___ | || || |");
-        System.out.println("  / _ \\  / _` | / _` | | |\\/| | / _ \\ | '__|/ _ \\| || || |");
+        System.out.println("  / _ \\  / _ | / _ | | |\\/| | / _ \\ | '__|/ _ \\| || || |");
         System.out.println(" / ___ \\| (_| || (_| | | |  | || (_) || |  |  __/|_||_||_|");
         System.out.println("/_/   \\_\\\\__,_| \\__,_| |_|  |_| \\___/ |_|   \\___|(_)(_)(_)" + ANSI_RESET);
         System.out.println("\nAll Accessories Details:");
@@ -81,6 +80,34 @@ public class OrderFunc extends Order {
                     System.out.printf(ANSI_BOLD_YELLOW + "| %-13s | %-48s | RM%-11.2f | %-12d |%n", id, item, price, qty);
                     System.out.println("+---------------+--------------------------------------------------+---------------+--------------+" + ANSI_RESET);
                 }
+            }
+
+            System.out.println("\nYour Current Orders: ");
+            System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+---------------+");
+            System.out.printf("| %-13s | %-48s | %-13s | %-12s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
+            System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+" + ANSI_RESET);
+        
+            try (BufferedReader reader = new BufferedReader(new FileReader("order.txt"))) {
+                String lines;
+                while ((lines = reader.readLine()) != null) {
+                    String[] parts = lines.split(",");
+                    if (parts.length == 4) {
+                        String accessorysId = parts[0];
+                        String item = parts[1];
+                        double price = Double.parseDouble(parts[2].trim());
+                        int qty = Integer.parseInt(parts[3].trim());
+        
+                        OrderFunc order = new OrderFunc(null, accessorysId, item, qty);
+                        order.calculateAmount(price);  
+                        orders.add(order);
+        
+                        System.out.println(ANSI_BOLD_YELLOW + order.toString());
+                        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+---------------+" + ANSI_RESET);
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Error reading the file.");
+                e.printStackTrace();
             }
     
             Set<String> exist = new HashSet<>();
@@ -118,6 +145,11 @@ public class OrderFunc extends Order {
                             String item = accessoryDetails[1];
                             double price = Double.parseDouble(accessoryDetails[2]);
                             int availableQuantity = Integer.parseInt(accessoryDetails[3]);
+
+                            if(orderQty < 1) {
+                                System.out.println(ANSI_RED + "Invalid" + ANSI_RESET + " Quantity. Quantity Cannot Be 0.\n");
+                                continue;
+                            }
     
                             if (orderQty <= availableQuantity) {
                                 System.out.println("You Ordered " + item + DEEP_GREEN + " Successfully" + ANSI_RESET + ".\n");
@@ -127,7 +159,7 @@ public class OrderFunc extends Order {
                                 orders.add(order);
     
                                 writer.write(accessoryId + "," + item + "," + price + "," + orderQty + "\n");
-                                exist.add(accessoryId); // Add newly added accessory to the 'exist' set
+                                exist.add(accessoryId); 
                             } else {
                                 System.out.println("Insufficient Stock For " + item + ". Only " + DEEP_GREEN + availableQuantity + ANSI_RESET + " Available.\n");
                             }
@@ -176,10 +208,36 @@ public class OrderFunc extends Order {
 
         System.out.println(ANSI_BOLD_YELLOW + "\n  ____  _                                   ___                        _    _  _          ");
         System.out.println(" / ___|| |__    __ _  _ __    __ _   ___   / _ \\  _   _   __ _  _ __  | |_ (_)| |_  _   _ ");
-        System.out.println("| |    | '_ \\  / _` || '_ \\  / _` | / _ \\ | | | || | | | / _` || '_ \\ | __|| || __|| | | |");
+        System.out.println("| |    | '_ \\  / _ || '_ \\  / _ | / _ \\ | | | || | | | / _ || '_ \\ | __|| || __|| | | |");
         System.out.println("| |___ | | | || (_| || | | || (_| ||  __/ | |_| || |_| || (_| || | | || |_ | || |_ | |_| |");
         System.out.println(" \\____||_| |_| \\__,_||_| |_| \\__, | \\___|  \\__\\_\\ \\__,_| \\__,_||_| |_| \\__||_| \\__| \\__, |");
         System.out.println("                             |___/                                                  |___/ " + ANSI_RESET);
+
+        System.out.println("\nAll Accessories Details:");
+        System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+");
+        System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Item", "Price (RM)", "Stock");
+        System.out.println("+---------------+--------------------------------------------------+--------------+---------------+" + ANSI_RESET);
+    
+        try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 4) {
+                    String id = parts[0];
+                    String item = parts[1];
+                    double price = Double.parseDouble(parts[2]);
+                    int qty = Integer.parseInt(parts[3]);
+    
+                    accessoriesMap.put(id, new String[]{id, item, String.valueOf(price), String.valueOf(qty)});
+                    System.out.printf(ANSI_BOLD_YELLOW + "| %-13s | %-48s | RM%-11.2f | %-12d |%n", id, item, price, qty);
+                    System.out.println("+---------------+--------------------------------------------------+---------------+--------------+" + ANSI_RESET);
+                }
+            }
+        }catch (IOException e) {
+            System.out.println("Error reading the file.");
+            e.printStackTrace();
+        }
+
         System.out.println("\nYour Current Orders: ");
         System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+---------------+");
         System.out.printf("| %-13s | %-48s | %-13s | %-12s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
@@ -356,6 +414,7 @@ public class OrderFunc extends Order {
         String ANSI_RESET = "\u001B[0m";
         String ANSI_RED = "\u001B[31m";
         String ANSI_BOLD_YELLOW = "\u001B[1;33m";
+        String DEEP_GREEN = "\u001B[38;5;28m";
 
         System.out.println(ANSI_BOLD_YELLOW + "  ____                          _    ___            _             ");
         System.out.println(" / ___| __ _  _ __    ___  ___ | |  / _ \\  _ __  __| |  ___  _ __ ");
@@ -375,6 +434,7 @@ public class OrderFunc extends Order {
                 orderWriter.write("");
                 orderWriter.close();
                 orders.clear();  
+                System.out.println("\nYour Order Has Been Cancelled" + DEEP_GREEN + " Successfully" + ANSI_RESET + ".");
             } catch (IOException e) {
                 System.out.println("An" + ANSI_RED + " Error" + ANSI_RESET + " Occurred While Clearing The Order File.");
                 e.printStackTrace();
@@ -394,7 +454,6 @@ public class OrderFunc extends Order {
 
     public static void checkOut(List<OrderFunc> orders) {
         String ANSI_RESET = "\u001B[0m";
-        String DEEP_GREEN = "\u001B[38;5;28m";
         String ANSI_RED = "\u001B[31m";
         String ANSI_BOLD_YELLOW = "\u001B[1;33m";
 
@@ -441,7 +500,6 @@ public class OrderFunc extends Order {
                         break;
                     case 5:
                         cancelOrder();
-                        System.out.println("\nYour Order Has Been Cancelled" + DEEP_GREEN + " Successfully" + ANSI_RESET + ".");
                         validChoice = true;  
                         break;
                     default:

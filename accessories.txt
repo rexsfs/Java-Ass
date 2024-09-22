@@ -1,4 +1,4 @@
-accs-0001,iPhone 14 Pro Max Leather Case,10.0,25,S1001
+accs-0001,iPhone 14 Pro Max Leather Case,10.0,28,S1001
 accs-0002,iPhone 13 Pro Max Silicone Case,35.0,17,S1002
 accs-0004,iPhone 14 Pro Max Leather Case,45.0,30,S1004
 accs-0005,iPhone 13 Pro Max Silicone Case,35.0,25,S105
@@ -20,3 +20,4 @@ accs-0020,iPhone 11 Pro Max Charging Case,65.0,9,S1006
 accs-0021,rrwe,10.0,10,S1003
 accs-0022,cfe,12.0,12,S1002
 accs-0023,asd,20.0,2,S1001
+
