@@ -283,7 +283,10 @@ public class StaffMain {
             System.out.println("9. Display All Staff");
             System.out.println("10. Accessory Management");
             System.out.println("11. Branch Function");
-            System.out.println("12. Exit");
+            System.out.println("12. Staff Order Function");
+            System.out.println("13. User Order");
+            System.out.println("14. Shipment");
+            System.out.println("15. Exit");
             System.out.println(
                     "--------------------------------------------------------------------------------------------");
             System.out.print("Select your choice : ");
@@ -291,13 +294,13 @@ public class StaffMain {
             try {
                 choice = scanner.nextInt();
 
-                if (choice >= 1 && choice <= 12) {
+                if (choice >= 1 && choice <= 15) {
                     break;
                 } else {
-                    System.out.println("Invalid choice. Please enter a number between 1 and 12!!!");
+                    System.out.println("Invalid choice. Please enter a number between 1 and 15!!!");
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter an integer between 1 and 12!!!");
+                System.out.println("Invalid input. Please enter an integer between 1 and 15!!!");
                 scanner.next();
             }
         }
@@ -337,6 +340,15 @@ public class StaffMain {
                 BranchManager.displayMenu(foundIndex); // Pass the foundIndex
                 break;
             case 12:
+                MainStaffOrderMenu.StaffMenu(foundIndex);
+                break;
+            case 13:
+                MainUserOrderMenu.UserMenu(foundIndex);
+                break;
+            case 14:
+                Shipment.shipmentProcess(foundIndex);
+                break;
+            case 15:
                 System.out.println("        _____                                                          ");
                 System.out.println("   _____\\    \\ _____       _____ ____________    ________    ________  ");
                 System.out.println("  /    / |    |\\    \\     /    //            \\  /        \\  /        \\ ");
