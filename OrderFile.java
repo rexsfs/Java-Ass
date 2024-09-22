@@ -64,13 +64,16 @@ public class OrderFile {
         String generatedOrderID = null; 
         
         try (BufferedReader reader = new BufferedReader(new FileReader(filename));
-             BufferedWriter writer = new BufferedWriter(new FileWriter("receipt.txt", true))) { 
+             BufferedWriter receipt = new BufferedWriter(new FileWriter("receipt.txt", true));
+             BufferedWriter customOrder = new BufferedWriter(new FileWriter("customOrder.txt", true));
+             BufferedWriter history = new BufferedWriter(new FileWriter("history.txt", true))) {
     
             String line;
     
+
             String header = "+---------------+--------------------------------------------------+--------------+---------------+---------------+\n";
             String point = String.format("| %-13s | %-48s | %-12s | %-13s | %-13s |%n", "Accessory ID", "Item", "Price (RM)", "Qty", "Amount (RM)");
-                
+            
             System.out.println(ANSI_BOLD_YELLOW + " ____                   _         _   ");
             System.out.println("|  _ \\  ___   ___  ___ (_) _ __  | |_ ");
             System.out.println("| |_) |/ _ \\ / __|/ _ \\| || '_ \\ | __|");
@@ -81,6 +84,16 @@ public class OrderFile {
             System.out.print(ANSI_BOLD_YELLOW + header);
             System.out.printf(point);
             System.out.print(header + ANSI_RESET);
+
+            history.write("Your Receipt:\n");
+            history.write(ANSI_BOLD_YELLOW + header);
+            history.write(point);
+            history.write(header + ANSI_RESET);
+
+            customOrder.write("Order:\n");
+            customOrder.write(ANSI_BOLD_YELLOW + header);
+            customOrder.write(point);
+            customOrder.write(header + ANSI_RESET);
     
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -109,15 +122,20 @@ public class OrderFile {
                     String orderDt = order.getOrderDate();
                     String paymentMtd = Payment.getPaymentMethod();
     
-                    String write = String.format("%s, %s, %.2f, %d, %.2f, %.2f, %s, %s, %s%n", 
-                                                 accessoryId, item, price, qty, qty * price, totalAmount, orderID, orderDt, paymentMtd);
-                    writer.write(write);
+                    String receiptEntry = String.format("%s, %s, %.2f, %d, %.2f, %s, %s, %s%n", 
+                                                        accessoryId, item, price, qty, qty * price, orderID, orderDt, paymentMtd);
+                    receipt.write(receiptEntry);  
+
+                    String historytEntry = String.format("| %-13s | %-48s | RM%-11.2f | %-12d | RM%-11.2f |%n", 
+                                                        accessoryId, item, price, qty, qty * price);
     
-                    String show = String.format("| %-13s | %-48s | RM%-11.2f | %-12d | RM%-11.2f |%n", 
-                                                 accessoryId, item, price, qty, qty * price);
-    
-                    System.out.print(ANSI_BOLD_YELLOW + show);
+                    System.out.print(ANSI_BOLD_YELLOW + historytEntry);
                     System.out.print(header + ANSI_RESET);
+                    
+                    history.write(ANSI_BOLD_YELLOW + historytEntry);  
+                    history.write(header + ANSI_RESET);
+                    customOrder.write(ANSI_BOLD_YELLOW + historytEntry);  
+                    customOrder.write(header + ANSI_RESET);
                 }
             }
     
@@ -127,15 +145,27 @@ public class OrderFile {
                 String orderDt = orders.get(0).getOrderDate();
                 String paymentMtd = Payment.getPaymentMethod();
     
-                String total = String.format("Total Amount: RM%.2f\n", totalAmount);
-                String id = "Order ID: " + orderID + "\n";
-                String date = "Order Date: " + orderDt + "\n";
-                String method = "Payment Method: " + paymentMtd + "\n";
+                String totalReceipt = String.format("Total Amount: RM%.2f\n", totalAmount);
+                String orID = "Order ID: " + orderID + "\n";
+                String orDate = "Order Date: " + orderDt + "\n";
+                String methodReceipt = "Payment Method: " + paymentMtd + "\n";
     
-                System.out.print(total);
-                System.out.print(id);
-                System.out.print(date);
-                System.out.print(method + "\n");
+                System.out.print(totalReceipt);
+                System.out.print(orID);
+                System.out.print(orDate);
+                System.out.print(methodReceipt + "\n");
+    
+                history.write(totalReceipt);
+                history.write(orID);
+                history.write(orDate);
+                history.write(methodReceipt + "\n");
+                history.write(ANSI_BOLD_YELLOW + header + ANSI_RESET);
+
+                customOrder.write(totalReceipt);
+                customOrder.write(orID);
+                customOrder.write(orDate);
+                customOrder.write(methodReceipt + "\n");
+                customOrder.write(ANSI_BOLD_YELLOW + header + ANSI_RESET); 
             }
     
         } catch (IOException e) {

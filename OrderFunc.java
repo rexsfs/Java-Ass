@@ -55,8 +55,8 @@ public class OrderFunc extends Order {
         Scanner scanner = new Scanner(System.in);  
         String accessoryId;
         int orderQty;
-
-
+    
+        // Display ASCII Art and table header
         System.out.println(ANSI_BOLD_YELLOW + "\n    _        _      _   __  __                    _  _  _ ");
         System.out.println("   / \\    __| |  __| | |  \\/  |  ___   _ __  ___ | || || |");
         System.out.println("  / _ \\  / _` | / _` | | |\\/| | / _ \\ | '__|/ _ \\| || || |");
@@ -66,7 +66,7 @@ public class OrderFunc extends Order {
         System.out.println(ANSI_BOLD_YELLOW + "+---------------+--------------------------------------------------+--------------+---------------+");
         System.out.printf("| %-13s | %-48s | %-12s | %-13s |%n", "ID", "Item", "Price (RM)", "Stock");
         System.out.println("+---------------+--------------------------------------------------+--------------+---------------+" + ANSI_RESET);
-
+    
         try (BufferedReader br = new BufferedReader(new FileReader("accessories.txt"))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -76,14 +76,13 @@ public class OrderFunc extends Order {
                     String item = parts[1];
                     double price = Double.parseDouble(parts[2]);
                     int qty = Integer.parseInt(parts[3]);
-        
-
+    
                     accessoriesMap.put(id, new String[]{id, item, String.valueOf(price), String.valueOf(qty)});
                     System.out.printf(ANSI_BOLD_YELLOW + "| %-13s | %-48s | RM%-11.2f | %-12d |%n", id, item, price, qty);
                     System.out.println("+---------------+--------------------------------------------------+---------------+--------------+" + ANSI_RESET);
                 }
             }
-
+    
             Set<String> exist = new HashSet<>();
             try (BufferedReader orderReader = new BufferedReader(new FileReader("order.txt"))) {
                 while ((line = orderReader.readLine()) != null) {
@@ -93,41 +92,42 @@ public class OrderFunc extends Order {
                     }
                 }
             }
-
+    
             try (FileWriter writer = new FileWriter("order.txt", true)) {
                 System.out.println("What You Want To Add On (Type '0' to Finish):");
-
+    
                 while (true) {
                     System.out.printf("Enter Accessory ID: accs-");
                     accessoryId = "accs-" + scanner.next();
-
+    
                     if (accessoryId.equalsIgnoreCase("accs-0")) {
                         break;
                     }
-
+    
                     if (exist.contains(accessoryId)) {
-                        System.out.println("This" + ANSI_BOLD_YELLOW + " Accessory" + ANSI_RESET + " Is Already In Your Order.\n");
+                        System.out.println("This" + ANSI_BOLD_YELLOW + " Accessory" + ANSI_RESET + " Is Already" + ANSI_BOLD_YELLOW + " In Your Order" + ANSI_RESET +".\n" );
                         continue; 
                     }
-
+    
                     if (accessoriesMap.containsKey(accessoryId)) {
                         System.out.print("Enter Quantity: ");
                         if (scanner.hasNextInt()) {
                             orderQty = scanner.nextInt();
-
+    
                             String[] accessoryDetails = accessoriesMap.get(accessoryId);
                             String item = accessoryDetails[1];
                             double price = Double.parseDouble(accessoryDetails[2]);
                             int availableQuantity = Integer.parseInt(accessoryDetails[3]);
-
+    
                             if (orderQty <= availableQuantity) {
                                 System.out.println("You Ordered " + item + DEEP_GREEN + " Successfully" + ANSI_RESET + ".\n");
-
+    
                                 OrderFunc order = new OrderFunc(null, accessoryId, item, orderQty);
                                 order.calculateAmount(price);
                                 orders.add(order);
-
+    
                                 writer.write(accessoryId + "," + item + "," + price + "," + orderQty + "\n");
+                                exist.add(accessoryId); // Add newly added accessory to the 'exist' set
                             } else {
                                 System.out.println("Insufficient Stock For " + item + ". Only " + DEEP_GREEN + availableQuantity + ANSI_RESET + " Available.\n");
                             }
@@ -139,7 +139,7 @@ public class OrderFunc extends Order {
                         System.out.println("Cannot Find Accessory ID: " + ANSI_RED + accessoryId + ANSI_RESET + "\n");
                     }
                 }
-
+    
                 System.out.println("Your Order Add On " + DEEP_GREEN + "Successfully" + ANSI_RESET + ".\n");
                 return;
             } catch (IOException e) {
@@ -151,7 +151,7 @@ public class OrderFunc extends Order {
             e.printStackTrace();
         }
     }
-
+    
     public static void changeQty() {
         String ANSI_RESET = "\u001B[0m"; 
         String DEEP_GREEN = "\u001B[38;5;28m";
