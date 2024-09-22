@@ -1,10 +1,10 @@
 S1000|Lee Siu Yee|012-83256242|24, Lorong Masria 3|siuyee@gmail.com|SIUSIUSIU SDN BHD
 S1001|Jia Xin|011-11111111|111, Jalan One Taman Two|jiaxin@gmail.com|One Company
 S1002|Lee Jee Yang|012-2222222|123, Jalan Dua Taman Tiga|jeeyang@hotmail.com|Dua Company
-S1003|Dabria|012-2222222|456, Jalan 123 Taman Bunga Raya|dabria@gmail.com|Three Company
+S1004|Dabria|012-2222222|456, Jalan 123 Taman Bunga Raya|dabria@gmail.com|Three Company
 S1005|Abu|011-1111111|afgfbrdbhstfdbz|orbgnae@kfv|resrgeg
-S1005|aabrb|011-1111111|afgfbrdbhstfdbz|orbgnae@kfv|resrgeg
-S1006|Ali|012-3456789|gufuykfu|uffy@cgfy|igyugig
-S1007|John Doe|012-9876543|789, Jalan Empat Taman Lima|johndoe@gmail.com|Empat Company
-S1008|Jane Smith|011-2222222|321, Lorong Enam Taman Tujuh|janesmith@yahoo.com|Tujuh Corporation
-S1009|Ahmad Faiz|013-1234567|99, Jalan Lapan Taman Sembilan|ahmad.faiz@gmail.com|Sembilan Enterprise
+S1006|aabrb|011-1111111|afgfbrdbhstfdbz|orbgnae@kfv|resrgeg
+S1007|Ali|012-3456789|gufuykfu|uffy@cgfy|igyugig
+S1008|John Doe|012-9876543|789, Jalan Empat Taman Lima|johndoe@gmail.com|Empat Company
+S1009|Jane Smith|011-2222222|321, Lorong Enam Taman Tujuh|janesmith@yahoo.com|Tujuh Corporation
+S1010|abu|012-3456789|123, Jalan Abc Taman Bunga|abu@gmail.com|Best Company Sdn Bhd

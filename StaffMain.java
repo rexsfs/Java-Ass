@@ -160,18 +160,12 @@ public class StaffMain {
 
         while (true) {
 
-            System.out.println(
-                    "\n+=========================================================================================+");
-            System.out.println(
-                    "|           __        __   _                            ____  _         __  __            |");
-            System.out.println(
-                    "|           \\ \\      / /__| | ___ ___  _ __ ___   ___  / ___|| |_ __ _ / _|/ _|           |");
-            System.out.println(
-                    "|            \\ \\ /\\ / / _ \\ |/ __/ _ \\| '_  _ \\ / _ \\ \\___ \\| __/ _` | |_| |_             |");
-            System.out.println(
-                    "|             \\ V  V /  __/ | (_| (_) | | | | | |  __/  ___) | || (_| |  _|  _|           |");
-            System.out.println(
-                    "|              \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___| |____/ \\__\\__,_|_| |_|             |");
+            System.out.println("\n+=========================================================================================+");
+            System.out.println("|           __        __   _                            ____  _         __  __            |");
+            System.out.println("|           \\ \\      / /__| | ___ ___  _ __ ___   ___  / ___|| |_ __ _ / _|/ _|           |");
+            System.out.println("|            \\ \\ /\\ / / _ \\ |/ __/ _ \\| '_  _  \\ / _ \\ \\___ \\| __/ _` | |_| |_            |");
+            System.out.println("|             \\ V  V /  __/ | (_| (_) | | | | | |  __/  ___) | || (_| |  _|  _|           |");
+            System.out.println("|              \\_/\\_/ \\___|_|\\___\\___/|_| |_| |_|\\___| |____/ \\__\\__,_|_| |_|             |");
             System.out.println(
                     "+=========================================================================================+");
 
@@ -449,8 +443,7 @@ public class StaffMain {
                 System.out.println("5. Password");
                 System.out.println("6. Security question answer");
                 System.out.println("7. Exit ");
-                System.out.println(
-                        "--------------------------------------------------------------------------------------------");
+                System.out.println("--------------------------------------------------------------------------------------------");
                 System.out.print("Enter Choice: ");
                 choice = scanner.nextInt();
                 validChoice = true;
@@ -593,22 +586,14 @@ public class StaffMain {
 
             while (!validChoice) {
                 try {
-                    System.out.println(
-                            "\n+=========================================================================================+");
-                    System.out.println(
-                            "|                __  __           _ _  __         ____  _         __  __                  |");
-                    System.out.println(
-                            "|               |  \\/  | ___   __| (_)/ _|_   _  / ___|| |_ __ _ / _|/ _|                 |");
-                    System.out.println(
-                            "|               | |\\/| |/ _ \\ / _ \\| | |_| | | | \\___ \\| __/ _` | |_| |_                  |");
-                    System.out.println(
-                            "|               | |  | | (_) | (_| | |  _| |_| |  ___) | || (_| |  _|  _|                 |");
-                    System.out.println(
-                            "|               |_|  |_|\\___/ \\__,_|_|_|  \\__, | |____/ \\__\\__,_|_| |_|                   |");
-                    System.out.println(
-                            "|                ___        __            |___/           _   _                           |");
-                    System.out.println(
-                            "|               |_ _|_ __  / _| ___  _ __ _ __ ___   __ _| |_(_) ___  _ __                |");
+                    System.out.println("\n+=========================================================================================+");
+                    System.out.println("|                __  __           _ _  __         ____  _         __  __                  |");
+                    System.out.println("|               |  \\/  | ___   __| (_)/ _|_   _  / ___|| |_ __ _ / _|/ _|                 |");
+                    System.out.println("|               | |\\/| |/ _ \\ / _ \\| | |_| | | | \\___ \\| __/ _` | |_| |_                  |");
+                    System.out.println("|               | |  | | (_) | (_| | |  _| |_| |  ___) | || (_| |  _|  _|                 |");
+                    System.out.println("|               |_|  |_|\\___/ \\__,_|_|_|  \\__, | |____/ \\__\\__,_|_| |_|                   |");
+                    System.out.println("|                ___        __            |___/           _   _                           |");
+                    System.out.println("|               |_ _|_ __  / _| ___  _ __ _ __ ___   __ _| |_(_) ___  _ __                |");
                     System.out.println(
                             "|                | || '_ \\| |_ / _ \\| '__| '_ ` _ \\ / _` | __| |/ _ \\| '_ \\               |");
                     System.out.println(
@@ -930,18 +915,12 @@ public class StaffMain {
 
         if (Character.toUpperCase(message) == 'Y') {
 
-            System.out.println(
-                    "\n+=========================================================================================+");
-            System.out.println(
-                    "|                ____  _         __  __   ____       _        _ _                         |");
-            System.out.println(
-                    "|               / ___|| |_ __ _ / _|/ _| |  _ \\  ___| |_ __ _(_) |___                     |");
-            System.out.println(
-                    "|               \\___ \\| __/ _` | |_| |_  | | | |/ _ \\ __/ _` | | / __|                    |");
-            System.out.println(
-                    "|                 ___) | || (_| |  _|  _| | |_| |  __/ || (_| | | \\__ \\                   |");
-            System.out.println(
-                    "|               |____/ \\__\\__,_|_| |_|   |____/ \\___|\\__\\__,_|_|_|___/                    |");
+            System.out.println("\n+=========================================================================================+");
+            System.out.println("|                ____  _         __  __   ____       _        _ _                         |");
+            System.out.println("|               / ___|| |_ __ _ / _|/ _| |  _ \\  ___| |_ __ _(_) |___                     |");
+            System.out.println("|               \\___ \\| __/ _` | |_| |_  | | | |/ _ \\ __/ _` | | / __|                    |");
+            System.out.println("|                 ___) ||| (_| |  _|  _| | |_| |  __/ || (_| | | \\__ \\                    |");
+            System.out.println("|               |____/ \\__\\__,_|_| |_|   |____/ \\___|\\__\\__,_|_|_|___/                    |");
             System.out.println(
                     "|                                                                                         |");
             System.out.println(
@@ -1239,7 +1218,7 @@ public class StaffMain {
                 "|     | | |     || |    |____/|| |   ||    | |    | |    |____/|             \\ |   |                                                            ");
         System.out.println(
                 "|_____|/ \\|_____| \\|____|   | | \\|___||____|/      \\|____|   | |              \\|___|                                                            ");
-        System.out.print("Enter Staff ID (9999 to exit): ");
+        System.out.print("\nEnter Staff ID (9999 to exit): ");
         String staffId = scanner.nextLine();
 
         if (staffId.equals("9999")) {
@@ -1258,9 +1237,9 @@ public class StaffMain {
             resetPassword();
         }
 
-        System.out.println("Security Question");
+        System.out.println("\nSecurity Question");
         System.out.println(
-                "\n------------------------------------------------------------------------------------------");
+                "------------------------------------------------------------------------------------------");
         System.out.print("Enter your childhood nickname : ");
         String answer = scanner.nextLine();
 

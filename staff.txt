@@ -7,4 +7,4 @@
 1007|Abu|012-3456789|123, Jalan Abc Taman Bunga Raya|abu@gmail.com|intern|1000.0|staff|abu123|Abu
 1008|qwveqcer|012-34322345|werv|ace@evr|wer|1000.0|staff|123|abc
 1009|cqerw|012-23123432|wcqe|wf2wec@cew|cwe|1000.0|staff|123|wce
-1010|Ali|012-1111111|123, Jalan Abc Taman Bunga Raya|ali@gmail.com|intern|1000.0|staff|ali123|ali
+1010|Ali|012-3456789|123, Jalan Abc Taman Bunga Raya|ali@gmail.com|intern|1000.0|staff|ali123|Ali
