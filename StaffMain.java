@@ -313,7 +313,19 @@ public class StaffMain {
                 BranchManager.displayMenu(foundIndex); // Pass the foundIndex
                 break;
             case 12:
-                System.out.println("exit...");
+                System.out.println("        _____                                                          ");
+                System.out.println("   _____\\    \\ _____       _____ ____________    ________    ________  ");
+                System.out.println("  /    / |    |\\    \\     /    //            \\  /        \\  /        \\ ");
+                System.out.println(" /    /  /___/| \\    |   |    /|\\___/\\  \\\\___/||\\         \\/         /|");
+                System.out.println("|    |__ |___|/  \\    \\ /    /  \\|____\\  \\___|/| \\            /\\____/ |");
+                System.out.println("|       \\         \\    |    /         |  |     |  \\______ /\\   \\     | |");
+                System.out.println("|     __/ __      /    |    \\    __  /   / __   \\ |      | \\   \\____|/ ");
+                System.out.println("|\\    \\  /  \\    /    /|\\    \\  /  \\/   /_/  |   \\|______|  \\   \\      ");
+                System.out.println("| \\____\\/    |  |____|/ \\|____||____________/|            \\  \\___\\    ");
+                System.out.println("| |    |____/|  |    |   |    ||           | /             \\ |   |    ");
+                System.out.println(" \\|____|   | |  |____|   |____||___________|/               \\|___|    ");
+                System.out.println("       |___|/                                                          ");
+                System.out.println("\nexit...");
                 break;
         }
     }
@@ -1011,7 +1023,7 @@ public class StaffMain {
             }
         }
 
-        if (!found){
+        if (!found) {
             System.out.println("Staff not found...");
             removeStaff(staffIndex);
         }
@@ -1019,10 +1031,10 @@ public class StaffMain {
         System.out.print("\nSure to remove this staff (Y = yes) ?: ");
         String confirmation = scanner.nextLine();
 
-        if (confirmation.equals("Y") || confirmation.equals("y")){
+        if (confirmation.equals("Y") || confirmation.equals("y")) {
             System.out.println("Staff removed successfully!!!");
             staffList.remove(indexFound);
-        }else{
+        } else {
             System.out.println("Staff removed unsuccessfully!!!");
         }
 
@@ -1030,9 +1042,9 @@ public class StaffMain {
 
         System.out.print("Back to main (Y = yes) ? ");
         confirmation = scanner.nextLine();
-        if (confirmation.equals("Y") || confirmation.equals("y")){
+        if (confirmation.equals("Y") || confirmation.equals("y")) {
             adminMenu(staffIndex);
-        }else{
+        } else {
             removeStaff(staffIndex);
         }
 
@@ -1043,6 +1055,22 @@ public class StaffMain {
 
         ArrayList<Staff> staffList = readStaffToArray();
 
+        System.out.println(
+                "\n+=========================================================================================+");
+        System.out
+                .println("|                             ____                      _                                 |");
+        System.out
+                .println("|                            / ___|  ___  __ _ _ __ ___| |__                              |");
+        System.out.println(
+                "|                             \\___ \\ / _ \\/ _` | '__/ __| '_ \\                            |");
+        System.out
+                .println("|                             ___) |  __/ (_| | | | (__| | | |                            |");
+        System.out.println(
+                "|                            |____/ \\___|\\__,_|_|  \\___|_| |_|                            |");
+        System.out
+                .println("|                                                                                         |");
+        System.out
+                .println("+=========================================================================================+");
         System.out.print("\nEnter Staff ID to search (9999 to exit) : ");
         String staffId = scanner.nextLine();
 
