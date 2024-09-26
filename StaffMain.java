@@ -239,6 +239,7 @@ public class StaffMain {
                 System.out.println(" \\|____|   | |  |____|   |____||___________|/               \\|___|    ");
                 System.out.println("       |___|/                                                          ");
                 System.out.println("\nexit...");
+                System.exit(0);
                 break;
         }
     }
@@ -356,6 +357,7 @@ public class StaffMain {
                 System.out.println(" \\|____|   | |  |____|   |____||___________|/               \\|___|    ");
                 System.out.println("       |___|/                                                          ");
                 System.out.println("\nexit...");
+                System.exit(0);
                 break;
         }
     }
