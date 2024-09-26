@@ -554,9 +554,11 @@ public class StaffMain {
 
     }
 
-    public static void modifyStaff(int foundIndex) {
+    public static void modifyStaff(int staffIndex) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Staff> staffList = readStaffToArray();
+        int foundIndex = -1;
+
 
         System.out.print("\nEnter staff ID to modify (9999 to exit): ");
         String staffId = scanner.nextLine();
@@ -757,11 +759,7 @@ public class StaffMain {
         System.out.print("\nDo you want to modify more Staff? (y = Yes): ");
         char confirmation = scanner.nextLine().charAt(0);
 
-        if (Character.toUpperCase(confirmation) == 'Y') {
-            modifyStaff(foundIndex);
-        } else {
-            adminMenu(foundIndex);
-        }
+        staffTypeRecognize(staffIndex);
     }
 
     public static void addStaff(int foundIndex) {
